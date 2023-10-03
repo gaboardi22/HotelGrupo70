@@ -29,8 +29,8 @@ CREATE TABLE Habitacion (
     FOREIGN KEY (tipoHabitacion) REFERENCES TiposHabitacion(idTipoHabitacion)
 );
 
--- Tabla de Reservas
-CREATE TABLE Reservas (
+-- Tabla de Reserva
+CREATE TABLE Reserva (
     idReserva INT PRIMARY KEY AUTO_INCREMENT,
     fechaInicio DATE,
     fechaFin DATE,
@@ -39,6 +39,7 @@ CREATE TABLE Reservas (
     estado TINYINT,
     idHuesped INT,
     idHabitacion INT,
+    observacion VARCHAR(250),
     FOREIGN KEY (idHuesped) REFERENCES Huesped(idHuesped),
     FOREIGN KEY (idHabitacion) REFERENCES Habitacion(idHabitacion)
 );
