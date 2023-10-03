@@ -1,9 +1,9 @@
 -- Crear la base de datos del hotel
-CREATE DATABASE HotelDB;
-USE HotelDB;
+CREATE DATABASE hotel;
+USE hotel;
 
--- Tabla de Huéspedes
-CREATE TABLE Huespedes (
+-- Tabla de Huésped
+CREATE TABLE Huesped (
     idHuesped INT PRIMARY KEY AUTO_INCREMENT,
     nombre VARCHAR(100),
     apellido VARCHAR(100),
@@ -19,12 +19,12 @@ CREATE TABLE TiposHabitacion (
     descripcion TEXT
 );
 
--- Tabla de Habitaciones
-CREATE TABLE Habitaciones (
+-- Tabla de Habitacion
+CREATE TABLE Habitacion (
     idHabitacion INT PRIMARY KEY AUTO_INCREMENT,
     numero INT,
     piso INT,
-    estado ENUM('Ocupada', 'Libre'),
+    estado TINYINT,
     tipoHabitacion INT,
     FOREIGN KEY (tipoHabitacion) REFERENCES TiposHabitacion(idTipoHabitacion)
 );
@@ -35,10 +35,10 @@ CREATE TABLE Reservas (
     fechaInicio DATE,
     fechaFin DATE,
     dias INT,
-    monto DECIMAL(10, 2),
-    estado ENUM('Pendiente', 'Confirmada', 'Cancelada'),
+    monto DOUBLE,
+    estado TINYINT,
     idHuesped INT,
     idHabitacion INT,
-    FOREIGN KEY (idHuesped) REFERENCES Huespedes(idHuesped),
-    FOREIGN KEY (idHabitacion) REFERENCES Habitaciones(idHabitacion)
+    FOREIGN KEY (idHuesped) REFERENCES Huesped(idHuesped),
+    FOREIGN KEY (idHabitacion) REFERENCES Habitacion(idHabitacion)
 );

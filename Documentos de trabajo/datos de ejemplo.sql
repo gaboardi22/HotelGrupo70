@@ -1,22 +1,13 @@
--- Insertar tipos de habitaciones
+-- Insertar Tipos de Habitación
 INSERT INTO TiposHabitacion (nombre, descripcion)
 VALUES
-    ('Estándar Simple', 'Habitación individual con cama individual.'),
-    ('Estándar Doble', 'Habitación doble con dos camas individuales.'),
-    ('Estándar Triple', 'Habitación triple con tres camas individuales.'),
-    ('Suite Lujo', 'Suite de lujo con cama king-size y jacuzzi.');
+    ('Estándar simple', 'Habitación individual con una cama individual.'),
+    ('Estándar doble', 'Habitación para dos personas con una cama doble.'),
+    ('Estándar triple', 'Habitación para tres personas con tres camas individuales.'),
+    ('Suite Lujo', 'Suite de lujo con cama king-size y sala de estar.');
 
--- Insertar huéspedes de ejemplo
-INSERT INTO Huespedes (nombre, apellido, dni, telefono, email)
-VALUES
-    ('Juan', 'Perez', '12345678', '123-456-7890', 'juan.perez@example.com'),
-    ('Maria', 'Gomez', '23456789', '234-567-8901', 'maria.gomez@example.com'),
-    ('Carlos', 'Lopez', '34567890', '345-678-9012', 'carlos.lopez@example.com'),
-    ('Laura', 'Rodriguez', '45678901', '456-789-0123', 'laura.rodriguez@example.com'),
-    ('Diego', 'Fernandez', '56789012', '567-890-1234', 'diego.fernandez@example.com');
-
--- Inaertar 200 habitaciones
-INSERT INTO Habitaciones (numero, piso, estado, tipoHabitacion)
+-- Insertar 200 Habitacion
+INSERT INTO Habitacion (numero, piso, estado, tipoHabitacion)
 SELECT
     n,
     CASE 
@@ -25,7 +16,7 @@ SELECT
         WHEN n <= 150 THEN 3
         ELSE 4
     END AS piso,
-    'Libre' AS estado,
+    0 AS estado,
     CASE 
         WHEN n % 4 = 0 THEN 4
         ELSE n % 4
@@ -39,4 +30,11 @@ FROM
      ORDER BY n
      LIMIT 200) Numbers;
 
-
+-- Insertar huéspedes
+INSERT INTO Huesped (nombre, apellido, dni, telefono, email)
+VALUES
+    ('Juan', 'Perez', '12345678', '123-456-7890', 'juan.perez@example.com'),
+    ('Maria', 'Gomez', '23456789', '234-567-8901', 'maria.gomez@example.com'),
+    ('Carlos', 'Lopez', '34567890', '345-678-9012', 'carlos.lopez@example.com'),
+    ('Laura', 'Rodriguez', '45678901', '456-789-0123', 'laura.rodriguez@example.com'),
+    ('Diego', 'Fernandez', '56789012', '567-890-1234', 'diego.fernandez@example.com');
