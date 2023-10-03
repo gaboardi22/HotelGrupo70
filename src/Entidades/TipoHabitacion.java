@@ -2,10 +2,12 @@
 package Entidades;
 
 public class TipoHabitacion {
-
-    private String simple;
-    private String doble;
-    private String triple;
-    private String suiteLujo;
+    private int idTipoHabitacion;
+    private int cantidadPersonas;
+    private  int cantidadCamas;
+    private String tipoCamas;
+    private Double precioNoche;
+    
+    
     
 }   
