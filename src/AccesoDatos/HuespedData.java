@@ -6,12 +6,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import org.mariadb.jdbc.Statement;
 
 public class HuespedData {
     private Connection con;
@@ -20,9 +18,9 @@ public class HuespedData {
         con = Conexion.getConexion();
     }
     
-    public void insertarHuesped(Huesped huesped){ // metodo para cargar huespedes
-       String SQL = "INSERT INTO huesped (nombre, apellido, documento, domicilio, correo,  telefono) VALUES (?, ?, ?, ?, ?, ?)";
-     
+    public void insertarHuesped(Huesped huesped) { // metodo para cargar huespedes
+        String SQL = "INSERT INTO huesped (nombre, apellido, documento, domicilio, correo,  telefono) VALUES (?, ?, ?, ?, ?, ?)";
+
         try {
             PreparedStatement ps = con.prepareStatement(SQL);
             ps.setString(1, huesped.getNombre());
@@ -31,14 +29,17 @@ public class HuespedData {
             ps.setString(4, huesped.getDomicilio());
             ps.setString(5, huesped.getCorreo());
             ps.setInt(6, huesped.getTelefono());
-            
-            int registro =  ps.executeUpdate();
-            if(registro > 0){
-                 JOptionPane.showMessageDialog(null, "huesped registrado");
+
+            int registro = ps.executeUpdate();
+            if (registro > 0) {
+                JOptionPane.showMessageDialog(null, "huesped registrado");
             }
             ps.close();
+        } catch (SQLIntegrityConstraintViolationException ex) {
+            JOptionPane.showMessageDialog(null, "Ya existe un huésped con el mismo número de documento.");
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "error al conectar a la base de datos");
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al conectar a la base de datos: " + ex.getMessage());
         }
     }
     
@@ -82,7 +83,7 @@ public class HuespedData {
         }
     }
     
-    public List<Huesped> consultaHuesd(){
+    public List<Huesped> consultaHuesped(){
         List<Huesped> huespedes = new ArrayList<>();
         String SQL = "SELECT * FROM huesped ";
         try {
