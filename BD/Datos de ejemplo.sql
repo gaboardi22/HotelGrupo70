@@ -37,49 +37,6 @@ VALUES
     ('Camila', 'Sanchez', '12340123', '123-401-2345', 'camila.sanchez@example.com');
 
 -- Variables
-DECLARE @StartDate DATE;
-DECLARE @EndDate DATE;
-DECLARE @Guests INT;
-DECLARE @RoomType INT;
-
--- Fecha de inicio y fin para las reservas (intervalo de 1 año)
-SET @StartDate = '2024-01-01';
-SET @EndDate = '2024-12-31';
-
--- Generar 50 reservas aleatorias
-SET @Guests = 1;
-WHILE @Guests <= 6
-BEGIN
-    SET @RoomType = 1; -- Tipo de habitación (desde EstSimple hasta EstándarTwin)
-
-    WHILE @RoomType <= 10
-    BEGIN
-        -- Fecha de entrada aleatoria dentro del intervalo
-        SET @StartDate = DATEADD(day, ROUND(RAND() * 364, 0), @StartDate);
-
-        -- Fecha de salida aleatoria entre 1 y 7 días después de la fecha de entrada
-        SET @EndDate = DATEADD(day, ROUND(RAND() * 6 + 1, 0), @StartDate);
-
-        -- Insertar reserva con datos aleatorios
-        INSERT INTO Reserva (fechaEntrada, fechaSalida, cantidadDias, cantidadPersonas, montoEstadia, idHuesped)
-        VALUES (
-            @StartDate,
-            @EndDate,
-            DATEDIFF(@EndDate, @StartDate),
-            @Guests,
-            (SELECT precioNoche FROM TipoHabitacion WHERE idTipoHabitacion = @RoomType) * DATEDIFF(@EndDate, @StartDate),
-            ROUND(RAND() * 10) + 1 -- ID de huésped aleatorio del 1 al 10
-        );
-
-        -- Obtener el siguiente tipo de habitación
-        SET @RoomType = @RoomType + 1;
-    END;
-
-    -- Incrementar la cantidad de huéspedes
-    SET @Guests = @Guests + 1;
-END;
-
--- Variables
 SET @Guests = 1;
 SET @RoomType = 1;
 SET @StartDate = '2024-01-01'; -- Fecha de inicio
