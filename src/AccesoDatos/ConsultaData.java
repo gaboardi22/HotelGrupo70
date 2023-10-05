@@ -3,8 +3,10 @@ package AccesoDatos;
 import Entidades.Estado;
 import Entidades.Habitacion;
 import Entidades.Huesped;
+import Entidades.Reserva;
 import Entidades.TipoHabitacion;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -348,5 +350,106 @@ public class ConsultaData {
     }
     
     // Acceso a datos de Reserva
+    public List<Reserva> listarReservas() {
+        List<Reserva> reservas = new ArrayList<>();
+        try {
+            String sql = "SELECT * "
+                    + "FROM reserva, huesped "
+                    + "WHERE reserva.idHuesped = huesped.idHuesped;";
+            //Preparar conexión
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            //Recuperar estado
+            Estado estadoReserva = null;
+            for (Estado estado : Estado.values()) {
+                if (estado.toString().equalsIgnoreCase(rs.getString("estado"))) {
+                    estadoReserva = estado;
+                }
+            };
+
+            while (rs.next()) {
+                // Variables de recuperación
+                Reserva reserva = new Reserva();
+                Huesped huesped = new Huesped();
+                // Recuperar Reserva de la BD
+                reserva.setIdReserva(rs.getInt("1dReserva"));
+                reserva.setFechaEntrada(rs.getDate("fechaEntrada").toLocalDate());
+                reserva.setFechaSalida(rs.getDate("fechaSalida").toLocalDate());
+                reserva.setCantidadDias(rs.getInt("cantidadDias"));
+                reserva.setCantidadPersonas(rs.getInt("cantidadPersonas"));
+                reserva.setMontoEstadia(rs.getDouble("montoEstadia"));
+                reserva.setEstado(estadoReserva);
+                // Recuperar Huesped de la Reserva
+                huesped.setIdHuesped(rs.getInt("idHuesped"));
+                huesped.setNombre(rs.getString("nombre"));
+                huesped.setApellido(rs.getString("apellido"));
+                huesped.setDni(rs.getString("dni"));
+                huesped.setTelefono(rs.getString("telefono"));
+                huesped.setEmail(rs.getString("email"));
+                // Continua recuperación de Reserva
+                reserva.setHuesped(huesped);
+                // Agregar Reserva a la lista
+                reservas.add(reserva);
+            }
+            ps.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Reserva: " + e.getMessage());
+        }
+        return reservas;
+    }
+    
+    public void agregarReserva(Reserva reserva) {
+        try {
+            String sql = "INSERT INTO reserva(fechaEntrada, fechaSalida, cantidadDias, cantidadPersonas, montoEstadia, estado, idHuesped) "
+                    + "VALUES (?, ?, ?, ?, ?, ?, ?);";
+            //Preparar la conexión con la query
+            PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            //Modificar la query con los parametros recibidos
+            ps.setDate(1, Date.valueOf(reserva.getFechaEntrada()));
+            ps.setDate(2, Date.valueOf(reserva.getFechaSalida()));
+            ps.setInt(3, reserva.getCantidadDias());
+            ps.setInt(4, reserva.getCantidadPersonas());
+            ps.setDouble(5, reserva.getMontoEstadia());
+            ps.setString(6, "\'" + reserva.getEstado().toString() + "\'");
+            ps.setInt(7, reserva.getHuesped().getIdHuesped());
+            //Ejecutar la query para insert, update o delete
+            ps.executeUpdate();
+            //Recuperar la clave primaria del insert
+            ResultSet rs = ps.getGeneratedKeys();
+            //Evaluar exito al insertar Tipo de Habitación
+            if (rs.next()) {
+                reserva.setIdReserva(rs.getInt("insert_id"));
+                JOptionPane.showMessageDialog(null, "Reserva añadida con éxito.");
+            }
+            //Cerrar el statment
+            ps.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Reserva: " + e.getMessage());
+        }
+    }
+    
+     public void eliminarReserva(int reserva) {
+        try {
+            String sql = "DELETE "
+                    + "FROM reserva "
+                    + "WHERE idReserva = ?;";
+            //Preparar la conexión con la query
+            PreparedStatement ps = con.prepareStatement(sql);
+            //Modificar la query con los parametros recibidos
+            ps.setInt(1, reserva);
+            //Crear variable de control de actualización
+            int exito = ps.executeUpdate();
+            if (exito == 1) {
+                JOptionPane.showMessageDialog(null, "Reserva eliminada exitosamente.");
+            } else {
+                JOptionPane.showMessageDialog(null, "No fue posible eliminar la Reserva.");
+            }
+            //Cerrar el statment
+            ps.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Reserva: " + e.getMessage());
+        }
+    }
+    
     // Acceso a datos de Detalle Reserva
 }
