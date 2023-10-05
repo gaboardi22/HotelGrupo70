@@ -2,6 +2,7 @@ package AccesoDatos;
 
 import Entidades.Estado;
 import Entidades.Habitacion;
+import Entidades.Huesped;
 import Entidades.TipoHabitacion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -173,7 +174,7 @@ public class ConsultaData {
             //Preparar la conexión con la query
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             //Modificar la query con los parametros recibidos
-            ps.setInt(1,habitacion.getNumero());
+            ps.setInt(1, habitacion.getNumero());
             ps.setInt(2, habitacion.getPiso());
             ps.setString(3, "\'" + habitacion.getEstado().toString() + "\'");
             ps.setInt(4, habitacion.getTipoHabitacion().getIdTipoHabitacion());
@@ -192,7 +193,7 @@ public class ConsultaData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Habitacion: " + e.getMessage());
         }
     }
-    
+
     public void modificarHabitacion(Habitacion habitacion) {
         try {
             String sql = "UPDATE habitacion "
@@ -201,7 +202,7 @@ public class ConsultaData {
             //Preparar la conexión con la query
             PreparedStatement ps = con.prepareStatement(sql);
             //Modificar la query con los parametros recibidos
-            ps.setInt(1,habitacion.getNumero());
+            ps.setInt(1, habitacion.getNumero());
             ps.setInt(2, habitacion.getPiso());
             ps.setString(3, "\'" + habitacion.getEstado().toString() + "\'");
             ps.setInt(4, habitacion.getTipoHabitacion().getIdTipoHabitacion());
@@ -219,7 +220,7 @@ public class ConsultaData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Habitacion: " + e.getMessage());
         }
     }
-    
+
     public void eliminarHabitacion(int habitacion) {
         try {
             String sql = "DELETE FROM habitacion "
@@ -243,6 +244,31 @@ public class ConsultaData {
     }
 
     // Acceso a datos de Huesped
+    public List<Huesped> listarHuespedes() {
+        List<Huesped> huespedes = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM huesped;";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            // Recuperar huespedes de la BD
+            while (rs.next()) {
+                Huesped huesped = new Huesped();
+                huesped.setIdHuesped(rs.getInt("idHuesped"));
+                huesped.setNombre(rs.getString("nombre"));
+                huesped.setApellido(rs.getString("apellido"));
+                huesped.setDni(rs.getString("dni"));
+                huesped.setTelefono(rs.getString("telefono"));
+                huesped.setEmail(rs.getString("email"));
+                // Agregar huesped
+                huespedes.add(huesped);
+            }
+            ps.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla TiposHabitacion: " + e.getMessage());
+        }
+        return huespedes;
+    }
+
     // Acceso a datos de Reserva
     // Acceso a datos de Detalle Reserva
 }
