@@ -175,7 +175,7 @@ public class ConsultaData {
             //Modificar la query con los parametros recibidos
             ps.setInt(1,habitacion.getNumero());
             ps.setInt(2, habitacion.getPiso());
-            ps.setString(3, "\"" + habitacion.getEstado().toString() + "\"");
+            ps.setString(3, "\'" + habitacion.getEstado().toString() + "\'");
             ps.setInt(4, habitacion.getTipoHabitacion().getIdTipoHabitacion());
             //Ejecutar la query para insert, update o delete
             ps.executeUpdate();
@@ -185,6 +185,55 @@ public class ConsultaData {
             if (rs.next()) {
                 habitacion.setIdHabitacion(rs.getInt("insert_id"));
                 JOptionPane.showMessageDialog(null, "Habitación añadida con éxito.");
+            }
+            //Cerrar el statment
+            ps.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Habitacion: " + e.getMessage());
+        }
+    }
+    
+    public void modificarHabitacion(Habitacion habitacion) {
+        try {
+            String sql = "UPDATE habitacion "
+                    + "SET numero = ?, piso = ?, estado = ?, tipoHabitacion = ? "
+                    + "WHERE idHabitacion = ?;";
+            //Preparar la conexión con la query
+            PreparedStatement ps = con.prepareStatement(sql);
+            //Modificar la query con los parametros recibidos
+            ps.setInt(1,habitacion.getNumero());
+            ps.setInt(2, habitacion.getPiso());
+            ps.setString(3, "\'" + habitacion.getEstado().toString() + "\'");
+            ps.setInt(4, habitacion.getTipoHabitacion().getIdTipoHabitacion());
+            ps.setInt(5, habitacion.getIdHabitacion());
+            //Crear variable de control de actualización
+            int exito = ps.executeUpdate();
+            if (exito == 1) {
+                JOptionPane.showMessageDialog(null, "Habitación modificada exitosamente.");
+            } else {
+                JOptionPane.showMessageDialog(null, "No fue posible modificar la Habitación.");
+            }
+            //Cerrar el statment
+            ps.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Habitacion: " + e.getMessage());
+        }
+    }
+    
+    public void eliminarHabitacion(int habitacion) {
+        try {
+            String sql = "DELETE FROM habitacion "
+                    + "WHERE idHabitacion = ?;";
+            //Preparar la conexión con la query
+            PreparedStatement ps = con.prepareStatement(sql);
+            //Modificar la query con los parametros recibidos
+            ps.setInt(1, habitacion);
+            //Crear variable de control de actualización
+            int exito = ps.executeUpdate();
+            if (exito == 1) {
+                JOptionPane.showMessageDialog(null, "Habitación eliminada exitosamente.");
+            } else {
+                JOptionPane.showMessageDialog(null, "No fue posible eliminar la Habitación.");
             }
             //Cerrar el statment
             ps.close();
