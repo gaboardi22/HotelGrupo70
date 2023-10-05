@@ -19,7 +19,7 @@ CREATE TABLE TipoHabitacion (
     capacidad INT,
     cantidadCamas INT,
     tipoCamas VARCHAR(50),
-    precioNoche DECIMAL(10, 2)
+    precioNoche DOUBLE
 );
 
 -- Tabla de Habitacion
