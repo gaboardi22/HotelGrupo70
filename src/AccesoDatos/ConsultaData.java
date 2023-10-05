@@ -264,11 +264,89 @@ public class ConsultaData {
             }
             ps.close();
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla TiposHabitacion: " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Huesped: " + e.getMessage());
         }
         return huespedes;
     }
+    
+    public void agregarHuesped(Huesped huesped) {
+        try {
+            String sql = "INSERT INTO huesped (nombre, apellido, dni, telefono, email) "
+                    + "VALUES (?, ?, ?, ?, ?);";
+            //Preparar la conexión con la query
+            PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            //Modificar la query con los parametros recibidos
+            ps.setString(1, "\"" + huesped.getNombre() + "\"");
+            ps.setString(2, "\"" + huesped.getApellido()+ "\"");
+            ps.setString(3, "\"" + huesped.getDni()+ "\"");
+            ps.setString(4, "\"" + huesped.getTelefono() + "\"");
+            ps.setString(5, "\"" + huesped.getEmail() + "\"");
+            //Ejecutar la query para insert, update o delete
+            ps.executeUpdate();
+            //Recuperar la clave primaria del insert
+            ResultSet rs = ps.getGeneratedKeys();
+            //Evaluar exito al insertar Tipo de Habitación
+            if (rs.next()) {
+                huesped.setIdHuesped(rs.getInt("insert_id"));
+                JOptionPane.showMessageDialog(null, "Huesped añadido con éxito.");
+            }
+            //Cerrar el statment
+            ps.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Huesped: " + e.getMessage());
+        }
+    }
 
+    public void modificarHuesped(Huesped huesped) {
+        try {
+            String sql = "UPDATE huesped "
+                    + "SET nombre = ?, apellido = ?, dni = ?, telefono = ?, email = ? "
+                    + "WHERE idHuesped = ?;";
+            //Preparar la conexión con la query
+            PreparedStatement ps = con.prepareStatement(sql);
+            //Modificar la query con los parametros recibidos
+            ps.setString(1, "\"" + huesped.getNombre() + "\"");
+            ps.setString(2, "\"" + huesped.getApellido()+ "\"");
+            ps.setString(3, "\"" + huesped.getDni()+ "\"");
+            ps.setString(4, "\"" + huesped.getTelefono() + "\"");
+            ps.setString(5, "\"" + huesped.getEmail() + "\"");
+            ps.setInt(6, huesped.getIdHuesped());
+            //Crear variable de control de actualización
+            int exito = ps.executeUpdate();
+            if (exito == 1) {
+                JOptionPane.showMessageDialog(null, "Huesped modificado exitosamente.");
+            } else {
+                JOptionPane.showMessageDialog(null, "No fue posible modificar el Huesped.");
+            }
+            //Cerrar el statment
+            ps.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Huesped: " + e.getMessage());
+        }
+    }
+    
+    public void eliminarHuesped(int idHuesped) {
+        try {
+            String sql = "DELETE FROM huesped "
+                    + "WHERE idHuesped = ?;";
+            //Preparar la conexión con la query
+            PreparedStatement ps = con.prepareStatement(sql);
+            //Modificar la query con los parametros recibidos
+            ps.setInt(1, idHuesped);
+            //Crear variable de control de actualización
+            int exito = ps.executeUpdate();
+            if (exito == 1) {
+                JOptionPane.showMessageDialog(null, "Huesped eliminado exitosamente.");
+            } else {
+                JOptionPane.showMessageDialog(null, "No fue posible eliminar el Huesped.");
+            }
+            //Cerrar el statment
+            ps.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Huesped: " + e.getMessage());
+        }
+    }
+    
     // Acceso a datos de Reserva
     // Acceso a datos de Detalle Reserva
 }
