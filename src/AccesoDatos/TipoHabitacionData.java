@@ -7,8 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class TipoHabitacionData {
@@ -73,15 +71,27 @@ public class TipoHabitacionData {
         }
 
     }
-    public List<TipoHabitacion>consultaTipoHabitacion(){
-       List <TipoHabitacion> tiposhabitacion = new ArrayList<>();
-       String sql = " SELECT * FROM tipohabitacion ";
-       PreparedStatement ps = con.prepareStatement(sql);
-       ResultSet rs = ps.executeQuery();
-       while(rs.next()){
-           TipoHabitacion tipoHabitacion = new TipoHabitacion();
-       } 
-    return tiposhabitacion;
+
+    public List<TipoHabitacion> consultaTipoHabitacion() {
+        List<TipoHabitacion> tiposhabitacion = new ArrayList<>();
+        String sql = " SELECT * FROM tipohabitacion ";
+        PreparedStatement ps;
+        try {
+            ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                TipoHabitacion tipoHabitacion = new TipoHabitacion();
+                tipoHabitacion.setCantidadPersonas(rs.getInt("cantidadPersonas"));
+                tipoHabitacion.setCantidadPersonas(rs.getInt("cantidadPersonas"));
+                tipoHabitacion.setTipoCamas(rs.getString("tipoCamas"));
+                tipoHabitacion.setPrecioNoche(rs.getDouble("precioNoche"));
+                tiposhabitacion.add(tipoHabitacion);
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al conectar a la BDD");
+        }
+        return tiposhabitacion;
     }
-    
+
 }
