@@ -316,7 +316,6 @@ public class ConsultaData {
             //Preparar la conexión con la query
             PreparedStatement ps = con.prepareStatement(sql);
             //Modificar la query con los parametros recibidos
-            System.out.println(huesped);
             ps.setString(1, huesped.getNombre());
             ps.setString(2, huesped.getApellido());
             ps.setString(3, huesped.getDni());
