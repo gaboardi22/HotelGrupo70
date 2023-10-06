@@ -6,7 +6,6 @@ import java.time.LocalDate;
 public class Reserva {
     private int idReserva;
     private Huesped huesped;
-    private Habitacion habitacion;
     private LocalDate fechaCheckIn;
     private LocalDate fechaCheckOut;
     private int cantidadDeDias;
@@ -17,9 +16,8 @@ public class Reserva {
     public Reserva() {
     }
 
-    public Reserva(Huesped huesped, Habitacion habitacion, LocalDate fechaCheckIn, LocalDate fechaCheckOut, int cantidadDeDias, boolean estado, double montoAPagar, int cantidadDePersonas) {
+    public Reserva(Huesped huesped, LocalDate fechaCheckIn, LocalDate fechaCheckOut, int cantidadDeDias, boolean estado, double montoAPagar, int cantidadDePersonas) {
         this.huesped = huesped;
-        this.habitacion = habitacion;
         this.fechaCheckIn = fechaCheckIn;
         this.fechaCheckOut = fechaCheckOut;
         this.cantidadDeDias = cantidadDeDias;
@@ -28,10 +26,9 @@ public class Reserva {
         this.cantidadDePersonas = cantidadDePersonas;
     }
 
-    public Reserva(int idReserva, Huesped huesped, Habitacion habitacion, LocalDate fechaCheckIn, LocalDate fechaCheckOut, int cantidadDeDias, boolean estado, double montoAPagar, int cantidadDePersonas) {
+    public Reserva(int idReserva, Huesped huesped, LocalDate fechaCheckIn, LocalDate fechaCheckOut, int cantidadDeDias, boolean estado, double montoAPagar, int cantidadDePersonas) {
         this.idReserva = idReserva;
         this.huesped = huesped;
-        this.habitacion = habitacion;
         this.fechaCheckIn = fechaCheckIn;
         this.fechaCheckOut = fechaCheckOut;
         this.cantidadDeDias = cantidadDeDias;
@@ -54,14 +51,6 @@ public class Reserva {
 
     public void setHuesped(Huesped huesped) {
         this.huesped = huesped;
-    }
-
-    public Habitacion getHabitacion() {
-        return habitacion;
-    }
-
-    public void setHabitacion(Habitacion habitacion) {
-        this.habitacion = habitacion;
     }
 
     public LocalDate getFechaCheckIn() {
@@ -114,7 +103,8 @@ public class Reserva {
 
     @Override
     public String toString() {
-        return "Reserva{" + "idReserva=" + idReserva + ", huesped=" + huesped + ", habitacion=" + habitacion + ", fechaCheckIn=" + fechaCheckIn + ", fechaCheckOut=" + fechaCheckOut + ", cantidadDeDias=" + cantidadDeDias + ", estado=" + estado + ", montoAPagar=" + montoAPagar + ", cantidadDePersonas=" + cantidadDePersonas + '}';
+        return "Reserva{" + "idReserva=" + idReserva + ", huesped=" + huesped + ", fechaCheckIn=" + fechaCheckIn + ", fechaCheckOut=" + fechaCheckOut + ", cantidadDeDias=" + cantidadDeDias + ", estado=" + estado + ", montoAPagar=" + montoAPagar + ", cantidadDePersonas=" + cantidadDePersonas + '}';
     }
     
 }
+    
