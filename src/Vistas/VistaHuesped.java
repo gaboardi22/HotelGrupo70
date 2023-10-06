@@ -2,9 +2,12 @@ package Vistas;
 
 import AccesoDatos.ConsultaData;
 import Entidades.Huesped;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
@@ -22,7 +25,18 @@ public class VistaHuesped extends javax.swing.JInternalFrame {
         initComponents();
         armarCabeceras();
         cargarHuesped();
-        
+
+        //Capturar clik en tabla Huesped
+        jtHuesped.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                jtfEApellido.setText(modelo.getValueAt(jtHuesped.getSelectedRow(), 0).toString());
+                jtfENombre.setText(modelo.getValueAt(jtHuesped.getSelectedRow(), 1).toString());
+                jtfEDni.setText(modelo.getValueAt(jtHuesped.getSelectedRow(), 2).toString());
+                jtfETelefono.setText(modelo.getValueAt(jtHuesped.getSelectedRow(), 3).toString());
+                jtfEMail.setText(modelo.getValueAt(jtHuesped.getSelectedRow(), 4).toString());
+            }
+        });
     }
 
     @SuppressWarnings("unchecked")
@@ -225,10 +239,40 @@ public class VistaHuesped extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jtfDniKeyReleased
 
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
-        if(jtHuesped.getSelectedRow()!= 0){
-            //Realizar un Update
+        ConsultaData agregarModificarHuesped = new ConsultaData();
+        Huesped huesped = new Huesped();
+        Boolean formulario = false;
+        if (!(jtfEApellido.getText().isEmpty() || jtfENombre.getText().isEmpty() || jtfEDni.getText().isEmpty() || jtfETelefono.getText().isEmpty() || jtfEMail.getText().isEmpty())) {
+            formulario = true;
+        }
+
+        if (jtHuesped.getSelectedRow() != -1 && formulario) {
+            // Armar huesped
+            System.out.println(agregarModificarHuesped.idHuespedPorDni(jtfEDni.getText()));
+            huesped.setIdHuesped(agregarModificarHuesped.idHuespedPorDni(jtfEDni.getText()));
+            huesped.setApellido(jtfEApellido.getText());
+            huesped.setNombre(jtfENombre.getText());
+            huesped.setDni(jtfEDni.getText());
+            huesped.setTelefono(jtfETelefono.getText());
+            huesped.setEmail(jtfEMail.getText());
+            // Realizar un Update
+            agregarModificarHuesped.modificarHuesped(huesped);
+            limpiarFormulario();
+            cargarHuesped();
+
+        } else if (formulario) {
+            // Armar huesped
+            huesped.setApellido(jtfEApellido.getText());
+            huesped.setNombre(jtfENombre.getText());
+            huesped.setDni(jtfEDni.getText());
+            huesped.setTelefono(jtfETelefono.getText());
+            huesped.setEmail(jtfEMail.getText());
+            // Realizar un Insert
+            agregarModificarHuesped.agregarHuesped(huesped);
+            limpiarFormulario();
+            cargarHuesped();
         } else {
-            //Realizar un insert
+            JOptionPane.showMessageDialog(this, "Debe ingresar todos los datos del huesped.");
         }
     }//GEN-LAST:event_jbGuardarActionPerformed
 
@@ -305,5 +349,13 @@ public class VistaHuesped extends javax.swing.JInternalFrame {
             }
 
         }
+    }
+
+    private void limpiarFormulario() {
+        jtfEApellido.setText("");
+        jtfENombre.setText("");
+        jtfEDni.setText("");
+        jtfETelefono.setText("");
+        jtfEMail.setText("");
     }
 }

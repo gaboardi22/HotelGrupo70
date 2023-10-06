@@ -59,10 +59,10 @@ public class ConsultaData {
             //Preparar la conexión con la query
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             //Modificar la query con los parametros recibidos
-            ps.setString(1, "\"" + tipoHabitacion.getCodigo() + "\"");
+            ps.setString(1, tipoHabitacion.getCodigo());
             ps.setInt(2, tipoHabitacion.getCapacidad());
             ps.setInt(3, tipoHabitacion.getCantidadCamas());
-            ps.setString(4, "\"" + tipoHabitacion.getTipoCamas() + "\"");
+            ps.setString(4, tipoHabitacion.getTipoCamas());
             ps.setDouble(5, tipoHabitacion.getPrecioNoche());
             //Ejecutar la query para insert, update o delete
             ps.executeUpdate();
@@ -88,10 +88,10 @@ public class ConsultaData {
             //Preparar la conexión con la query
             PreparedStatement ps = con.prepareStatement(sql);
             //Modificar la query con los parametros recibidos
-            ps.setString(1, "\"" + tipoHabitacion.getCodigo() + "\"");
+            ps.setString(1, tipoHabitacion.getCodigo());
             ps.setInt(2, tipoHabitacion.getCapacidad());
             ps.setInt(3, tipoHabitacion.getCantidadCamas());
-            ps.setString(4, "\"" + tipoHabitacion.getTipoCamas() + "\"");
+            ps.setString(4, tipoHabitacion.getTipoCamas());
             ps.setDouble(5, tipoHabitacion.getPrecioNoche());
             ps.setInt(6, tipoHabitacion.getIdTipoHabitacion());
             //Crear variable de control de actualización
@@ -143,12 +143,12 @@ public class ConsultaData {
             //Recuperar Habitaciones
             while (rs.next()) {
                 //Recuperar estado
-            Estado estadoHabitacion = Estado.Activa;
-            for (Estado estado : Estado.values()) {
-                if (estado.toString().equalsIgnoreCase(rs.getString("estado"))) {
-                    estadoHabitacion = estado;
-                }
-            };
+                Estado estadoHabitacion = Estado.Activa;
+                for (Estado estado : Estado.values()) {
+                    if (estado.toString().equalsIgnoreCase(rs.getString("estado"))) {
+                        estadoHabitacion = estado;
+                    }
+                };
                 // Variables de recuperación
                 Habitacion habitacion = new Habitacion();
                 TipoHabitacion tipoHabitacion = new TipoHabitacion();
@@ -287,11 +287,11 @@ public class ConsultaData {
             //Preparar la conexión con la query
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             //Modificar la query con los parametros recibidos
-            ps.setString(1, "\"" + huesped.getNombre() + "\"");
-            ps.setString(2, "\"" + huesped.getApellido() + "\"");
-            ps.setString(3, "\"" + huesped.getDni() + "\"");
-            ps.setString(4, "\"" + huesped.getTelefono() + "\"");
-            ps.setString(5, "\"" + huesped.getEmail() + "\"");
+            ps.setString(1, huesped.getNombre());
+            ps.setString(2, huesped.getApellido());
+            ps.setString(3, huesped.getDni());
+            ps.setString(4, huesped.getTelefono());
+            ps.setString(5, huesped.getEmail());
             //Ejecutar la query para insert, update o delete
             ps.executeUpdate();
             //Recuperar la clave primaria del insert
@@ -316,11 +316,12 @@ public class ConsultaData {
             //Preparar la conexión con la query
             PreparedStatement ps = con.prepareStatement(sql);
             //Modificar la query con los parametros recibidos
-            ps.setString(1, "\"" + huesped.getNombre() + "\"");
-            ps.setString(2, "\"" + huesped.getApellido() + "\"");
-            ps.setString(3, "\"" + huesped.getDni() + "\"");
-            ps.setString(4, "\"" + huesped.getTelefono() + "\"");
-            ps.setString(5, "\"" + huesped.getEmail() + "\"");
+            System.out.println(huesped);
+            ps.setString(1, huesped.getNombre());
+            ps.setString(2, huesped.getApellido());
+            ps.setString(3, huesped.getDni());
+            ps.setString(4, huesped.getTelefono());
+            ps.setString(5, huesped.getEmail());
             ps.setInt(6, huesped.getIdHuesped());
             //Crear variable de control de actualización
             int exito = ps.executeUpdate();
@@ -356,6 +357,29 @@ public class ConsultaData {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Huesped: " + e.getMessage());
         }
+    }
+
+    public int idHuespedPorDni(String dni) {
+        int idHuesped = 0;
+        try {
+            String sql = "SELECT idHuesped "
+                    + "FROM huesped "
+                    + "WHERE dni = ?;";
+            //Preparar la conexión con la query
+            PreparedStatement ps = con.prepareStatement(sql);
+            //Modificar la query con los parametros recibidos
+            ps.setString(1, dni);
+            // Ejecutar la query
+            ResultSet rs = ps.executeQuery();
+            // Recuperar huespedes de la BD
+            while (rs.next()) {
+                idHuesped = rs.getInt(1);
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Huesped: " + e.getMessage());
+        }
+        return idHuesped;
     }
 
     // Acceso a datos de Reserva
