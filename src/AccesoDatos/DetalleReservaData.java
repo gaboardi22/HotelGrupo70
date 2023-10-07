@@ -11,7 +11,7 @@ public class DetalleReservaData {
         con = Conexion.getConexion();
     }
     
-public void nuevoDetalleReservaData(Reserva reserva, Habitacion habitacion)
-        DetalleReserva detallere
+//public void nuevoDetalleReservaData(Reserva reserva, Habitacion habitacion)
+       // DetalleReserva detallere
     
 }
