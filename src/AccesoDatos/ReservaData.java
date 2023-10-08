@@ -66,4 +66,20 @@ public class ReservaData {
         }
        
    }
+   
+   public void eliminarReserva(int id){
+       String SQL = "DELETE FROM reserva where idReserva = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(SQL);
+            ps.setInt(1, id);
+            int registro = ps.executeUpdate();
+            if(registro >0){
+                JOptionPane.showMessageDialog(null, "la reserva ha sido eliminada");
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "error al conectarse a la BDD");
+        }
+       
+   }
 }
