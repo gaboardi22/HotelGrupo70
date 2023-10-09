@@ -339,7 +339,8 @@ public class ConsultaData {
             while(rs.next()){
                 idHabitacion = rs.getInt("idHabitacion");
             }
-            
+            //Cerrar el statment
+            ps.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Habitacion: " + e.getMessage());
         }
