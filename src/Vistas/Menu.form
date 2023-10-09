@@ -26,6 +26,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Habitaci&#xf3;n"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmHabitaci&#xf3;nActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>

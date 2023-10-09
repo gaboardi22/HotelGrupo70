@@ -56,6 +56,11 @@ public class Menu extends javax.swing.JFrame {
         jMenu1.add(jmHuesped);
 
         jmHabitación.setText("Habitación");
+        jmHabitación.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmHabitaciónActionPerformed(evt);
+            }
+        });
         jMenu1.add(jmHabitación);
 
         jMenuBar1.add(jMenu1);
@@ -103,6 +108,18 @@ public class Menu extends javax.swing.JFrame {
         vh.setMaximizable(true);
         vh.setClosable(true);
     }//GEN-LAST:event_jmHuespedActionPerformed
+
+    private void jmHabitaciónActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmHabitaciónActionPerformed
+        escritorio.removeAll();
+        escritorio.repaint();
+        VistaHabitacion vhab = new VistaHabitacion();
+        vhab.setLocation((escritorio.getWidth() - vhab.getWidth()) / 2, (escritorio.getHeight() - vhab.getHeight()) / 2);
+        vhab.setVisible(true);
+        escritorio.add(vhab);
+        escritorio.moveToFront(vhab);
+        vhab.setMaximizable(true);
+        vhab.setClosable(true);
+    }//GEN-LAST:event_jmHabitaciónActionPerformed
 
     /**
      * @param args the command line arguments
