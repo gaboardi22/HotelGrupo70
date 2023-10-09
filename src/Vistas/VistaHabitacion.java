@@ -307,61 +307,71 @@ public class VistaHabitacion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jcbTipoHabitacionActionPerformed
 
     private void jbEGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEGuardarActionPerformed
-        if (jtHabitacion.getSelectedRow() != -1) {
-            // Realizar un Update
-            ConsultaData actualizarHabitacion = new ConsultaData();
-            Habitacion habitacion = new Habitacion();
-            Estado estadoHabitacion = Estado.Libre;
-            // Armar objeto Habitación
-            habitacion.setIdHabitacion(actualizarHabitacion.idHabitacionPorNumeroYPiso(Integer.parseInt(jtfENumero.getText()), Integer.parseInt(jcbEPiso.getSelectedItem().toString())));
-            habitacion.setNumero(Integer.parseInt(jtfENumero.getText()));
-            habitacion.setPiso(Integer.parseInt(jcbEPiso.getSelectedItem().toString()));
-            // Recuperar Estado
-            for (Estado estado : Estado.values()) {
-                if (estado.toString().equalsIgnoreCase(jcbEEstado.getSelectedItem().toString())) {
-                    estadoHabitacion = estado;
+        if (!(jtfENumero.getText().isEmpty() || jcbEPiso.getSelectedIndex() == -1 || jcbETipo.getSelectedIndex() == -1 || jcbEEstado.getSelectedIndex() == -1)) {
+            if (jtHabitacion.getSelectedRow() != -1) {
+                // Realizar un Update
+                ConsultaData actualizarHabitacion = new ConsultaData();
+                Habitacion habitacion = new Habitacion();
+                Estado estadoHabitacion = Estado.Libre;
+                // Armar objeto Habitación
+                habitacion.setIdHabitacion(actualizarHabitacion.idHabitacionPorNumeroYPiso(Integer.parseInt(jtfENumero.getText()), Integer.parseInt(jcbEPiso.getSelectedItem().toString())));
+                habitacion.setNumero(Integer.parseInt(jtfENumero.getText()));
+                habitacion.setPiso(Integer.parseInt(jcbEPiso.getSelectedItem().toString()));
+                // Recuperar Estado
+                for (Estado estado : Estado.values()) {
+                    if (estado.toString().equalsIgnoreCase(jcbEEstado.getSelectedItem().toString())) {
+                        estadoHabitacion = estado;
+                    }
                 }
-            }
-            habitacion.setEstado(estadoHabitacion);
-            habitacion.setTipoHabitacion(actualizarHabitacion.tipoHabitacionPorCodigo(jcbETipo.getSelectedItem().toString()));
-            // Ejecutar la actualización
-            actualizarHabitacion.modificarHabitacion(habitacion);
-            // Cargar Habitaciones
-            cargarHabitaciones();
-            limpiarFormulario();
+                habitacion.setEstado(estadoHabitacion);
+                habitacion.setTipoHabitacion(actualizarHabitacion.tipoHabitacionPorCodigo(jcbETipo.getSelectedItem().toString()));
+                // Ejecutar la actualización
+                actualizarHabitacion.modificarHabitacion(habitacion);
+                // Cargar Habitaciones
+                cargarHabitaciones();
+                limpiarFormulario();
 
-        } else {
-            // Realizar un Insert
-            ConsultaData agregarHabitacion = new ConsultaData();
-            Habitacion habitacion = new Habitacion();
-            Estado estadoHabitacion = Estado.Libre;
-            // Armar objeto Habitación
-            habitacion.setNumero(Integer.parseInt(jtfENumero.getText()));
-            habitacion.setPiso(Integer.parseInt(jcbEPiso.getSelectedItem().toString()));
-            // Recuperar Estado
-            for (Estado estado : Estado.values()) {
-                if (estado.toString().equalsIgnoreCase(jcbEEstado.getSelectedItem().toString())) {
-                    estadoHabitacion = estado;
+            } else {
+                // Realizar un Insert
+                ConsultaData agregarHabitacion = new ConsultaData();
+                Habitacion habitacion = new Habitacion();
+                Estado estadoHabitacion = Estado.Libre;
+                // Armar objeto Habitación
+                habitacion.setNumero(Integer.parseInt(jtfENumero.getText()));
+                habitacion.setPiso(Integer.parseInt(jcbEPiso.getSelectedItem().toString()));
+                // Recuperar Estado
+                for (Estado estado : Estado.values()) {
+                    if (estado.toString().equalsIgnoreCase(jcbEEstado.getSelectedItem().toString())) {
+                        estadoHabitacion = estado;
+                    }
                 }
+                habitacion.setEstado(estadoHabitacion);
+                habitacion.setTipoHabitacion(agregarHabitacion.tipoHabitacionPorCodigo(jcbETipo.getSelectedItem().toString()));
+                // Ejecutar la actualización
+                agregarHabitacion.agregarHabitacion(habitacion);
+                // Cargar Habitaciones
+                cargarHabitaciones();
             }
-            habitacion.setEstado(estadoHabitacion);
-            habitacion.setTipoHabitacion(agregarHabitacion.tipoHabitacionPorCodigo(jcbETipo.getSelectedItem().toString()));
-            // Ejecutar la actualización
-            agregarHabitacion.agregarHabitacion(habitacion);
-            // Cargar Habitaciones
-            cargarHabitaciones();
+        } else {
+            JOptionPane.showMessageDialog(this, "Debe ingresar todos los datos para agregar o modificar una Habitación.");
         }
     }//GEN-LAST:event_jbEGuardarActionPerformed
 
     private void jbEEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEEliminarActionPerformed
-        ConsultaData eliminarHabitacion = new ConsultaData();
-        int confirmacion = JOptionPane.showConfirmDialog(this, "¿Estás seguro de que deseas eliminar estA Habitación?", "Confirmar Eliminación", JOptionPane.YES_NO_OPTION);
-        if (confirmacion == JOptionPane.YES_OPTION) {
-            int idHabitacion = eliminarHabitacion.idHabitacionPorNumeroYPiso(Integer.parseInt(jtfENumero.getText()), Integer.parseInt(jcbEPiso.getSelectedItem().toString()));
-            eliminarHabitacion.eliminarHabitacion(idHabitacion);
-            cargarHabitaciones();
-            limpiarFormulario();
+        if (!(jtfENumero.getText().isEmpty() || jcbEPiso.getSelectedIndex() == -1 || jcbETipo.getSelectedIndex() == -1 || jcbEEstado.getSelectedIndex() == -1)) {
+            ConsultaData eliminarHabitacion = new ConsultaData();
+            int confirmacion = JOptionPane.showConfirmDialog(this, "¿Estás seguro de que deseas eliminar estA Habitación?", "Confirmar Eliminación", JOptionPane.YES_NO_OPTION);
+            if (confirmacion == JOptionPane.YES_OPTION) {
+                int idHabitacion = eliminarHabitacion.idHabitacionPorNumeroYPiso(Integer.parseInt(jtfENumero.getText()), Integer.parseInt(jcbEPiso.getSelectedItem().toString()));
+                eliminarHabitacion.eliminarHabitacion(idHabitacion);
+                cargarHabitaciones();
+                limpiarFormulario();
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Debe ingresar todos los datos para eliminar una Habitación.");
         }
+
+
     }//GEN-LAST:event_jbEEliminarActionPerformed
 
 
@@ -459,7 +469,7 @@ public class VistaHabitacion extends javax.swing.JInternalFrame {
     private void limpiarFormulario() {
         jcbTipoHabitacion.setSelectedIndex(-1);
         jcbPiso.setSelectedIndex(-1);
-        jtfNumero.setText("");
+        //jtfNumero.setText("");
         jtfENumero.setText("");
         jcbEPiso.setSelectedIndex(-1);
         jcbETipo.setSelectedIndex(-1);
