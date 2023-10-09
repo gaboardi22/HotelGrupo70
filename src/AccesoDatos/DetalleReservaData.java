@@ -1,7 +1,12 @@
 
 package AccesoDatos;
 
+import Entidades.DetalleReserva;
+import Entidades.Habitacion;
+import Entidades.Reserva;
 import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class DetalleReservaData {
@@ -11,7 +16,11 @@ public class DetalleReservaData {
         con = Conexion.getConexion();
     }
     
-//public void nuevoDetalleReservaData(Reserva reserva, Habitacion habitacion)
-       // DetalleReserva detallere
-    
+public List<DetalleReserva> nuevoDetalleReservaData(Reserva reserva, Habitacion habitacion){
+        List<DetalleReserva>detalleReservas = new ArrayList<>();
+        String SQL= "SELECT * FROM d detallereserva ";
+   
+                
+        return detalleReservas ;       
+}
 }

@@ -88,32 +88,39 @@ public class ReservaData {
         }
    }
    
-   public List<Reserva> listarReservas(){
+    public List<Reserva> listarReservas() {
         List<Reserva> reservas = new ArrayList<>();
         String SQL = "SELECT * FROM reserva, huesped WHERE reserva.idHuesped = huesped.idHuesped";
-        
-          PreparedStatement ps;
+        PreparedStatement ps;
         try {
             ps = con.prepareStatement(SQL);
             ResultSet rs = ps.executeQuery();
-            while(rs.next()){
-              Reserva reserva = new Reserva();
-              Huesped huesped = new Huesped();
-              
-              reserva.setIdReserva(rs.getInt("idReserva"));
-              reserva.setFechaCheckIn(rs.getDate("fechaCheckIn").toLocalDate());
-              reserva.setFechaCheckOut(rs.getDate("fechaCheckOut").toLocalDate());
-              reserva.setCantidadDeDias(rs.getInt("cantidadDias"));
-              reserva.setCantidadDePersonas(rs.getInt("cantidadPersonas"));
-              reserva.setEstado(rs.getBoolean("estado"));
-              reserva.setMontoAPagar(rs.getDouble("montoAPagar"));
-           
-              
+            while (rs.next()) {
+                Reserva reserva = new Reserva();
+                Huesped huesped = new Huesped();
+
+                reserva.setIdReserva(rs.getInt("idReserva"));
+                reserva.setFechaCheckIn(rs.getDate("fechaCheckIn").toLocalDate());
+                reserva.setFechaCheckOut(rs.getDate("fechaCheckOut").toLocalDate());
+                reserva.setCantidadDeDias(rs.getInt("cantidadDias"));
+                reserva.setCantidadDePersonas(rs.getInt("cantidadPersonas"));
+                reserva.setEstado(rs.getBoolean("estado"));
+                reserva.setMontoAPagar(rs.getDouble("montoAPagar"));
+
+                huesped.setIdHuesped(rs.getInt("idHuesped"));
+                huesped.setApellido(rs.getString("apellido"));
+                huesped.setNombre(rs.getString("nombre"));
+                huesped.setDocumento(rs.getInt("documento"));
+                huesped.setCorreo(rs.getString("correo"));
+                huesped.setTelefono(rs.getInt("telefono"));
+
+                reserva.setHuesped(huesped); // agrega el huesped a la tabla reserva
+                reservas.add(reserva); //arega la reserva a la lista reservas
             }
+            ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "error al conectarse a la BDD");
         }
-     
         return reservas;
-   }
+    }
 }
