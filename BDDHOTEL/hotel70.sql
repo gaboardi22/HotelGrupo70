@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 04-10-2023 a las 23:59:42
+-- Tiempo de generación: 06-10-2023 a las 23:35:02
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -20,6 +20,20 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `hotel70`
 --
+CREATE DATABASE IF NOT EXISTS `hotel70` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `hotel70`;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `detallereserva`
+--
+
+CREATE TABLE `detallereserva` (
+  `idDetalleReserva` int(11) NOT NULL,
+  `idReserva` int(5) NOT NULL,
+  `idHabitacion` int(5) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -87,6 +101,14 @@ CREATE TABLE `tipohabitacion` (
 --
 
 --
+-- Indices de la tabla `detallereserva`
+--
+ALTER TABLE `detallereserva`
+  ADD PRIMARY KEY (`idDetalleReserva`),
+  ADD KEY `idHabitacion` (`idHabitacion`),
+  ADD KEY `idReserva` (`idReserva`);
+
+--
 -- Indices de la tabla `habitacion`
 --
 ALTER TABLE `habitacion`
@@ -97,14 +119,16 @@ ALTER TABLE `habitacion`
 -- Indices de la tabla `huesped`
 --
 ALTER TABLE `huesped`
-  ADD PRIMARY KEY (`idHuesped`);
+  ADD PRIMARY KEY (`idHuesped`),
+  ADD UNIQUE KEY `documento` (`documento`);
 
 --
 -- Indices de la tabla `reserva`
 --
 ALTER TABLE `reserva`
   ADD PRIMARY KEY (`idReserva`),
-  ADD KEY `idHabitacion` (`idHabitacion`);
+  ADD KEY `idHabitacion` (`idHabitacion`),
+  ADD KEY `recibe un huesped` (`idHuesped`);
 
 --
 -- Indices de la tabla `tipohabitacion`
@@ -115,6 +139,12 @@ ALTER TABLE `tipohabitacion`
 --
 -- AUTO_INCREMENT de las tablas volcadas
 --
+
+--
+-- AUTO_INCREMENT de la tabla `detallereserva`
+--
+ALTER TABLE `detallereserva`
+  MODIFY `idDetalleReserva` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `habitacion`
@@ -145,6 +175,13 @@ ALTER TABLE `tipohabitacion`
 --
 
 --
+-- Filtros para la tabla `detallereserva`
+--
+ALTER TABLE `detallereserva`
+  ADD CONSTRAINT `detallereserva_ibfk_1` FOREIGN KEY (`idHabitacion`) REFERENCES `habitacion` (`idHabitacion`),
+  ADD CONSTRAINT `detallereserva_ibfk_2` FOREIGN KEY (`idReserva`) REFERENCES `reserva` (`idReserva`);
+
+--
 -- Filtros para la tabla `habitacion`
 --
 ALTER TABLE `habitacion`
@@ -154,8 +191,7 @@ ALTER TABLE `habitacion`
 -- Filtros para la tabla `reserva`
 --
 ALTER TABLE `reserva`
-  ADD CONSTRAINT `reserva_ibfk_2` FOREIGN KEY (`idReserva`) REFERENCES `huesped` (`idHuesped`),
-  ADD CONSTRAINT `reserva_ibfk_3` FOREIGN KEY (`idReserva`) REFERENCES `habitacion` (`idHabitacion`);
+  ADD CONSTRAINT `recibe un huesped` FOREIGN KEY (`idHuesped`) REFERENCES `huesped` (`idHuesped`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

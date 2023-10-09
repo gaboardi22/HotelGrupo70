@@ -2,6 +2,8 @@
 package AccesoDatos;
 
 
+import Entidades.Habitacion;
+import Entidades.Huesped;
 import Entidades.Reserva;
 import java.sql.Connection;
 import java.sql.Date;
@@ -9,6 +11,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 
@@ -80,6 +86,34 @@ public class ReservaData {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "error al conectarse a la BDD");
         }
-       
+   }
+   
+   public List<Reserva> listarReservas(){
+        List<Reserva> reservas = new ArrayList<>();
+        String SQL = "SELECT * FROM reserva, huesped WHERE reserva.idHuesped = huesped.idHuesped";
+        
+          PreparedStatement ps;
+        try {
+            ps = con.prepareStatement(SQL);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+              Reserva reserva = new Reserva();
+              Huesped huesped = new Huesped();
+              
+              reserva.setIdReserva(rs.getInt("idReserva"));
+              reserva.setFechaCheckIn(rs.getDate("fechaCheckIn").toLocalDate());
+              reserva.setFechaCheckOut(rs.getDate("fechaCheckOut").toLocalDate());
+              reserva.setCantidadDeDias(rs.getInt("cantidadDias"));
+              reserva.setCantidadDePersonas(rs.getInt("cantidadPersonas"));
+              reserva.setEstado(rs.getBoolean("estado"));
+              reserva.setMontoAPagar(rs.getDouble("montoAPagar"));
+           
+              
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "error al conectarse a la BDD");
+        }
+     
+        return reservas;
    }
 }
