@@ -262,40 +262,45 @@ public class VistaHuesped extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jtfDniKeyReleased
 
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
-        ConsultaData agregarModificarHuesped = new ConsultaData();
-        Huesped huesped = new Huesped();
-        Boolean formulario = false;
-        if (!(jtfEApellido.getText().isEmpty() || jtfENombre.getText().isEmpty() || jtfEDni.getText().isEmpty() || jtfETelefono.getText().isEmpty() || jtfEMail.getText().isEmpty())) {
-            formulario = true;
-        }
+        try {
+            ConsultaData agregarModificarHuesped = new ConsultaData();
+            int dni = Integer.parseInt(jtfEDni.getText());
+            Huesped huesped = new Huesped();
+            Boolean formulario = false;
+            if (!(jtfEApellido.getText().isEmpty() || jtfENombre.getText().isEmpty() || jtfEDni.getText().isEmpty() || jtfETelefono.getText().isEmpty() || jtfEMail.getText().isEmpty())) {
+                formulario = true;
+            }
 
-        if (jtHuesped.getSelectedRow() != -1 && formulario) {
-            // Armar huesped
-            System.out.println(agregarModificarHuesped.idHuespedPorDni(jtfEDni.getText()));
-            huesped.setIdHuesped(agregarModificarHuesped.idHuespedPorDni(jtfEDni.getText()));
-            huesped.setApellido(jtfEApellido.getText());
-            huesped.setNombre(jtfENombre.getText());
-            huesped.setDni(jtfEDni.getText());
-            huesped.setTelefono(jtfETelefono.getText());
-            huesped.setEmail(jtfEMail.getText());
-            // Realizar un Update
-            agregarModificarHuesped.modificarHuesped(huesped);
-            limpiarFormulario();
-            cargarHuesped();
+            if (jtHuesped.getSelectedRow() != -1 && formulario) {
+                // Armar huesped
+                System.out.println(agregarModificarHuesped.idHuespedPorDni(jtfEDni.getText()));
+                huesped.setIdHuesped(agregarModificarHuesped.idHuespedPorDni(jtfEDni.getText()));
+                huesped.setApellido(jtfEApellido.getText());
+                huesped.setNombre(jtfENombre.getText());
+                huesped.setDni(jtfEDni.getText());
+                huesped.setTelefono(jtfETelefono.getText());
+                huesped.setEmail(jtfEMail.getText());
+                // Realizar un Update
+                agregarModificarHuesped.modificarHuesped(huesped);
+                limpiarFormulario();
+                cargarHuesped();
 
-        } else if (formulario) {
-            // Armar huesped
-            huesped.setApellido(jtfEApellido.getText());
-            huesped.setNombre(jtfENombre.getText());
-            huesped.setDni(jtfEDni.getText());
-            huesped.setTelefono(jtfETelefono.getText());
-            huesped.setEmail(jtfEMail.getText());
-            // Realizar un Insert
-            agregarModificarHuesped.agregarHuesped(huesped);
-            limpiarFormulario();
-            cargarHuesped();
-        } else {
-            JOptionPane.showMessageDialog(this, "Debe ingresar todos los datos del huesped.");
+            } else if (formulario) {
+                // Armar huesped
+                huesped.setApellido(jtfEApellido.getText());
+                huesped.setNombre(jtfENombre.getText());
+                huesped.setDni(jtfEDni.getText());
+                huesped.setTelefono(jtfETelefono.getText());
+                huesped.setEmail(jtfEMail.getText());
+                // Realizar un Insert
+                agregarModificarHuesped.agregarHuesped(huesped);
+                limpiarFormulario();
+                cargarHuesped();
+            } else {
+                JOptionPane.showMessageDialog(this, "Debe ingresar todos los datos del huesped.");
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Debe ingresar un número de DNI válido.");
         }
     }//GEN-LAST:event_jbGuardarActionPerformed
 
