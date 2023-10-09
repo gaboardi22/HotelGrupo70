@@ -36,7 +36,6 @@ public class HabitacionData {
             JOptionPane.showMessageDialog(null, "Error al conectar a la BDD");
         }
     }
-
     public void actualizarHabitacion(Habitacion habitacion) {
         String SQL = "UPDATE habitacion SET estado = ?, tipoHabitacion = ?, piso = ? WHERE idHabitacion = ?";
         try {
