@@ -130,12 +130,61 @@ public class ConsultaData {
         }
     }
 
-    // Acceso a datos de Habitació
+    public List<String> listaTipoHabitacion() {
+        List<String> tiposHabitacion = new ArrayList<>();
+        try {
+            String sql = "SELECT DISTINCT codigo "
+                    + "FROM tipoHabitacion;";
+            // Preparar la conexión
+            PreparedStatement ps = con.prepareStatement(sql);
+            // Ejecuar la query
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                tiposHabitacion.add(rs.getString(1));
+            }
+            //Cerrar el statment
+            ps.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla TipoHabitacion: " + e.getMessage());
+        }
+
+        return tiposHabitacion;
+    }
+
+    public TipoHabitacion tipoHabitacionPorCodigo(String codigo) {
+        TipoHabitacion tipoHabitacion = new TipoHabitacion();
+        try {
+            String sql = "SELECT * from tipohabitacion "
+                    + "WHERE codigo = ?;";
+            // Preparar la conexión
+            PreparedStatement ps = con.prepareStatement(sql);
+            //Modificar la query con los parametros recibidos
+            ps.setString(1, codigo);
+            // Ejecuar la query
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                tipoHabitacion.setIdTipoHabitacion(rs.getInt("idTipoHabitacion"));
+                tipoHabitacion.setCodigo(rs.getString("codigo"));
+                tipoHabitacion.setCapacidad(rs.getInt("capacidad"));
+                tipoHabitacion.setCantidadCamas(rs.getInt("cantidadCamas"));
+                tipoHabitacion.setTipoCamas(rs.getString("tipoCamas"));
+                tipoHabitacion.setPrecioNoche(rs.getDouble("precioNoche"));
+            }
+            //Cerrar el statment
+            ps.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla TipoHabitacion: " + e.getMessage());
+        }
+        return tipoHabitacion;
+    }
+
+    // Acceso a datos de Habitación
     public List<Habitacion> listarHabitaciones() {
         List<Habitacion> habitaciones = new ArrayList<>();
         try {
             String sql = "SELECT * FROM habitacion, tipoHabitacion "
-                    + "WHERE habitacion.tipoHabitacion = tipoHabitacion.idTipoHabitacion;";
+                    + "WHERE habitacion.tipoHabitacion = tipoHabitacion.idTipoHabitacion "
+                    + "ORDER BY habitacion.numero;";
             //Preparar la conexión
             PreparedStatement ps = con.prepareStatement(sql);
             //Ejecutar la query
@@ -143,7 +192,7 @@ public class ConsultaData {
             //Recuperar Habitaciones
             while (rs.next()) {
                 //Recuperar estado
-                Estado estadoHabitacion = Estado.Activa;
+                Estado estadoHabitacion = Estado.Libre;
                 for (Estado estado : Estado.values()) {
                     if (estado.toString().equalsIgnoreCase(rs.getString("estado"))) {
                         estadoHabitacion = estado;
@@ -153,7 +202,7 @@ public class ConsultaData {
                 Habitacion habitacion = new Habitacion();
                 TipoHabitacion tipoHabitacion = new TipoHabitacion();
                 // Recuperar habitaciones de la BD
-                habitacion.setIdHabitacion(rs.getInt("idHsbitacion"));
+                habitacion.setIdHabitacion(rs.getInt("idHabitacion"));
                 habitacion.setNumero(rs.getInt("numero"));
                 habitacion.setPiso(rs.getInt("piso"));
                 habitacion.setEstado(estadoHabitacion);
@@ -176,7 +225,7 @@ public class ConsultaData {
         return habitaciones;
     }
 
-    public void agregarAbitacion(Habitacion habitacion) {
+    public void agregarHabitacion(Habitacion habitacion) {
         try {
             String sql = "INSERT INTO habitacion(numero, piso, estado, tipoHabitacion) "
                     + "VALUES (?, ?, ?, ?);";
@@ -185,7 +234,7 @@ public class ConsultaData {
             //Modificar la query con los parametros recibidos
             ps.setInt(1, habitacion.getNumero());
             ps.setInt(2, habitacion.getPiso());
-            ps.setString(3, "\'" + habitacion.getEstado().toString() + "\'");
+            ps.setString(3, habitacion.getEstado().toString());
             ps.setInt(4, habitacion.getTipoHabitacion().getIdTipoHabitacion());
             //Ejecutar la query para insert, update o delete
             ps.executeUpdate();
@@ -213,7 +262,7 @@ public class ConsultaData {
             //Modificar la query con los parametros recibidos
             ps.setInt(1, habitacion.getNumero());
             ps.setInt(2, habitacion.getPiso());
-            ps.setString(3, "\'" + habitacion.getEstado().toString() + "\'");
+            ps.setString(3,habitacion.getEstado().toString());
             ps.setInt(4, habitacion.getTipoHabitacion().getIdTipoHabitacion());
             ps.setInt(5, habitacion.getIdHabitacion());
             //Crear variable de control de actualización
@@ -252,6 +301,51 @@ public class ConsultaData {
         }
     }
 
+    public List<Integer> pisosActivos() {
+        List<Integer> pisos = new ArrayList<>();
+        String sql = "SELECT DISTINCT piso "
+                + "FROM Habitacion;";
+        try {
+            //Preparar la conexión
+            PreparedStatement ps = con.prepareStatement(sql);
+            //Ejecutar la query
+            ResultSet rs = ps.executeQuery();
+            //Recuperar Habitaciones
+            while (rs.next()) {
+                pisos.add(rs.getInt(1));
+            }
+            //Cerrar el statment
+            ps.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Habitacion: " + e.getMessage());
+        }
+        return pisos;
+    }
+
+    public int idHabitacionPorNumeroYPiso(int numero, int piso){
+        int idHabitacion = 0;
+        try {
+            String sql = "SELECT idHabitacion "
+                    + "FROM habitacion "
+                    + "WHERE numero = ? AND piso = ?;";
+            //Preparar la conexión
+            PreparedStatement ps = con.prepareStatement(sql);
+            //Modificar la query con los parametros recibidos
+            ps.setInt(1, numero);
+            ps.setInt(2, piso);
+            //Ejecutar la query
+            ResultSet rs = ps.executeQuery();
+            //Recuperar ID de Habitacion
+            while(rs.next()){
+                idHabitacion = rs.getInt("idHabitacion");
+            }
+            
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Habitacion: " + e.getMessage());
+        }
+        return idHabitacion;
+    }
+    
     // Acceso a datos de Huesped
     public List<Huesped> listarHuespedes() {
         List<Huesped> huespedes = new ArrayList<>();

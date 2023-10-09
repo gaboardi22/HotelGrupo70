@@ -27,7 +27,7 @@ public class VistaHuesped extends javax.swing.JInternalFrame {
         initComponents();
         armarCabeceras();
         cargarHuesped();
-        
+        jbGuardar.setText("Nuevo");
         //Asignar icono a InternalFrame
         ImageIcon icono = new ImageIcon("image/cliente.png");
         Image scaledImage = icono.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH);
@@ -38,6 +38,7 @@ public class VistaHuesped extends javax.swing.JInternalFrame {
         jtHuesped.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                jbGuardar.setText("Guardar");
                 jtfEApellido.setText(modelo.getValueAt(jtHuesped.getSelectedRow(), 0).toString());
                 jtfENombre.setText(modelo.getValueAt(jtHuesped.getSelectedRow(), 1).toString());
                 jtfEDni.setText(modelo.getValueAt(jtHuesped.getSelectedRow(), 2).toString());
@@ -72,7 +73,7 @@ public class VistaHuesped extends javax.swing.JInternalFrame {
         jLabel8 = new javax.swing.JLabel();
         jbGuardar = new javax.swing.JButton();
         jtfEMail = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        jbEliminar = new javax.swing.JButton();
 
         setTitle("Administración de Huesped");
         setMinimumSize(new java.awt.Dimension(800, 600));
@@ -161,10 +162,10 @@ public class VistaHuesped extends javax.swing.JInternalFrame {
             }
         });
 
-        jButton1.setText("Eliminar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jbEliminar.setText("Eliminar");
+        jbEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jbEliminarActionPerformed(evt);
             }
         });
 
@@ -188,7 +189,7 @@ public class VistaHuesped extends javax.swing.JInternalFrame {
                 .addGap(42, 42, 42)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jbGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jbEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(12, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -214,7 +215,7 @@ public class VistaHuesped extends javax.swing.JInternalFrame {
                         .addComponent(jtfETelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel8))
-                    .addComponent(jButton1))
+                    .addComponent(jbEliminar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jtfEMail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -297,7 +298,7 @@ public class VistaHuesped extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jbGuardarActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
         ConsultaData eliminarHuesped = new ConsultaData();
         int confirmacion = JOptionPane.showConfirmDialog(this, "¿Estás seguro de que deseas eliminar este Huesped?", "Confirmar Eliminación", JOptionPane.YES_NO_OPTION);
         if (confirmacion == JOptionPane.YES_OPTION) {
@@ -306,11 +307,10 @@ public class VistaHuesped extends javax.swing.JInternalFrame {
             cargarHuesped();
             limpiarFormulario();
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jbEliminarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -323,6 +323,7 @@ public class VistaHuesped extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JButton jbEliminar;
     private javax.swing.JButton jbGuardar;
     private javax.swing.JTable jtHuesped;
     private javax.swing.JTextField jtfApellido;
