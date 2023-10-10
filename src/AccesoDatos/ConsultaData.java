@@ -178,7 +178,34 @@ public class ConsultaData {
         }
         return tipoHabitacion;
     }
-
+    
+    public TipoHabitacion tipoHabitacionPorid(int idTipoHabitacion){
+        TipoHabitacion tipoHabitacion = new TipoHabitacion();
+        try {
+            String sql = "SELECT * from tipohabitacion "
+                    + "WHERE idTipoHabitacion = ?;";
+            // Preparar la conexión
+            PreparedStatement ps = con.prepareStatement(sql);
+            //Modificar la query con los parametros recibidos
+            ps.setInt(1, idTipoHabitacion);
+            // Ejecuar la query
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                tipoHabitacion.setIdTipoHabitacion(rs.getInt("idTipoHabitacion"));
+                tipoHabitacion.setCodigo(rs.getString("codigo"));
+                tipoHabitacion.setCapacidad(rs.getInt("capacidad"));
+                tipoHabitacion.setCantidadCamas(rs.getInt("cantidadCamas"));
+                tipoHabitacion.setTipoCamas(rs.getString("tipoCamas"));
+                tipoHabitacion.setPrecioNoche(rs.getDouble("precioNoche"));
+            }
+            //Cerrar el statment
+            ps.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla TipoHabitacion: " + e.getMessage());
+        }
+        return tipoHabitacion;
+    }
+    
     public int idTipoHabitacionPorCodigo(String codigo) {
         int idTipoHabitacion = 0;
         try {
@@ -371,6 +398,43 @@ public class ConsultaData {
         return idHabitacion;
     }
 
+    public Habitacion habitacionPorNumero(int numeroHabitacion) {
+        Habitacion habitacion = new Habitacion();
+        ConsultaData consulta = new ConsultaData();
+        try {
+            String sql = "SELECT * "
+                    + "FROM habitacion "
+                    + "WHERE numero = ?;";
+            //Preparar la conexión
+            PreparedStatement ps = con.prepareStatement(sql);
+            //Modificar la query con los parametros recibidos
+            ps.setInt(1, numeroHabitacion);
+            //Ejecutar la query
+            ResultSet rs = ps.executeQuery();
+            //Recuperar ID de Habitacion
+            while (rs.next()) {
+                habitacion.setIdHabitacion(rs.getInt("idHabitacion"));
+                habitacion.setNumero(rs.getInt("numero"));
+                habitacion.setPiso(rs.getInt("piso"));
+                //Recuperar estado
+                Estado estadoHabitacion = Estado.Libre;
+                for (Estado estado : Estado.values()) {
+                    if (estado.toString().equalsIgnoreCase(rs.getString("estado"))) {
+                        estadoHabitacion = estado;
+                        break;
+                    }
+                };
+                habitacion.setEstado(estadoHabitacion);
+                habitacion.setTipoHabitacion(consulta.tipoHabitacionPorid(rs.getInt("tipoHabitacion")));
+            }
+            //Cerrar el statment
+            ps.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Habitacion: " + e.getMessage());
+        }
+        return habitacion;
+    }
+
     // Acceso a datos de Huesped
     public List<Huesped> listarHuespedes() {
         List<Huesped> huespedes = new ArrayList<>();
@@ -493,11 +557,41 @@ public class ConsultaData {
             while (rs.next()) {
                 idHuesped = rs.getInt(1);
             }
-
+            // Cerrar statement
+            ps.close();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Huesped: " + e.getMessage());
         }
         return idHuesped;
+    }
+
+    public Huesped huespedPorDni(String dni) {
+        Huesped huesped = new Huesped();
+        try {
+            String sql = "SELECT * "
+                    + "FROM huesped "
+                    + "WHERE dni = ?;";
+            //Preparar la conexión con la query
+            PreparedStatement ps = con.prepareStatement(sql);
+            //Modificar la query con los parametros recibidos
+            ps.setString(1, dni);
+            // Ejecutar la query
+            ResultSet rs = ps.executeQuery();
+            // Recuperar huespedes de la BD
+            while (rs.next()) {
+                huesped.setIdHuesped(rs.getInt("idHuesped"));
+                huesped.setNombre(rs.getString("nombre"));
+                huesped.setApellido(rs.getString("apellido"));
+                huesped.setDni(rs.getString("dni"));
+                huesped.setTelefono(rs.getString("telefono"));
+                huesped.setEmail(rs.getString("email"));
+            }
+            // Cerrar statement
+            ps.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Huesped: " + e.getMessage());
+        }
+        return huesped;
     }
 
     // Acceso a datos de Reserva
@@ -549,7 +643,20 @@ public class ConsultaData {
         return reservas;
     }
 
-    public void agregarReserva(Reserva reserva) {
+    public void agregarReserva(Reserva reserva, List<DetalleReserva> listaReserva) {
+        int controlDetalle = 0;
+        int controlReserva = 0;
+        Double montoReserva = 0.00;
+        Double valorDia = 0.00;
+        int dias = reserva.getCantidadDias();
+        for (DetalleReserva detalle : listaReserva) {
+            valorDia += detalle.getHabitacion().getTipoHabitacion().getPrecioNoche();
+            controlDetalle += 1;
+        }
+        montoReserva = valorDia * dias;
+        reserva.setMontoEstadia(montoReserva);
+        reserva.setEstado(Estado.Activa);
+
         try {
             String sql = "INSERT INTO reserva(fechaEntrada, fechaSalida, cantidadDias, cantidadPersonas, montoEstadia, estado, idHuesped) "
                     + "VALUES (?, ?, ?, ?, ?, ?, ?);";
@@ -561,7 +668,7 @@ public class ConsultaData {
             ps.setInt(3, reserva.getCantidadDias());
             ps.setInt(4, reserva.getCantidadPersonas());
             ps.setDouble(5, reserva.getMontoEstadia());
-            ps.setString(6, "\'" + reserva.getEstado().toString() + "\'");
+            ps.setString(6, reserva.getEstado().toString());
             ps.setInt(7, reserva.getHuesped().getIdHuesped());
             //Ejecutar la query para insert, update o delete
             ps.executeUpdate();
@@ -570,7 +677,24 @@ public class ConsultaData {
             //Evaluar exito al insertar Tipo de Habitación
             if (rs.next()) {
                 reserva.setIdReserva(rs.getInt("insert_id"));
+                controlReserva += 1;
+            }
+            // Preparar Detalle de Reserva
+            for (DetalleReserva detalle : listaReserva) {
+                sql = "INSERT INTO detallereserva(idReserva, idHabitacion) "
+                        + "VALUES (?, ?);";
+                //Preparar la conexión con la query
+                ps = con.prepareStatement(sql);
+                //Modificar la query con los parametros recibidos
+                ps.setInt(1, reserva.getIdReserva());
+                ps.setInt(2, detalle.getHabitacion().getIdHabitacion());
+                ps.executeUpdate();
+                controlDetalle -= 1;
+            }
+            if (controlReserva == 1 && controlDetalle == 0) {
                 JOptionPane.showMessageDialog(null, "Reserva añadida con éxito.");
+            } else {
+                JOptionPane.showMessageDialog(null, "Error al añadir Reserva.");
             }
             //Cerrar el statment
             ps.close();
@@ -581,15 +705,24 @@ public class ConsultaData {
 
     public void eliminarReserva(int reserva) {
         try {
-            String sql = "DELETE "
-                    + "FROM reserva "
+            // Eliminar Detalle Reserva asociado a la Reserva
+            String sql = "DELETE FROM detallereserva "
                     + "WHERE idReserva = ?;";
             //Preparar la conexión con la query
             PreparedStatement ps = con.prepareStatement(sql);
             //Modificar la query con los parametros recibidos
             ps.setInt(1, reserva);
-            //Crear variable de control de actualización
             int exito = ps.executeUpdate();
+            // Eliminar Reserva
+            sql = "DELETE "
+                    + "FROM reserva "
+                    + "WHERE idReserva = ?;";
+            //Preparar la conexión con la query
+            ps = con.prepareStatement(sql);
+            //Modificar la query con los parametros recibidos
+            ps.setInt(1, reserva);
+            // Comprobar éxito de eliminación
+            exito = ps.executeUpdate();
             if (exito == 1) {
                 JOptionPane.showMessageDialog(null, "Reserva eliminada exitosamente.");
             } else {
@@ -714,7 +847,7 @@ public class ConsultaData {
             // Insertar parametros de fechas
             ps.setDate(1, Date.valueOf(desde));
             ps.setDate(2, Date.valueOf(hasta));
-            ResultSet rs = ps.executeQuery() ;
+            ResultSet rs = ps.executeQuery();
             // Reconstruir Habitaciones de la BD
             while (rs.next()) {
                 // Variables de recuperación
