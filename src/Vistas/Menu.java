@@ -28,22 +28,28 @@ public class Menu extends javax.swing.JFrame {
         jmCerrar = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(800, 600));
+        setMinimumSize(new java.awt.Dimension(850, 850));
+        setPreferredSize(new java.awt.Dimension(850, 850));
 
         javax.swing.GroupLayout escritorioLayout = new javax.swing.GroupLayout(escritorio);
         escritorio.setLayout(escritorioLayout);
         escritorioLayout.setHorizontalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 800, Short.MAX_VALUE)
+            .addGap(0, 850, Short.MAX_VALUE)
         );
         escritorioLayout.setVerticalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 579, Short.MAX_VALUE)
+            .addGap(0, 829, Short.MAX_VALUE)
         );
 
         jMenu1.setText("Consulta");
 
         jmReservas.setText("Reservas");
+        jmReservas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmReservasActionPerformed(evt);
+            }
+        });
         jMenu1.add(jmReservas);
 
         jmHuesped.setText("Huesped");
@@ -144,6 +150,18 @@ public class Menu extends javax.swing.JFrame {
         vthab.setClosable(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
+    private void jmReservasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmReservasActionPerformed
+        escritorio.removeAll();
+        escritorio.repaint();
+        VistaReserva vr = new VistaReserva();
+        vr.setLocation((escritorio.getWidth() - vr.getWidth()) / 2, (escritorio.getHeight() - vr.getHeight()) / 2);
+        vr.setVisible(true);
+        escritorio.add(vr);
+        escritorio.moveToFront(vr);
+        vr.setMaximizable(false);
+        vr.setClosable(true);
+    }//GEN-LAST:event_jmReservasActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -160,7 +178,7 @@ public class Menu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JDesktopPane escritorio;
+    public static javax.swing.JDesktopPane escritorio;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;

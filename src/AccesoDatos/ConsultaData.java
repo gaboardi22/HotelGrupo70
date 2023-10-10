@@ -11,6 +11,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -687,5 +688,60 @@ public class ConsultaData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Reserva: " + e.getMessage());
         }
         return detallesReservas;
+    }
+
+    public List<Habitacion> listarDisponibilidad(LocalDate desde, LocalDate hasta) {
+        List<Habitacion> habitaciones = new ArrayList<>();
+        ConsultaData consulta = new ConsultaData();
+        try {
+            String sql = "SELECT h.numero, h.piso, th.codigo, th.capacidad, th.cantidadCamas, th.tipoCamas, th.precioNoche "
+                    + "FROM Habitacion h "
+                    + "INNER JOIN TipoHabitacion th "
+                    + "ON h.tipoHabitacion = th.idTipoHabitacion "
+                    + "WHERE th.idTipoHabitacion "
+                    + "NOT IN (SELECT h.tipoHabitacion "
+                    + "FROM Habitacion h "
+                    + "WHERE h.idHabitacion "
+                    + "IN (SELECT dr.idHabitacion "
+                    + "FROM DetalleReserva dr "
+                    + "INNER JOIN Reserva r "
+                    + "ON dr.idReserva = r.idReserva "
+                    + "WHERE NOT ( ? <= r.fechaEntrada "
+                    + "OR ? >= r.fechaSalida))) "
+                    + "ORDER BY h.numero;";
+            //Preparar conexión
+            PreparedStatement ps = con.prepareStatement(sql);
+            // Insertar parametros de fechas
+            ps.setDate(1, Date.valueOf(desde));
+            ps.setDate(2, Date.valueOf(hasta));
+            ResultSet rs = ps.executeQuery() ;
+            // Reconstruir Habitaciones de la BD
+            while (rs.next()) {
+                // Variables de recuperación
+                Habitacion habitacion = new Habitacion();
+                TipoHabitacion tipoHabitacion = new TipoHabitacion();
+                // Inicio de recuperación
+                habitacion.setIdHabitacion(consulta.idHabitacionPorNumeroYPiso(rs.getInt("numero"), rs.getInt("piso")));
+                habitacion.setNumero(rs.getInt("numero"));
+                habitacion.setPiso(rs.getInt("piso"));
+                habitacion.setEstado(Estado.Libre);
+                // Recuperar Tipo de Habitación
+                tipoHabitacion.setIdTipoHabitacion(consulta.idTipoHabitacionPorCodigo(rs.getString("codigo")));
+                tipoHabitacion.setCodigo(rs.getString("codigo"));
+                tipoHabitacion.setCapacidad(rs.getInt("capacidad"));
+                tipoHabitacion.setCantidadCamas(rs.getInt("cantidadCamas"));
+                tipoHabitacion.setTipoCamas(rs.getString("tipoCamas"));
+                tipoHabitacion.setPrecioNoche(rs.getDouble("precioNoche"));
+                // Continua recuperación de Habitación
+                habitacion.setTipoHabitacion(tipoHabitacion);
+                // Agregar habitación a la lista
+                habitaciones.add(habitacion);
+            }
+            // Cerrar el statment
+            ps.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Reserva/Detalle: " + e.getMessage());
+        }
+        return habitaciones;
     }
 }
