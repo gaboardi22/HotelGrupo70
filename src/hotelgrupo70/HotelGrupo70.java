@@ -52,7 +52,9 @@ public class HotelGrupo70 {
         //List<TipoHabitacion> tiposhab ;
         //tiposhab = hdata.consultaTipoHabitacion();
         //for (TipoHabitacion th : tiposhab) {
-         //  System.out.println(th);
-         //}
+        //  System.out.println(th);
+        //}
+         
+        
     }
 }
