@@ -178,6 +178,29 @@ public class ConsultaData {
         return tipoHabitacion;
     }
 
+    public int idTipoHabitacionPorCodigo(String codigo) {
+        int idTipoHabitacion = 0;
+        try {
+            String sql = "SELECT idTipoHabitacion "
+                    + "FROM tipohabitacion "
+                    + "WHERE codigo = ?;";
+            // Preparar la conexión
+            PreparedStatement ps = con.prepareStatement(sql);
+            //Modificar la query con los parametros recibidos
+            ps.setString(1, codigo);
+            // Ejecuar la query
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                idTipoHabitacion = rs.getInt("idTipoHabitacion");
+            }
+            //Cerrar el statment
+            ps.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla TipoHabitacion: " + e.getMessage());
+        }
+        return idTipoHabitacion;
+    }
+
     // Acceso a datos de Habitación
     public List<Habitacion> listarHabitaciones() {
         List<Habitacion> habitaciones = new ArrayList<>();
@@ -262,7 +285,7 @@ public class ConsultaData {
             //Modificar la query con los parametros recibidos
             ps.setInt(1, habitacion.getNumero());
             ps.setInt(2, habitacion.getPiso());
-            ps.setString(3,habitacion.getEstado().toString());
+            ps.setString(3, habitacion.getEstado().toString());
             ps.setInt(4, habitacion.getTipoHabitacion().getIdTipoHabitacion());
             ps.setInt(5, habitacion.getIdHabitacion());
             //Crear variable de control de actualización
@@ -322,7 +345,7 @@ public class ConsultaData {
         return pisos;
     }
 
-    public int idHabitacionPorNumeroYPiso(int numero, int piso){
+    public int idHabitacionPorNumeroYPiso(int numero, int piso) {
         int idHabitacion = 0;
         try {
             String sql = "SELECT idHabitacion "
@@ -336,7 +359,7 @@ public class ConsultaData {
             //Ejecutar la query
             ResultSet rs = ps.executeQuery();
             //Recuperar ID de Habitacion
-            while(rs.next()){
+            while (rs.next()) {
                 idHabitacion = rs.getInt("idHabitacion");
             }
             //Cerrar el statment
@@ -346,7 +369,7 @@ public class ConsultaData {
         }
         return idHabitacion;
     }
-    
+
     // Acceso a datos de Huesped
     public List<Huesped> listarHuespedes() {
         List<Huesped> huespedes = new ArrayList<>();

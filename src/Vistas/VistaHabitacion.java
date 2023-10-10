@@ -358,9 +358,9 @@ public class VistaHabitacion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbEGuardarActionPerformed
 
     private void jbEEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEEliminarActionPerformed
-        if (!(jtfENumero.getText().isEmpty() || jcbEPiso.getSelectedIndex() == -1 || jcbETipo.getSelectedIndex() == -1 || jcbEEstado.getSelectedIndex() == -1)) {
+        if (jtHabitacion.getSelectedRow() != -1) {
             ConsultaData eliminarHabitacion = new ConsultaData();
-            int confirmacion = JOptionPane.showConfirmDialog(this, "¿Estás seguro de que deseas eliminar estA Habitación?", "Confirmar Eliminación", JOptionPane.YES_NO_OPTION);
+            int confirmacion = JOptionPane.showConfirmDialog(this, "¿Estás seguro de que deseas eliminar esta Habitación?", "Confirmar Eliminación", JOptionPane.YES_NO_OPTION);
             if (confirmacion == JOptionPane.YES_OPTION) {
                 int idHabitacion = eliminarHabitacion.idHabitacionPorNumeroYPiso(Integer.parseInt(jtfENumero.getText()), Integer.parseInt(jcbEPiso.getSelectedItem().toString()));
                 eliminarHabitacion.eliminarHabitacion(idHabitacion);
@@ -368,7 +368,7 @@ public class VistaHabitacion extends javax.swing.JInternalFrame {
                 limpiarFormulario();
             }
         } else {
-            JOptionPane.showMessageDialog(this, "Debe ingresar todos los datos para eliminar una Habitación.");
+            JOptionPane.showMessageDialog(this, "Debe seleccionar una Habitación de la tabla a eliminar.");
         }
 
 

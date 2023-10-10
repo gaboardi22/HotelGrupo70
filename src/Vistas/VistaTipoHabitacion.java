@@ -142,6 +142,11 @@ public class VistaTipoHabitacion extends javax.swing.JInternalFrame {
         });
 
         jbEliminar.setText("Eliminar");
+        jbEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbEliminarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -247,20 +252,55 @@ public class VistaTipoHabitacion extends javax.swing.JInternalFrame {
 
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
         try {
-            if(!(jtfECodigo.getText().isEmpty() || jtfECapacidad.getText().isEmpty() || jtfECantidadCamas.getText().isEmpty() || jtfETiposCamas.getText().isEmpty() || jtfEPrecioNoche.getText().isEmpty())){
-                if(jtTiposHabitacion.getSelectedRow() != -1){
-                    // Realizar un Update 
-                    
-                }else{
-                    // Realizar un Insert
+            if (!(jtfECodigo.getText().isEmpty() || jtfECapacidad.getText().isEmpty() || jtfECantidadCamas.getText().isEmpty() || jtfETiposCamas.getText().isEmpty() || jtfEPrecioNoche.getText().isEmpty())) {
+                TipoHabitacion tipoHabitacion = new TipoHabitacion();
+                ConsultaData actualizarTipoHabitacion = new ConsultaData();
+
+                if (jtTiposHabitacion.getSelectedRow() != -1) {
+                    // Armar el Tipo Habitación a actualizar
+                    tipoHabitacion.setIdTipoHabitacion(actualizarTipoHabitacion.idTipoHabitacionPorCodigo(jtfECodigo.getText()));
+                    tipoHabitacion.setCodigo(jtfECodigo.getText());
+                    tipoHabitacion.setCapacidad(Integer.parseInt(jtfECapacidad.getText()));
+                    tipoHabitacion.setCantidadCamas(Integer.parseInt(jtfECantidadCamas.getText()));
+                    tipoHabitacion.setTipoCamas(jtfETiposCamas.getText());
+                    tipoHabitacion.setPrecioNoche(Double.parseDouble(jtfEPrecioNoche.getText()));
+
+                    // Realizar update del Tpo de Habitación
+                    actualizarTipoHabitacion.modificarTipoHabitacion(tipoHabitacion);
+                } else {
+                    tipoHabitacion.setCodigo(jtfECodigo.getText());
+                    tipoHabitacion.setCapacidad(Integer.parseInt(jtfECapacidad.getText()));
+                    tipoHabitacion.setCantidadCamas(Integer.parseInt(jtfECantidadCamas.getText()));
+                    tipoHabitacion.setTipoCamas(jtfETiposCamas.getText());
+                    tipoHabitacion.setPrecioNoche(Double.parseDouble(jtfEPrecioNoche.getText()));
+
+                    // Insertar un Tpo de Habitación
+                    actualizarTipoHabitacion.agregarTipoHabitacion(tipoHabitacion);
                 }
-            }else{
+                borrarFormulario();
+                cargarTiposHabitacion();
+            } else {
                 JOptionPane.showMessageDialog(this, "Debe ingresar todos los datos para agregar o actualizar un Tipo de Habitación.");
             }
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Debe ingresar campos numericos válidos para \nCapacidad, Cantidad Camas y Precio Nonche.");
+            JOptionPane.showMessageDialog(this, "Debe ingresar campos numericos válidos para \nCapacidad, Cantidad Camas y Precio por Nonche.");
         }
     }//GEN-LAST:event_jbGuardarActionPerformed
+
+    private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
+        if (jtTiposHabitacion.getSelectedRow() != -1) {
+            ConsultaData eliminarTipoHabitacion = new ConsultaData();
+            int confirmacion = JOptionPane.showConfirmDialog(this, "¿Estás seguro de que deseas eliminar ese Tipo de Habitación?", "Confirmar Eliminación", JOptionPane.YES_NO_OPTION);
+            if (confirmacion == JOptionPane.YES_OPTION) {
+                int idTipoHabitacion = eliminarTipoHabitacion.idTipoHabitacionPorCodigo(jtfECodigo.getText());
+                eliminarTipoHabitacion.eliminarTipoHabitacion(idTipoHabitacion);
+                cargarTiposHabitacion();
+                borrarFormulario();
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un Tipo Habitación de la tabla para eliminar.");
+        }
+    }//GEN-LAST:event_jbEliminarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
