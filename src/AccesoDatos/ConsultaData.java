@@ -36,7 +36,7 @@ public class ConsultaData {
             // Recuperar los Tipo de Habitación
             while (rs.next()) {
                 TipoHabitacion tipoHabitacion = new TipoHabitacion();
-                tipoHabitacion.setIdTipoHabitacion(rs.getInt("idHabitacion"));
+                tipoHabitacion.setIdTipoHabitacion(rs.getInt("idTipoHabitacion"));
                 tipoHabitacion.setCodigo(rs.getString("codigo"));
                 tipoHabitacion.setCapacidad(rs.getInt("capacidad"));
                 tipoHabitacion.setCantidadCamas(rs.getInt("cantidadCamas"));

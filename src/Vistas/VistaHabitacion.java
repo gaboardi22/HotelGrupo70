@@ -3,8 +3,6 @@ package Vistas;
 import AccesoDatos.ConsultaData;
 import Entidades.Estado;
 import Entidades.Habitacion;
-import Entidades.Huesped;
-import Entidades.TipoHabitacion;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;

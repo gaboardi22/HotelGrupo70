@@ -1,11 +1,9 @@
-
 package Vistas;
 
 import com.formdev.flatlaf.intellijthemes.FlatVuesionIJTheme;
 import javax.swing.ImageIcon;
 
 public class Menu extends javax.swing.JFrame {
-
 
     public Menu() {
         initComponents();
@@ -14,7 +12,6 @@ public class Menu extends javax.swing.JFrame {
         this.setIconImage(icono.getImage());
     }
 
- 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -24,7 +21,9 @@ public class Menu extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jmReservas = new javax.swing.JMenuItem();
         jmHuesped = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
         jmHabitación = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jmCerrar = new javax.swing.JMenuItem();
 
@@ -55,13 +54,25 @@ public class Menu extends javax.swing.JFrame {
         });
         jMenu1.add(jmHuesped);
 
+        jMenu3.setText("Habitaciones");
+
         jmHabitación.setText("Habitación");
         jmHabitación.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmHabitaciónActionPerformed(evt);
             }
         });
-        jMenu1.add(jmHabitación);
+        jMenu3.add(jmHabitación);
+
+        jMenuItem1.setText("Tipo de Habitaciones");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem1);
+
+        jMenu1.add(jMenu3);
 
         jMenuBar1.add(jMenu1);
 
@@ -121,6 +132,18 @@ public class Menu extends javax.swing.JFrame {
         vhab.setClosable(true);
     }//GEN-LAST:event_jmHabitaciónActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        escritorio.removeAll();
+        escritorio.repaint();
+        VistaTipoHabitacion vthab = new VistaTipoHabitacion();
+        vthab.setLocation((escritorio.getWidth() - vthab.getWidth()) / 2, (escritorio.getHeight() - vthab.getHeight()) / 2);
+        vthab.setVisible(true);
+        escritorio.add(vthab);
+        escritorio.moveToFront(vthab);
+        vthab.setMaximizable(true);
+        vthab.setClosable(true);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -140,7 +163,9 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JDesktopPane escritorio;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jmCerrar;
     private javax.swing.JMenuItem jmHabitación;
     private javax.swing.JMenuItem jmHuesped;
