@@ -1,6 +1,8 @@
 package Vistas;
 
 import java.awt.Image;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -27,6 +29,7 @@ public class VistaAdminReserva extends javax.swing.JInternalFrame {
     public VistaAdminReserva() {
         initComponents();
         armarCabeceras();
+        capturarClikEnTablaReserva();
         cargarReservas();
     }
 
@@ -295,12 +298,22 @@ public class VistaAdminReserva extends javax.swing.JInternalFrame {
             jtDetalleReservas.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
         }
     }
-    
+
     private void cargarIcono() {
         ImageIcon icono = new ImageIcon("image/reserva.png");
         Image scaledImage = icono.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH);
         ImageIcon scaledIcon = new ImageIcon(scaledImage);
         setFrameIcon(scaledIcon);
+    }
+
+    private void capturarClikEnTablaReserva() {
+        //Capturar clik en tabla Huesped
+        jtReservasActivas.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                cargarDetallesReserva();
+            }
+        });
     }
 
     private void borrarFilasReserva() {
@@ -316,12 +329,12 @@ public class VistaAdminReserva extends javax.swing.JInternalFrame {
             modeloDetalleReserva.removeRow(f);
         }
     }
-    
-    public void cargarReservas(){
-    
+
+    public void cargarReservas() {
+
     }
-    
-    public void cargarDetallesReserva(){
-    
+
+    public void cargarDetallesReserva() {
+
     }
 }
