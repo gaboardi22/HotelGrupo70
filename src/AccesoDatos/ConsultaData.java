@@ -178,8 +178,8 @@ public class ConsultaData {
         }
         return tipoHabitacion;
     }
-    
-    public TipoHabitacion tipoHabitacionPorid(int idTipoHabitacion){
+
+    public TipoHabitacion tipoHabitacionPorid(int idTipoHabitacion) {
         TipoHabitacion tipoHabitacion = new TipoHabitacion();
         try {
             String sql = "SELECT * from tipohabitacion "
@@ -205,7 +205,7 @@ public class ConsultaData {
         }
         return tipoHabitacion;
     }
-    
+
     public int idTipoHabitacionPorCodigo(String codigo) {
         int idTipoHabitacion = 0;
         try {
@@ -617,7 +617,7 @@ public class ConsultaData {
                 Reserva reserva = new Reserva();
                 Huesped huesped = new Huesped();
                 // Recuperar Reserva de la BD
-                reserva.setIdReserva(rs.getInt("1dReserva"));
+                reserva.setIdReserva(rs.getInt("idReserva"));
                 reserva.setFechaEntrada(rs.getDate("fechaEntrada").toLocalDate());
                 reserva.setFechaSalida(rs.getDate("fechaSalida").toLocalDate());
                 reserva.setCantidadDias(rs.getInt("cantidadDias"));
@@ -706,25 +706,17 @@ public class ConsultaData {
     public void eliminarReserva(int reserva) {
         try {
             // Eliminar Detalle Reserva asociado a la Reserva
-            String sql = "DELETE FROM detallereserva "
+            String sql = "UPDATE reserva "
+                    + "SET estado = 'Inactiva' "
                     + "WHERE idReserva = ?;";
             //Preparar la conexión con la query
             PreparedStatement ps = con.prepareStatement(sql);
             //Modificar la query con los parametros recibidos
             ps.setInt(1, reserva);
+            //Crear variable de control de exito
             int exito = ps.executeUpdate();
-            // Eliminar Reserva
-            sql = "DELETE "
-                    + "FROM reserva "
-                    + "WHERE idReserva = ?;";
-            //Preparar la conexión con la query
-            ps = con.prepareStatement(sql);
-            //Modificar la query con los parametros recibidos
-            ps.setInt(1, reserva);
-            // Comprobar éxito de eliminación
-            exito = ps.executeUpdate();
             if (exito == 1) {
-                JOptionPane.showMessageDialog(null, "Reserva eliminada exitosamente.");
+                JOptionPane.showMessageDialog(null, "Reserva anulada exitosamente.");
             } else {
                 JOptionPane.showMessageDialog(null, "No fue posible eliminar la Reserva.");
             }
@@ -733,6 +725,54 @@ public class ConsultaData {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Reserva: " + e.getMessage());
         }
+    }
+
+    public Reserva reservaPorIdReserva(int idReserva) {
+        Reserva reserva = new Reserva();
+        try {
+            String sql = "SELECT * "
+                    + "FROM reserva, huesped "
+                    + "WHERE reserva.idHuesped = huesped.idHuesped "
+                    + "AND idReserva = ?;";
+            //Preparar conexión
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, idReserva);
+            // Ejecutar la query
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                //Recuperar estado
+                Estado estadoReserva = Estado.Activa;
+                for (Estado estado : Estado.values()) {
+                    if (estado.toString().equalsIgnoreCase(rs.getString("estado"))) {
+                        estadoReserva = estado;
+                    }
+                };
+                // Crear variable Huesped
+                Huesped huesped = new Huesped();
+                // Recuperar Reserva de la BD
+                reserva.setIdReserva(rs.getInt("idReserva"));
+                reserva.setFechaEntrada(rs.getDate("fechaEntrada").toLocalDate());
+                reserva.setFechaSalida(rs.getDate("fechaSalida").toLocalDate());
+                reserva.setCantidadDias(rs.getInt("cantidadDias"));
+                reserva.setCantidadPersonas(rs.getInt("cantidadPersonas"));
+                reserva.setMontoEstadia(rs.getDouble("montoEstadia"));
+                reserva.setEstado(estadoReserva);
+                // Recuperar Huesped de la Reserva
+                huesped.setIdHuesped(rs.getInt("idHuesped"));
+                huesped.setNombre(rs.getString("nombre"));
+                huesped.setApellido(rs.getString("apellido"));
+                huesped.setDni(rs.getString("dni"));
+                huesped.setTelefono(rs.getString("telefono"));
+                huesped.setEmail(rs.getString("email"));
+                // Continua recuperación de Reserva
+                reserva.setHuesped(huesped);
+            }
+            // Cerrar statements
+            ps.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Reserva: " + e.getMessage());
+        }
+        return reserva;
     }
 
     // Acceso a datos de Detalle Reserva
@@ -764,7 +804,7 @@ public class ConsultaData {
                 };
                 Estado estadoHabitacion = Estado.Activa;
                 for (Estado estado : Estado.values()) {
-                    if (estado.toString().equalsIgnoreCase(rs.getString("estadoHabitación"))) {
+                    if (estado.toString().equalsIgnoreCase(rs.getString("estadoHabitacion"))) {
                         estadoReserva = estado;
                     }
                 };
@@ -779,7 +819,7 @@ public class ConsultaData {
                 // Recuperar Detalle Reserva de la BD
                 detalleReserva.setIdDetalleReserva(rs.getInt("idDetalleReserva"));
                 // Recuperar Reserva de la BD
-                reserva.setIdReserva(rs.getInt("1dReserva"));
+                reserva.setIdReserva(rs.getInt("idReserva"));
                 reserva.setFechaEntrada(rs.getDate("fechaEntrada").toLocalDate());
                 reserva.setFechaSalida(rs.getDate("fechaSalida").toLocalDate());
                 reserva.setCantidadDias(rs.getInt("cantidadDias"));
@@ -798,7 +838,7 @@ public class ConsultaData {
                 // Continuar recuperacion de Detalle Reserva
                 detalleReserva.setReserva(reserva);
                 //Recuperar Habitacion de la BD
-                habitacion.setIdHabitacion(rs.getInt("idHsbitacion"));
+                habitacion.setIdHabitacion(rs.getInt("idHabitacion"));
                 habitacion.setNumero(rs.getInt("numero"));
                 habitacion.setPiso(rs.getInt("piso"));
                 habitacion.setEstado(estadoHabitacion);

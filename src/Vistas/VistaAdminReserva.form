@@ -183,6 +183,9 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="jtfApellido">
+          <Events>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtfApellidoKeyReleased"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
@@ -190,15 +193,27 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="jtfDni">
+          <Events>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtfDniKeyReleased"/>
+          </Events>
         </Component>
         <Component class="com.toedter.calendar.JMonthChooser" name="jmcMes">
+          <Events>
+            <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="jmcMesPropertyChange"/>
+          </Events>
         </Component>
         <Component class="com.toedter.calendar.JYearChooser" name="jycA&#xf1;o">
+          <Events>
+            <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="jycA&#xf1;oPropertyChange"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JCheckBox" name="jcbMesA&#xf1;o">
           <Properties>
             <Property name="text" type="java.lang.String" value="Filtro Mes/A&#xf1;o"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jcbMesA&#xf1;oActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jlCliente">
           <Properties>
@@ -267,6 +282,10 @@
               <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="jtReservasActivasPropertyChange"/>
+            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jtReservasActivasKeyReleased"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -356,6 +375,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Anular"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbAnularReservaActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jbSalir">
       <Properties>
