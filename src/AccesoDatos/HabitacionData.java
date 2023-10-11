@@ -20,13 +20,14 @@ public class HabitacionData {
 
     public void crearHabitacion(Habitacion habitacion) {
 
-        String SQL = "INSERT INTO habitacion (estado, tipoHabitacion, piso) VALUES (?,?,?)";
+        String SQL = "INSERT INTO habitacion (estado, tipoHabitacion, piso, numeroHabitacion) VALUES (?,?,?, ?)";
         try {
 
             PreparedStatement ps = con.prepareStatement(SQL);
             ps.setBoolean(1, true);
             ps.setInt(2, habitacion.getTipoHabitacion().getIdTipoHabitacion());
             ps.setInt(3, habitacion.getPiso());
+            ps.setInt(4, habitacion.getNumeroHabitacion());
             int registro = ps.executeUpdate();
             if (registro > 0) {
                 JOptionPane.showMessageDialog(null, "habitacion creada con exito");
@@ -37,13 +38,14 @@ public class HabitacionData {
         }
     }
     public void actualizarHabitacion(Habitacion habitacion) {
-        String SQL = "UPDATE habitacion SET estado = ?, tipoHabitacion = ?, piso = ? WHERE idHabitacion = ?";
+        String SQL = "UPDATE habitacion SET estado = ?, tipoHabitacion = ?, piso = ?, numeroHabitacion = ? WHERE idHabitacion = ?";
         try {
             PreparedStatement ps = con.prepareStatement(SQL);
             ps.setBoolean(1, habitacion.isEstado());
             ps.setInt(2, habitacion.getTipoHabitacion().getIdTipoHabitacion());
             ps.setInt(3, habitacion.getPiso());
-            ps.setInt(4, habitacion.getIdHabitacion());
+            ps.setInt(4,habitacion.getNumeroHabitacion());
+            ps.setInt(5, habitacion.getIdHabitacion());
             int registro = ps.executeUpdate();
             if(registro >0){
                 JOptionPane.showMessageDialog(null, "habitacion modificada con exito");
@@ -83,6 +85,7 @@ public class HabitacionData {
                 habitacion.setIdHabitacion(rs.getInt("idHabitacion"));
                 habitacion.setEstado(rs.getBoolean("estado"));
                 habitacion.setPiso(rs.getInt("piso"));
+                habitacion.setNumeroHabitacion(rs.getInt("numeroHabitacion"));
                 tipoHabitacion.setIdTipoHabitacion(rs.getInt("idHabitacion"));
                 tipoHabitacion.setCantidadPersonas(rs.getInt("cantidadPersonas"));
                 tipoHabitacion.setCantidadCamas(rs.getInt("cantidadCamas"));
