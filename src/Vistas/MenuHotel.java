@@ -52,9 +52,9 @@ public class MenuHotel extends javax.swing.JFrame {
         );
 
         jMenuAdministracion.setText("ADMINISTRACION");
-        jMenuAdministracion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuAdministracionActionPerformed(evt);
+        jMenuAdministracion.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jMenuAdministracionPropertyChange(evt);
             }
         });
 
@@ -76,7 +76,7 @@ public class MenuHotel extends javax.swing.JFrame {
 
         jMenuReserva.setText("RESERVA");
 
-        jMenuItem3.setText("DETALLE RESERVA");
+        jMenuItem3.setText("jMenuItem3");
         jMenuReserva.add(jMenuItem3);
 
         jMenuBar1.add(jMenuReserva);
@@ -107,9 +107,9 @@ public class MenuHotel extends javax.swing.JFrame {
         escritorio.moveToFront(VHuesped);
     }//GEN-LAST:event_jMenuHuespedActionPerformed
 
-    private void jMenuAdministracionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuAdministracionActionPerformed
-  
-    }//GEN-LAST:event_jMenuAdministracionActionPerformed
+    private void jMenuAdministracionPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jMenuAdministracionPropertyChange
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuAdministracionPropertyChange
 
     /**
      * @param args the command line arguments

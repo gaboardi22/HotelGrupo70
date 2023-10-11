@@ -14,7 +14,7 @@
             <Property name="text" type="java.lang.String" value="ADMINISTRACION"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuAdministracionActionPerformed"/>
+            <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="jMenuAdministracionPropertyChange"/>
           </Events>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuHuesped">
@@ -44,7 +44,7 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem3">
               <Properties>
-                <Property name="text" type="java.lang.String" value="DETALLE RESERVA"/>
+                <Property name="text" type="java.lang.String" value="jMenuItem3"/>
               </Properties>
             </MenuItem>
           </SubComponents>
