@@ -26,7 +26,7 @@ public class MenuHotel extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jDEscritorio = new javax.swing.JDesktopPane();
+        escritorio = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuAdministracion = new javax.swing.JMenu();
         jMenuHuesped = new javax.swing.JMenuItem();
@@ -35,14 +35,14 @@ public class MenuHotel extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        javax.swing.GroupLayout jDEscritorioLayout = new javax.swing.GroupLayout(jDEscritorio);
-        jDEscritorio.setLayout(jDEscritorioLayout);
-        jDEscritorioLayout.setHorizontalGroup(
-            jDEscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout escritorioLayout = new javax.swing.GroupLayout(escritorio);
+        escritorio.setLayout(escritorioLayout);
+        escritorioLayout.setHorizontalGroup(
+            escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 761, Short.MAX_VALUE)
         );
-        jDEscritorioLayout.setVerticalGroup(
-            jDEscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        escritorioLayout.setVerticalGroup(
+            escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 375, Short.MAX_VALUE)
         );
 
@@ -75,24 +75,24 @@ public class MenuHotel extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDEscritorio)
+            .addComponent(escritorio)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDEscritorio)
+            .addComponent(escritorio)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuHuespedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuHuespedActionPerformed
-jDEscritorio.removeAll();
-        jDEscritorio.repaint();
+        escritorio.removeAll();
+        escritorio.repaint();
         VistaHuesped VHuesped = new VistaHuesped();
         VHuesped.setVisible(true);
-        VHuesped.setLocation((jDEscritorio.getWidth() - VHuesped.getWidth()) / 2, (jDEscritorio.getHeight() - VHuesped.getHeight()) / 2);
-        jDEscritorio.add(VHuesped);
-        jDEscritorio.moveToFront(VHuesped);
+        VHuesped.setLocation((escritorio.getWidth() - VHuesped.getWidth()) / 2, (escritorio.getHeight() - VHuesped.getHeight()) / 2);
+        escritorio.add(VHuesped);
+        escritorio.moveToFront(VHuesped);
     }//GEN-LAST:event_jMenuHuespedActionPerformed
 
     private void jMenuAdministracionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuAdministracionActionPerformed
@@ -135,7 +135,7 @@ jDEscritorio.removeAll();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JDesktopPane jDEscritorio;
+    private javax.swing.JDesktopPane escritorio;
     private javax.swing.JMenu jMenuAdministracion;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuHuesped;
