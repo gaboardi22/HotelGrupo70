@@ -465,7 +465,7 @@ public class VistaAdminReserva extends javax.swing.JInternalFrame {
                     });
                 }
             } else {
-                if (reserva.getFechaEntrada().getMonthValue() == (jmcMes.getMonth() + 1) && reserva.getFechaEntrada().getYear() == reserva.getFechaEntrada().getYear() && reserva.getEstado() == Estado.Activa && reserva.getHuesped().getApellido().toLowerCase().startsWith(jtfApellido.getText().toLowerCase()) && reserva.getHuesped().getDni().startsWith(jtfDni.getText())) {
+                if (reserva.getFechaEntrada().getMonthValue() == (jmcMes.getMonth() + 1) && reserva.getFechaEntrada().getYear() == jycAño.getYear() && reserva.getEstado() == Estado.Activa && reserva.getHuesped().getApellido().toLowerCase().startsWith(jtfApellido.getText().toLowerCase()) && reserva.getHuesped().getDni().startsWith(jtfDni.getText())) {
                     modeloReserva.addRow(new Object[]{
                         reserva.getIdReserva(),
                         reserva.getFechaEntrada(),
