@@ -3,6 +3,7 @@ package Vistas;
 import AccesoDatos.ConsultaData;
 import Entidades.DetalleReserva;
 import Entidades.Estado;
+import Entidades.Huesped;
 import Entidades.Reserva;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
@@ -38,12 +39,21 @@ public class VistaAdminReserva extends javax.swing.JInternalFrame {
             return false;
         }
     };
+    
+    private DefaultTableModel modeloCliente = new DefaultTableModel() {
+        //No permitir edicion de columnas
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
+    };
 
     public VistaAdminReserva() {
         initComponents();
         cargarIcono();
         armarCabeceras();
         capturarClikEnTablaReserva();
+        cargarCliente();
         cargarReservas();
     }
 
@@ -63,7 +73,7 @@ public class VistaAdminReserva extends javax.swing.JInternalFrame {
         jycAño = new com.toedter.calendar.JYearChooser();
         jcbMesAño = new javax.swing.JCheckBox();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jtCliente = new javax.swing.JTable();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtReservasActivas = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -119,7 +129,7 @@ public class VistaAdminReserva extends javax.swing.JInternalFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jtCliente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -127,10 +137,10 @@ public class VistaAdminReserva extends javax.swing.JInternalFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Nombre", "Apellido", "DNI", "Télefono"
             }
         ));
-        jScrollPane3.setViewportView(jTable1);
+        jScrollPane3.setViewportView(jtCliente);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -301,11 +311,13 @@ public class VistaAdminReserva extends javax.swing.JInternalFrame {
 
     private void jtfApellidoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfApellidoKeyReleased
         //jlCliente.setText("");
+        cargarCliente();
         cargarReservas();
     }//GEN-LAST:event_jtfApellidoKeyReleased
 
     private void jtfDniKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfDniKeyReleased
         //jlCliente.setText("");
+        cargarCliente();
         cargarReservas();
     }//GEN-LAST:event_jtfDniKeyReleased
 
@@ -369,12 +381,12 @@ public class VistaAdminReserva extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JButton jbAnularReserva;
     private javax.swing.JButton jbSalir;
     private com.toedter.calendar.JCalendar jcCalendario;
     private javax.swing.JCheckBox jcbMesAño;
     private com.toedter.calendar.JMonthChooser jmcMes;
+    private javax.swing.JTable jtCliente;
     private javax.swing.JTable jtDetalleReservas;
     private javax.swing.JTable jtReservasActivas;
     private javax.swing.JTextField jtfApellido;
@@ -401,6 +413,12 @@ public class VistaAdminReserva extends javax.swing.JInternalFrame {
         modeloDetalleReserva.addColumn("Tipo Camas");
         modeloDetalleReserva.addColumn("Precio Noche");
         jtDetalleReservas.setModel(modeloDetalleReserva);
+        
+        modeloCliente.addColumn("Nombre");
+        modeloCliente.addColumn("Apellido");
+        modeloCliente.addColumn("DNI");
+        modeloCliente.addColumn("Teléfono");
+        jtCliente.setModel(modeloCliente);
 
         //Establecer ancho de columnas
         jtReservasActivas.getColumnModel().getColumn(0).setPreferredWidth(75);
@@ -417,6 +435,11 @@ public class VistaAdminReserva extends javax.swing.JInternalFrame {
         jtDetalleReservas.getColumnModel().getColumn(4).setPreferredWidth(75);
         jtDetalleReservas.getColumnModel().getColumn(5).setPreferredWidth(150);
         jtDetalleReservas.getColumnModel().getColumn(6).setPreferredWidth(125);
+        
+        jtCliente.getColumnModel().getColumn(0).setPreferredWidth(100);
+        jtCliente.getColumnModel().getColumn(1).setPreferredWidth(100);
+        jtCliente.getColumnModel().getColumn(2).setPreferredWidth(100);
+        jtCliente.getColumnModel().getColumn(3).setPreferredWidth(100);
 
         // Crear un renderizador de celdas para centrar el contenido
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
@@ -426,6 +449,9 @@ public class VistaAdminReserva extends javax.swing.JInternalFrame {
         }
         for (int i = 0; i <= 6; i++) {
             jtDetalleReservas.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
+        for (int i = 0; i <= 3; i++) {
+            jtCliente.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
         }
     }
 
@@ -457,6 +483,13 @@ public class VistaAdminReserva extends javax.swing.JInternalFrame {
         int f = jtDetalleReservas.getRowCount() - 1;
         for (; f >= 0; f--) {
             modeloDetalleReserva.removeRow(f);
+        }
+    }
+    
+    private void borrarFilasCliente() {
+        int f = jtCliente.getRowCount() - 1;
+        for (; f >= 0; f--) {
+            modeloCliente.removeRow(f);
         }
     }
 
@@ -515,4 +548,24 @@ public class VistaAdminReserva extends javax.swing.JInternalFrame {
         }
 
     }
+    
+    private void cargarCliente() {
+        List<Huesped> huespedes = new ArrayList<>();
+        ConsultaData listarHuesped = new ConsultaData();
+        huespedes = listarHuesped.listarHuespedes();
+        borrarFilasCliente();
+        for (Huesped huesped : huespedes) {
+            if (huesped.getApellido().toLowerCase().startsWith(jtfApellido.getText().toLowerCase()) && huesped.getDni().toLowerCase().startsWith(jtfDni.getText().toLowerCase())) {
+                modeloCliente.addRow(new Object[]{
+                    huesped.getApellido(),
+                    huesped.getNombre(),
+                    huesped.getDni(),
+                    huesped.getTelefono(),
+                    //huesped.getEmail()
+                });
+            }
+
+        }
+    }
+    
 }
