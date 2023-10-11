@@ -478,7 +478,8 @@ public class VistaReserva extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbEliminarHabitacionActionPerformed
 
     private void jbReservarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbReservarActionPerformed
-        try {
+        if(jtDetalleReserva.getRowCount() > 0){
+            try {
             int confirmacion = JOptionPane.showConfirmDialog(this, "¿Esta seguro que quiere registrar la Reserva?", "Confirmar Reserva", JOptionPane.YES_NO_OPTION);
             if (confirmacion == JOptionPane.YES_OPTION) {
                 ConsultaData agregarReserva = new ConsultaData();
@@ -513,6 +514,9 @@ public class VistaReserva extends javax.swing.JInternalFrame {
             }
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Debe ingresar la cantidad de personas para la reserva.");
+        }
+        }else{
+            JOptionPane.showMessageDialog(this, "No hay habitaciones en la Reserva.");
         }
     }//GEN-LAST:event_jbReservarActionPerformed
 
