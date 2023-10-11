@@ -25,10 +25,10 @@ public class HuespedData {
             PreparedStatement ps = con.prepareStatement(SQL);
             ps.setString(1, huesped.getNombre());
             ps.setString(2, huesped.getApellido());
-            ps.setInt(3, huesped.getDocumento());
+            ps.setString(3, huesped.getDocumento());
             ps.setString(4, huesped.getDomicilio());
             ps.setString(5, huesped.getCorreo());
-            ps.setInt(6, huesped.getTelefono());
+            ps.setString(6, huesped.getTelefono());
 
             int registro = ps.executeUpdate();
             if (registro > 0) {
@@ -50,10 +50,10 @@ public class HuespedData {
             PreparedStatement ps = con.prepareStatement(SQL);
             ps.setString(1, huesped.getNombre());
             ps.setString(2, huesped.getApellido());
-            ps.setInt(3, huesped.getDocumento());
+            ps.setString(3, huesped.getDocumento());
             ps.setString(4, huesped.getDomicilio());
             ps.setString(5, huesped.getCorreo());
-            ps.setInt(6, huesped.getTelefono());
+            ps.setString(6, huesped.getTelefono());
             ps.setInt(7, huesped.getIdHuesped());
             int registro = ps.executeUpdate();
             if(registro > 0){
@@ -93,10 +93,10 @@ public class HuespedData {
                 Huesped huesped = new Huesped();
                 huesped.setApellido(rs.getString("apellido"));
                 huesped.setNombre(rs.getString("nombre"));
-                huesped.setDocumento(rs.getInt("documento"));
+                huesped.setDocumento(rs.getString("documento"));
                 huesped.setDomicilio(rs.getString("domicilio"));
                 huesped.setCorreo(rs.getString("correo"));
-                huesped.setTelefono(rs.getInt("telefono"));
+                huesped.setTelefono(rs.getString("telefono"));
                 huespedes.add(huesped);
             }
             ps.close();
@@ -117,10 +117,10 @@ public class HuespedData {
                 //huesped = new Huesped(); 
                 huesped.setApellido(rs.getString("apellido"));
                 huesped.setNombre(rs.getString("nombre"));
-                huesped.setDocumento(rs.getInt("documento"));
+                huesped.setDocumento(rs.getString("documento"));
                 huesped.setDomicilio(rs.getString("domicilio"));
                 huesped.setCorreo(rs.getString("correo"));
-                huesped.setTelefono(rs.getInt("telefono"));
+                huesped.setTelefono(rs.getString("telefono"));
             }
             ps.close();
         } catch (SQLException ex) {

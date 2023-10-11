@@ -6,12 +6,24 @@ public class Huesped {
     private int idHuesped;
     private String nombre;
     private String apellido;
-    private int documento;
+    private String documento;
     private String domicilio;
     private String correo;
-    private int telefono;
+    private String telefono;
 
-    public Huesped(int idHuesped, String nombre, String apellido, int documento, String domicilio, String correo, int telefono) {
+    public Huesped() {
+    }
+
+    public Huesped(String nombre, String apellido, String documento, String domicilio, String correo, String telefono) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.documento = documento;
+        this.domicilio = domicilio;
+        this.correo = correo;
+        this.telefono = telefono;
+    }
+
+    public Huesped(int idHuesped, String nombre, String apellido, String documento, String domicilio, String correo, String telefono) {
         this.idHuesped = idHuesped;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -19,18 +31,6 @@ public class Huesped {
         this.domicilio = domicilio;
         this.correo = correo;
         this.telefono = telefono;
-    }
-
-    public Huesped(String nombre, String apellido, int documento, String domicilio, String correo, int telefono) {
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.documento = documento;
-        this.domicilio = domicilio;
-        this.correo = correo;
-        this.telefono = telefono;
-    }
-
-    public Huesped() {
     }
 
     public int getIdHuesped() {
@@ -57,11 +57,11 @@ public class Huesped {
         this.apellido = apellido;
     }
 
-    public int getDocumento() {
+    public String getDocumento() {
         return documento;
     }
 
-    public void setDocumento(int documento) {
+    public void setDocumento(String documento) {
         this.documento = documento;
     }
 
@@ -81,11 +81,11 @@ public class Huesped {
         this.correo = correo;
     }
 
-    public int getTelefono() {
+    public String getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(int telefono) {
+    public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
 
@@ -93,7 +93,6 @@ public class Huesped {
     public String toString() {
         return "Huesped{" + "idHuesped=" + idHuesped + ", nombre=" + nombre + ", apellido=" + apellido + ", documento=" + documento + ", domicilio=" + domicilio + ", correo=" + correo + ", telefono=" + telefono + '}';
     }
-    
-        
+
     
 }

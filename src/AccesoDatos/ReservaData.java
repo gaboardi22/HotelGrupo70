@@ -110,9 +110,9 @@ public class ReservaData {
                 huesped.setIdHuesped(rs.getInt("idHuesped"));
                 huesped.setApellido(rs.getString("apellido"));
                 huesped.setNombre(rs.getString("nombre"));
-                huesped.setDocumento(rs.getInt("documento"));
+                huesped.setDocumento(rs.getString("documento"));
                 huesped.setCorreo(rs.getString("correo"));
-                huesped.setTelefono(rs.getInt("telefono"));
+                huesped.setTelefono(rs.getString("telefono"));
 
                 reserva.setHuesped(huesped); // agrega el huesped a la tabla reserva
                 reservas.add(reserva); //arega la reserva a la lista reservas

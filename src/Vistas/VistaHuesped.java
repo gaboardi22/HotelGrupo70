@@ -194,16 +194,14 @@ public class VistaHuesped extends javax.swing.JInternalFrame {
         try {
             HuespedData huespedData = new HuespedData();
             Entidades.Huesped huesped = new Entidades.Huesped();
-            huesped.setDocumento(Integer.parseInt(jTDocumento.getText()));
+            huesped.setDocumento((jTDocumento.getText()));
             huesped.setApellido(jTApellido.getText());
             huesped.setNombre(jTNombre.getText());
-            huesped.setTelefono(Integer.parseInt(jTTelefono.getText()));
+            huesped.setTelefono((jTTelefono.getText()));
             huesped.setDomicilio(jTDomicilio.getText());
             huesped.setCorreo(jTCorreo.getText());
             huespedData.insertarHuesped(huesped);
             borrarFormulario();
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "debe ingresar telefono o dni validos");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "debe llenar todos los campos");
         }
@@ -245,7 +243,7 @@ public void borrarFormulario(){
     jTNombre.setText("");
     jTCorreo.setText("");
     jTDomicilio.setText("");
-    jTDocumento.setText(null);
-    jTTelefono.setText(null);
+    jTDocumento.setText("");
+    jTTelefono.setText("");
 } 
         }
