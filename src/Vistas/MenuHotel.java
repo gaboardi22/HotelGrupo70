@@ -26,12 +26,17 @@ public class MenuHotel extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuItem1 = new javax.swing.JMenuItem();
         escritorio = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuAdministracion = new javax.swing.JMenu();
         jMenuHuesped = new javax.swing.JMenuItem();
         jMenuItemHabitacion = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jMenuReserva = new javax.swing.JMenu();
+        jMenuItem3 = new javax.swing.JMenuItem();
+
+        jMenuItem1.setText("jMenuItem1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -64,9 +69,16 @@ public class MenuHotel extends javax.swing.JFrame {
         jMenuItemHabitacion.setText("HABITACION");
         jMenuAdministracion.add(jMenuItemHabitacion);
 
+        jMenuItem2.setText("TIPO DE HABITACION");
+        jMenuAdministracion.add(jMenuItem2);
+
         jMenuBar1.add(jMenuAdministracion);
 
         jMenuReserva.setText("RESERVA");
+
+        jMenuItem3.setText("DETALLE RESERVA");
+        jMenuReserva.add(jMenuItem3);
+
         jMenuBar1.add(jMenuReserva);
 
         setJMenuBar(jMenuBar1);
@@ -139,6 +151,9 @@ public class MenuHotel extends javax.swing.JFrame {
     private javax.swing.JMenu jMenuAdministracion;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuHuesped;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItemHabitacion;
     private javax.swing.JMenu jMenuReserva;
     // End of variables declaration//GEN-END:variables

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 06-10-2023 a las 23:35:02
+-- Tiempo de generación: 12-10-2023 a las 00:30:51
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -43,9 +43,10 @@ CREATE TABLE `detallereserva` (
 
 CREATE TABLE `habitacion` (
   `idHabitacion` int(11) NOT NULL,
-  `estado` tinyint(1) NOT NULL,
-  `tipoHabitacion` int(3) NOT NULL,
-  `piso` int(3) NOT NULL
+  `numeroHabitacion` int(100) DEFAULT NULL,
+  `piso` int(3) NOT NULL,
+  `tipoHabitacion` int(10) NOT NULL,
+  `estado` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -58,10 +59,10 @@ CREATE TABLE `huesped` (
   `idHuesped` int(11) NOT NULL,
   `nombre` varchar(60) NOT NULL,
   `apellido` varchar(60) NOT NULL,
-  `documento` int(11) NOT NULL,
+  `documento` varchar(50) NOT NULL,
   `domicilio` varchar(90) NOT NULL,
   `correo` varchar(60) NOT NULL,
-  `telefono` int(30) NOT NULL
+  `telefono` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -73,11 +74,10 @@ CREATE TABLE `huesped` (
 CREATE TABLE `reserva` (
   `idReserva` int(5) NOT NULL,
   `idHuesped` int(5) NOT NULL,
-  `idHabitacion` int(5) NOT NULL,
   `fechaCheckIn` date NOT NULL,
   `fechaCheckOut` date NOT NULL,
   `cantidadDias` int(2) NOT NULL,
-  `estadoi` tinyint(1) NOT NULL,
+  `estado` tinyint(1) NOT NULL,
   `montoAPagar` double NOT NULL,
   `cantidadPersonas` int(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -127,7 +127,6 @@ ALTER TABLE `huesped`
 --
 ALTER TABLE `reserva`
   ADD PRIMARY KEY (`idReserva`),
-  ADD KEY `idHabitacion` (`idHabitacion`),
   ADD KEY `recibe un huesped` (`idHuesped`);
 
 --
@@ -144,7 +143,7 @@ ALTER TABLE `tipohabitacion`
 -- AUTO_INCREMENT de la tabla `detallereserva`
 --
 ALTER TABLE `detallereserva`
-  MODIFY `idDetalleReserva` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idDetalleReserva` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `habitacion`
