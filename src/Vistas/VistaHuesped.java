@@ -177,18 +177,19 @@ public class VistaHuesped extends javax.swing.JInternalFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel4)
-                    .addComponent(jtfEApellido)
-                    .addComponent(jLabel5)
-                    .addComponent(jtfENombre)
-                    .addComponent(jLabel6)
-                    .addComponent(jtfEDni)
-                    .addComponent(jLabel7)
-                    .addComponent(jtfETelefono)
-                    .addComponent(jLabel8)
-                    .addComponent(jtfEMail, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
-                .addGap(42, 42, 42)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel4)
+                        .addComponent(jtfEApellido, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                        .addComponent(jLabel5)
+                        .addComponent(jtfENombre)
+                        .addComponent(jLabel6)
+                        .addComponent(jtfEDni)
+                        .addComponent(jLabel7)
+                        .addComponent(jtfETelefono)
+                        .addComponent(jLabel8))
+                    .addComponent(jtfEMail, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jbGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jbEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -256,10 +257,12 @@ public class VistaHuesped extends javax.swing.JInternalFrame {
 
     private void jtfApellidoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfApellidoKeyReleased
         cargarHuesped();
+        limpiarFormulario();
     }//GEN-LAST:event_jtfApellidoKeyReleased
 
     private void jtfDniKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfDniKeyReleased
         cargarHuesped();
+        limpiarFormulario();
     }//GEN-LAST:event_jtfDniKeyReleased
 
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
@@ -398,5 +401,6 @@ public class VistaHuesped extends javax.swing.JInternalFrame {
         jtfEDni.setText("");
         jtfETelefono.setText("");
         jtfEMail.setText("");
+        jbGuardar.setText("Nuevo");
     }
 }

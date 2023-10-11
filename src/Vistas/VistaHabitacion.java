@@ -44,34 +44,7 @@ public class VistaHabitacion extends javax.swing.JInternalFrame {
         jtHabitacion.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                // Cambiar texto de boton Nuevo a Guardar
-                jbEGuardar.setText("Guardar");
-
-                jtfENumero.setText(modelo.getValueAt(jtHabitacion.getSelectedRow(), 0).toString());
-                // Recuperar indeice de piso
-                for (int i = 0; i < jcbEPiso.getItemCount(); i++) {
-                    Object item = jcbEPiso.getItemAt(i);
-                    if (item != null && item.toString().equals(modelo.getValueAt(jtHabitacion.getSelectedRow(), 1).toString())) {
-                        jcbEPiso.setSelectedIndex(i);
-                        break;
-                    }
-                }
-                // Recuperar Tipo Habitacion
-                for (int i = 0; i < jcbETipo.getItemCount(); i++) {
-                    Object item = jcbETipo.getItemAt(i);
-                    if (item != null && item.toString().equals(modelo.getValueAt(jtHabitacion.getSelectedRow(), 2).toString())) {
-                        jcbETipo.setSelectedIndex(i);
-                        break;
-                    }
-                }
-                // Recuperar estado
-                for (int i = 0; i < jcbEEstado.getItemCount(); i++) {
-                    Object item = jcbEEstado.getItemAt(i);
-                    if (item != null && item.toString().equals(modelo.getValueAt(jtHabitacion.getSelectedRow(), 3).toString())) {
-                        jcbEEstado.setSelectedIndex(i);
-                        break;
-                    }
-                }
+                cargarFormulario();
             }
         });
     }
@@ -291,6 +264,7 @@ public class VistaHabitacion extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jtfNumeroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfNumeroKeyReleased
+        limpiarFormulario();
         cargarHabitaciones();
     }//GEN-LAST:event_jtfNumeroKeyReleased
 
@@ -483,6 +457,7 @@ public class VistaHabitacion extends javax.swing.JInternalFrame {
         pisos = obtenerPisos.pisosActivos();
         jcbPiso.removeAllItems();
         jcbEPiso.removeAllItems();
+        jcbPiso.addItem("");
         for (int piso : pisos) {
             jcbPiso.addItem(String.valueOf(piso));
             jcbEPiso.addItem(String.valueOf(piso));
@@ -497,6 +472,7 @@ public class VistaHabitacion extends javax.swing.JInternalFrame {
         tiposHabitacion = obtenerTiposHabitacion.listaTipoHabitacion();
         jcbTipoHabitacion.removeAllItems();
         jcbETipo.removeAllItems();
+        jcbTipoHabitacion.addItem("");
         for (String tipoHabitacion : tiposHabitacion) {
             jcbTipoHabitacion.addItem(tipoHabitacion);
             jcbETipo.addItem(tipoHabitacion);
@@ -507,4 +483,36 @@ public class VistaHabitacion extends javax.swing.JInternalFrame {
         jcbEEstado.addItem("Libre");
         jcbEEstado.addItem("Ocupada");
     }
+
+    private void cargarFormulario() {
+        // Cambiar texto de boton Nuevo a Guardar
+        jbEGuardar.setText("Guardar");
+
+        jtfENumero.setText(modelo.getValueAt(jtHabitacion.getSelectedRow(), 0).toString());
+        // Recuperar indeice de piso
+        for (int i = 0; i < jcbEPiso.getItemCount(); i++) {
+            Object item = jcbEPiso.getItemAt(i);
+            if (item != null && item.toString().equals(modelo.getValueAt(jtHabitacion.getSelectedRow(), 1).toString())) {
+                jcbEPiso.setSelectedIndex(i);
+                break;
+            }
+        }
+        // Recuperar Tipo Habitacion
+        for (int i = 0; i < jcbETipo.getItemCount(); i++) {
+            Object item = jcbETipo.getItemAt(i);
+            if (item != null && item.toString().equals(modelo.getValueAt(jtHabitacion.getSelectedRow(), 2).toString())) {
+                jcbETipo.setSelectedIndex(i);
+                break;
+            }
+        }
+        // Recuperar estado
+        for (int i = 0; i < jcbEEstado.getItemCount(); i++) {
+            Object item = jcbEEstado.getItemAt(i);
+            if (item != null && item.toString().equals(modelo.getValueAt(jtHabitacion.getSelectedRow(), 3).toString())) {
+                jcbEEstado.setSelectedIndex(i);
+                break;
+            }
+        }
+    }
+
 }

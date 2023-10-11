@@ -39,15 +39,7 @@ public class VistaTipoHabitacion extends javax.swing.JInternalFrame {
         jtTiposHabitacion.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                // Cambiar texto de boton Nuevo a Guardar
-                jbGuardar.setText("Guardar");
-
-                // Recuperar información de elemento seleccionado
-                jtfECodigo.setText(modelo.getValueAt(jtTiposHabitacion.getSelectedRow(), 0).toString());
-                jtfECapacidad.setText(modelo.getValueAt(jtTiposHabitacion.getSelectedRow(), 1).toString());
-                jtfECantidadCamas.setText(modelo.getValueAt(jtTiposHabitacion.getSelectedRow(), 2).toString());
-                jtfETiposCamas.setText(modelo.getValueAt(jtTiposHabitacion.getSelectedRow(), 3).toString());
-                jtfEPrecioNoche.setText(modelo.getValueAt(jtTiposHabitacion.getSelectedRow(), 4).toString());
+                cargarFormulario();
             }
         });
     }
@@ -105,6 +97,11 @@ public class VistaTipoHabitacion extends javax.swing.JInternalFrame {
                 "Código", "Capacidad", "Cant. Camas", "Tipo de Camas", "Precio Noche"
             }
         ));
+        jtTiposHabitacion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtTiposHabitacionKeyReleased(evt);
+            }
+        });
         jScrollPane1.setViewportView(jtTiposHabitacion);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -248,6 +245,7 @@ public class VistaTipoHabitacion extends javax.swing.JInternalFrame {
 
     private void jtfCodigoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfCodigoKeyReleased
         cargarTiposHabitacion();
+        borrarFormulario();
     }//GEN-LAST:event_jtfCodigoKeyReleased
 
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
@@ -301,6 +299,10 @@ public class VistaTipoHabitacion extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Debe seleccionar un Tipo Habitación de la tabla para eliminar.");
         }
     }//GEN-LAST:event_jbEliminarActionPerformed
+
+    private void jtTiposHabitacionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtTiposHabitacionKeyReleased
+        cargarFormulario();
+    }//GEN-LAST:event_jtTiposHabitacionKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -362,7 +364,6 @@ public class VistaTipoHabitacion extends javax.swing.JInternalFrame {
         ConsultaData listarTipoHabitaciones = new ConsultaData();
         tipoHabitaciones = listarTipoHabitaciones.listarTipoHabitacion();
         borrarFilas();
-        jbGuardar.setText("Nuevo");
         for (TipoHabitacion tipoHhabitacion : tipoHabitaciones) {
             if (tipoHhabitacion.getCodigo().toLowerCase().startsWith(jtfCodigo.getText().toLowerCase())) {
                 modelo.addRow(new Object[]{
@@ -383,5 +384,18 @@ public class VistaTipoHabitacion extends javax.swing.JInternalFrame {
         jtfECantidadCamas.setText("");
         jtfETiposCamas.setText("");
         jtfEPrecioNoche.setText("");
+        jbGuardar.setText("Nuevo");
+    }
+
+    private void cargarFormulario() {
+        // Cambiar texto de boton Nuevo a Guardar
+        jbGuardar.setText("Guardar");
+
+        // Recuperar información de elemento seleccionado
+        jtfECodigo.setText(modelo.getValueAt(jtTiposHabitacion.getSelectedRow(), 0).toString());
+        jtfECapacidad.setText(modelo.getValueAt(jtTiposHabitacion.getSelectedRow(), 1).toString());
+        jtfECantidadCamas.setText(modelo.getValueAt(jtTiposHabitacion.getSelectedRow(), 2).toString());
+        jtfETiposCamas.setText(modelo.getValueAt(jtTiposHabitacion.getSelectedRow(), 3).toString());
+        jtfEPrecioNoche.setText(modelo.getValueAt(jtTiposHabitacion.getSelectedRow(), 4).toString());
     }
 }
