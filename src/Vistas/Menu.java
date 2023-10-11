@@ -56,6 +56,11 @@ public class Menu extends javax.swing.JFrame {
         jMenu4.add(jmReservas);
 
         jMenuItem2.setText("Administración Reservas");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenu4.add(jMenuItem2);
 
         jMenu1.add(jMenu4);
@@ -169,6 +174,18 @@ public class Menu extends javax.swing.JFrame {
         vr.setMaximizable(false);
         vr.setClosable(true);
     }//GEN-LAST:event_jmReservasActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        escritorio.removeAll();
+        escritorio.repaint();
+        VistaAdminReserva var = new VistaAdminReserva();
+        var.setLocation((escritorio.getWidth() - var.getWidth()) / 2, (escritorio.getHeight() - var.getHeight()) / 2);
+        var.setVisible(true);
+        escritorio.add(var);
+        escritorio.moveToFront(var);
+        var.setMaximizable(false);
+        var.setClosable(true);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     /**
      * @param args the command line arguments

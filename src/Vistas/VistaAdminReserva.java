@@ -1,10 +1,33 @@
-
 package Vistas;
+
+import java.awt.Image;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 
 public class VistaAdminReserva extends javax.swing.JInternalFrame {
 
+    private DefaultTableModel modeloReserva = new DefaultTableModel() {
+        //No permitir edicion de columnas
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
+    };
+
+    private DefaultTableModel modeloDetalleReserva = new DefaultTableModel() {
+        //No permitir edicion de columnas
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
+    };
+
     public VistaAdminReserva() {
         initComponents();
+        armarCabeceras();
+        cargarReservas();
     }
 
     @SuppressWarnings("unchecked")
@@ -22,6 +45,7 @@ public class VistaAdminReserva extends javax.swing.JInternalFrame {
         jmcMes = new com.toedter.calendar.JMonthChooser();
         jycAño = new com.toedter.calendar.JYearChooser();
         jcbMesAño = new javax.swing.JCheckBox();
+        jlCliente = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtReservasActivas = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -40,13 +64,16 @@ public class VistaAdminReserva extends javax.swing.JInternalFrame {
         label1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         label1.setText("Administración de Reservas");
 
-        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel1.setBackground(new java.awt.Color(102, 102, 102));
 
         jLabel1.setText("Apellido:");
 
         jLabel2.setText("DNI:");
 
         jcbMesAño.setText("Filtro Mes/Año");
+
+        jlCliente.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jlCliente.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -62,11 +89,14 @@ public class VistaAdminReserva extends javax.swing.JInternalFrame {
                     .addComponent(jtfApellido)
                     .addComponent(jtfDni, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))
                 .addGap(58, 58, 58)
-                .addComponent(jmcMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jycAño, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jcbMesAño)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jmcMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jycAño, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jcbMesAño))
+                    .addComponent(jlCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(161, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -74,19 +104,21 @@ public class VistaAdminReserva extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel1)
+                        .addComponent(jtfApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jmcMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jcbMesAño)
-                    .addComponent(jycAño, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jycAño, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel1)
-                                .addComponent(jtfApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jmcMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
-                            .addComponent(jtfDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jtfDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jlCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jtReservasActivas.setModel(new javax.swing.table.DefaultTableModel(
@@ -208,6 +240,7 @@ public class VistaAdminReserva extends javax.swing.JInternalFrame {
     private javax.swing.JButton jbSalir;
     private com.toedter.calendar.JCalendar jcCalendario;
     private javax.swing.JCheckBox jcbMesAño;
+    private javax.swing.JLabel jlCliente;
     private com.toedter.calendar.JMonthChooser jmcMes;
     private javax.swing.JTable jtDetalleReservas;
     private javax.swing.JTable jtReservasActivas;
@@ -216,4 +249,79 @@ public class VistaAdminReserva extends javax.swing.JInternalFrame {
     private com.toedter.calendar.JYearChooser jycAño;
     private java.awt.Label label1;
     // End of variables declaration//GEN-END:variables
+
+    private void armarCabeceras() {
+        // Establecer columnas de tablas
+        modeloReserva.addColumn("ID");
+        modeloReserva.addColumn("Entrada");
+        modeloReserva.addColumn("Salida");
+        modeloReserva.addColumn("Estadia");
+        modeloReserva.addColumn("Personas");
+        modeloReserva.addColumn("Costo");
+        jtReservasActivas.setModel(modeloReserva);
+
+        modeloDetalleReserva.addColumn("Número");
+        modeloDetalleReserva.addColumn("Piso");
+        modeloDetalleReserva.addColumn("Código");
+        modeloDetalleReserva.addColumn("Capacidad");
+        modeloDetalleReserva.addColumn("Camas");
+        modeloDetalleReserva.addColumn("Tipo Camas");
+        modeloDetalleReserva.addColumn("Precio Noche");
+        jtDetalleReservas.setModel(modeloDetalleReserva);
+
+        //Establecer ancho de columnas
+        jtReservasActivas.getColumnModel().getColumn(0).setPreferredWidth(75);
+        jtReservasActivas.getColumnModel().getColumn(1).setPreferredWidth(100);
+        jtReservasActivas.getColumnModel().getColumn(2).setPreferredWidth(100);
+        jtReservasActivas.getColumnModel().getColumn(3).setPreferredWidth(75);
+        jtReservasActivas.getColumnModel().getColumn(4).setPreferredWidth(75);
+        jtReservasActivas.getColumnModel().getColumn(5).setPreferredWidth(100);
+
+        jtDetalleReservas.getColumnModel().getColumn(0).setPreferredWidth(75);
+        jtDetalleReservas.getColumnModel().getColumn(1).setPreferredWidth(75);
+        jtDetalleReservas.getColumnModel().getColumn(2).setPreferredWidth(100);
+        jtDetalleReservas.getColumnModel().getColumn(3).setPreferredWidth(100);
+        jtDetalleReservas.getColumnModel().getColumn(4).setPreferredWidth(75);
+        jtDetalleReservas.getColumnModel().getColumn(5).setPreferredWidth(150);
+        jtDetalleReservas.getColumnModel().getColumn(6).setPreferredWidth(125);
+
+        // Crear un renderizador de celdas para centrar el contenido
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        for (int i = 0; i <= 5; i++) {
+            jtReservasActivas.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
+        for (int i = 0; i <= 6; i++) {
+            jtDetalleReservas.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
+    }
+    
+    private void cargarIcono() {
+        ImageIcon icono = new ImageIcon("image/reserva.png");
+        Image scaledImage = icono.getImage().getScaledInstance(16, 16, Image.SCALE_SMOOTH);
+        ImageIcon scaledIcon = new ImageIcon(scaledImage);
+        setFrameIcon(scaledIcon);
+    }
+
+    private void borrarFilasReserva() {
+        int f = jtReservasActivas.getRowCount() - 1;
+        for (; f >= 0; f--) {
+            modeloReserva.removeRow(f);
+        }
+    }
+
+    private void borrarFilasDisponibilidad() {
+        int f = jtDetalleReservas.getRowCount() - 1;
+        for (; f >= 0; f--) {
+            modeloDetalleReserva.removeRow(f);
+        }
+    }
+    
+    public void cargarReservas(){
+    
+    }
+    
+    public void cargarDetallesReserva(){
+    
+    }
 }
