@@ -25,7 +25,7 @@ CREATE TABLE TipoHabitacion (
 -- Tabla de Habitacion
 CREATE TABLE Habitacion (
     idHabitacion INT PRIMARY KEY AUTO_INCREMENT,
-    numero INT,
+    numero INT UNIQUE,
     piso INT,
     estado ENUM('Libre', 'Ocupada') DEFAULT 'Libre',
     tipoHabitacion INT,

@@ -19,17 +19,18 @@ public class Menu extends javax.swing.JFrame {
         escritorio = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        jMenu4 = new javax.swing.JMenu();
         jmReservas = new javax.swing.JMenuItem();
-        jmHuesped = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jmHabitación = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jmHuesped = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jmCerrar = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(850, 850));
-        setPreferredSize(new java.awt.Dimension(850, 850));
 
         javax.swing.GroupLayout escritorioLayout = new javax.swing.GroupLayout(escritorio);
         escritorio.setLayout(escritorioLayout);
@@ -42,23 +43,22 @@ public class Menu extends javax.swing.JFrame {
             .addGap(0, 829, Short.MAX_VALUE)
         );
 
-        jMenu1.setText("Consulta");
+        jMenu1.setText("Hotel");
 
-        jmReservas.setText("Reservas");
+        jMenu4.setText("Reservas");
+
+        jmReservas.setText("Alta Reserva");
         jmReservas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jmReservasActionPerformed(evt);
             }
         });
-        jMenu1.add(jmReservas);
+        jMenu4.add(jmReservas);
 
-        jmHuesped.setText("Huesped");
-        jmHuesped.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmHuespedActionPerformed(evt);
-            }
-        });
-        jMenu1.add(jmHuesped);
+        jMenuItem2.setText("Administración Reservas");
+        jMenu4.add(jMenuItem2);
+
+        jMenu1.add(jMenu4);
 
         jMenu3.setText("Habitaciones");
 
@@ -79,6 +79,14 @@ public class Menu extends javax.swing.JFrame {
         jMenu3.add(jMenuItem1);
 
         jMenu1.add(jMenu3);
+
+        jmHuesped.setText("Huesped");
+        jmHuesped.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmHuespedActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jmHuesped);
 
         jMenuBar1.add(jMenu1);
 
@@ -182,8 +190,10 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jmCerrar;
     private javax.swing.JMenuItem jmHabitación;
     private javax.swing.JMenuItem jmHuesped;

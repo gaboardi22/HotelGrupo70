@@ -831,22 +831,27 @@ public class ConsultaData {
                     + "FROM Habitacion h "
                     + "INNER JOIN TipoHabitacion th "
                     + "ON h.tipoHabitacion = th.idTipoHabitacion "
-                    + "WHERE th.idTipoHabitacion "
-                    + "NOT IN (SELECT h.tipoHabitacion "
-                    + "FROM Habitacion h "
-                    + "WHERE h.idHabitacion "
-                    + "IN (SELECT dr.idHabitacion "
-                    + "FROM DetalleReserva dr "
-                    + "INNER JOIN Reserva r "
-                    + "ON dr.idReserva = r.idReserva "
-                    + "WHERE NOT ( ? <= r.fechaEntrada "
-                    + "OR ? >= r.fechaSalida))) "
+                    + "WHERE h.idHabitacion NOT IN (SELECT dr.idHabitacion "
+                    + "FROM Reserva r "
+                    + "INNER JOIN DetalleReserva dr "
+                    + "ON r.idReserva = dr.idReserva "
+                    + "WHERE r.estado = 'Activa' "
+                    + "AND ((r.fechaEntrada <= ? "
+                    + "AND r.fechaSalida >= ?) "
+                    + "OR (r.fechaEntrada <= ? "
+                    + "AND r.fechaSalida >= ?) "
+                    + "OR (r.fechaEntrada >= ? "
+                    + "AND r.fechaSalida <= ?)))"
                     + "ORDER BY h.numero;";
             //Preparar conexión
             PreparedStatement ps = con.prepareStatement(sql);
             // Insertar parametros de fechas
             ps.setDate(1, Date.valueOf(desde));
-            ps.setDate(2, Date.valueOf(hasta));
+            ps.setDate(2, Date.valueOf(desde));
+            ps.setDate(3, Date.valueOf(hasta));
+            ps.setDate(4, Date.valueOf(hasta));
+            ps.setDate(5, Date.valueOf(desde));
+            ps.setDate(6, Date.valueOf(hasta));
             ResultSet rs = ps.executeQuery();
             // Reconstruir Habitaciones de la BD
             while (rs.next()) {
