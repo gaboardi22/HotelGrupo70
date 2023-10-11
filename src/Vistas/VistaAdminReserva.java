@@ -200,11 +200,6 @@ public class VistaAdminReserva extends javax.swing.JInternalFrame {
                 "ID", "Entrada", "Salida", "Estadía", "Personas", "Costo"
             }
         ));
-        jtReservasActivas.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-            public void propertyChange(java.beans.PropertyChangeEvent evt) {
-                jtReservasActivasPropertyChange(evt);
-            }
-        });
         jtReservasActivas.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jtReservasActivasKeyReleased(evt);
@@ -342,10 +337,6 @@ public class VistaAdminReserva extends javax.swing.JInternalFrame {
             jcCalendario.setDate(Date.valueOf(nuevaFecha));
         }
     }//GEN-LAST:event_jycAñoPropertyChange
-
-    private void jtReservasActivasPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jtReservasActivasPropertyChange
-
-    }//GEN-LAST:event_jtReservasActivasPropertyChange
 
     private void jtReservasActivasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtReservasActivasKeyReleased
         cargarDetallesReserva();
