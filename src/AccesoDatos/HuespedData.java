@@ -128,4 +128,21 @@ public class HuespedData {
         }
         return huesped;
     }
+     
+     public int consultaIdPorDni(String dni){
+        String SQL = "SELECT  idHuesped FROM huesped WHERE documento = ?";
+       int idHuesped = 0;
+        try {
+            PreparedStatement ps = con.prepareStatement(SQL);
+            ps.setString(1, dni);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+               idHuesped = rs.getInt(0);
+            }
+            ps.close();
+        } catch (SQLException ex) {
+           JOptionPane.showMessageDialog(null, "error al conectar a la base de datos");
+        }
+        return idHuesped;
+    }  
 }

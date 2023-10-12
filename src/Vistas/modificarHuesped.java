@@ -1,23 +1,27 @@
-
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
+ */
 package Vistas;
 
 import AccesoDatos.HuespedData;
 import Entidades.Huesped;
 import static Vistas.MenuHotel.escritorio;
-import java.util.Locale;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author NETBOOK G5
  */
-public class AltaHuesped extends javax.swing.JInternalFrame {
-
+public class modificarHuesped extends javax.swing.JInternalFrame {
+private Huesped huespedModificar;
     /**
-     * Creates new form altaHuesped
+     * Creates new form modificarHuesped
      */
-    public AltaHuesped() {
+    public modificarHuesped(Huesped huesped) {
+        this.huespedModificar = huesped;
         initComponents();
+        cargarHuesped();
     }
 
     /**
@@ -29,7 +33,6 @@ public class AltaHuesped extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanelHus = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -43,11 +46,10 @@ public class AltaHuesped extends javax.swing.JInternalFrame {
         jTDomicilio = new javax.swing.JTextField();
         jTCorreo = new javax.swing.JTextField();
         jTTelefono = new javax.swing.JTextField();
-        jBAgregar = new javax.swing.JButton();
+        jBModificar = new javax.swing.JButton();
         jBSalir = new javax.swing.JButton();
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel1.setText("AGREGAR HUESPED");
+        jLabel1.setText("MODIFICAR DATOS HUESPED");
 
         jLabel2.setText("NOMBRE");
 
@@ -67,16 +69,16 @@ public class AltaHuesped extends javax.swing.JInternalFrame {
             }
         });
 
-        jTTelefono.addActionListener(new java.awt.event.ActionListener() {
+        jTDomicilio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTTelefonoActionPerformed(evt);
+                jTDomicilioActionPerformed(evt);
             }
         });
 
-        jBAgregar.setText("AGREGAR");
-        jBAgregar.addActionListener(new java.awt.event.ActionListener() {
+        jBModificar.setText("MODIFICAR");
+        jBModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBAgregarActionPerformed(evt);
+                jBModificarActionPerformed(evt);
             }
         });
 
@@ -87,121 +89,110 @@ public class AltaHuesped extends javax.swing.JInternalFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanelHusLayout = new javax.swing.GroupLayout(jPanelHus);
-        jPanelHus.setLayout(jPanelHusLayout);
-        jPanelHusLayout.setHorizontalGroup(
-            jPanelHusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelHusLayout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addGroup(jPanelHusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel7)
-                    .addComponent(jBAgregar))
-                .addGroup(jPanelHusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelHusLayout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addGroup(jPanelHusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTApellido)
-                            .addComponent(jTDocumento)
-                            .addComponent(jTDomicilio)
-                            .addComponent(jTCorreo)
-                            .addComponent(jTTelefono)
-                            .addComponent(jTNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelHusLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 181, Short.MAX_VALUE)
-                        .addComponent(jBSalir)
-                        .addGap(37, 37, 37))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelHusLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(114, 114, 114))
-        );
-        jPanelHusLayout.setVerticalGroup(
-            jPanelHusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelHusLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanelHusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jTNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanelHusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jTApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanelHusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jTDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanelHusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jTDomicilio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanelHusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(jTCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanelHusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(jTTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanelHusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jBAgregar)
-                    .addComponent(jBSalir))
-                .addContainerGap(27, Short.MAX_VALUE))
-        );
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanelHus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(114, 114, 114)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel7))
+                                .addGap(84, 84, 84)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jTTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
+                                    .addComponent(jTApellido)
+                                    .addComponent(jTDocumento)
+                                    .addComponent(jTDomicilio)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jBModificar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jBSalir)))))
+                .addGap(21, 21, 21))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanelHus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jTNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jTApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jTDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(jTDomicilio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(jTCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(jTTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jBModificar)
+                    .addComponent(jBSalir))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jBAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAgregarActionPerformed
+    private void jBModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBModificarActionPerformed
         Huesped huesped = new Huesped(); //metodo con error de vistas
         HuespedData huespedData = new HuespedData();
         if (!(jTNombre.getText().isEmpty() || jTApellido.getText().isEmpty() || jTCorreo.getText().isEmpty() || jTDocumento.getText().isEmpty() || jTDomicilio.getText().isEmpty() || jTTelefono.getText().isEmpty())) {
             try {
+                huesped.setIdHuesped(huespedData.consultaIdPorDni(jTDocumento.getText()));
                 huesped.setNombre(jTNombre.getText());
                 huesped.setApellido(jTApellido.getText());
                 huesped.setCorreo(jTCorreo.getText());
                 huesped.setDocumento(jTDocumento.getText());
                 huesped.setDomicilio(jTDomicilio.getText());
                 huesped.setTelefono(jTTelefono.getText());
-                huespedData.insertarHuesped(huesped);
+                huespedData.actualizarHuesped(huesped);
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, "no se pudo agregar el huesped");
+                JOptionPane.showMessageDialog(this, "no se pudo actualizar el huesped");
             }
         }else{
             JOptionPane.showMessageDialog(this, "debe llenar todos los campos");
         }
-            
-        
-    }//GEN-LAST:event_jBAgregarActionPerformed
+    }//GEN-LAST:event_jBModificarActionPerformed
 
     private void jTDocumentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTDocumentoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTDocumentoActionPerformed
 
-    private void jTTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTTelefonoActionPerformed
+    private void jTDomicilioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTDomicilioActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTTelefonoActionPerformed
+    }//GEN-LAST:event_jTDomicilioActionPerformed
 
     private void jBSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalirActionPerformed
-       this.dispose();
+     this.dispose();
         escritorio.removeAll();
         escritorio.repaint();
         VistaHuesped VHuesped = new VistaHuesped();
@@ -209,13 +200,11 @@ public class AltaHuesped extends javax.swing.JInternalFrame {
         VHuesped.setLocation((escritorio.getWidth() - VHuesped.getWidth()) / 2, (escritorio.getHeight() - VHuesped.getHeight()) / 2);
         escritorio.add(VHuesped);
         escritorio.moveToFront(VHuesped);
-        
-        
     }//GEN-LAST:event_jBSalirActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBAgregar;
+    private javax.swing.JButton jBModificar;
     private javax.swing.JButton jBSalir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -224,7 +213,6 @@ public class AltaHuesped extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JPanel jPanelHus;
     private javax.swing.JTextField jTApellido;
     private javax.swing.JTextField jTCorreo;
     private javax.swing.JTextField jTDocumento;
@@ -232,4 +220,15 @@ public class AltaHuesped extends javax.swing.JInternalFrame {
     private javax.swing.JTextField jTNombre;
     private javax.swing.JTextField jTTelefono;
     // End of variables declaration//GEN-END:variables
+private void cargarHuesped(){
+    jTApellido.setText(huespedModificar.getApellido());
+    jTNombre.setText(huespedModificar.getNombre());
+    jTDomicilio.setText(huespedModificar.getDomicilio());
+    jTCorreo.setText(huespedModificar.getCorreo());
+    jTTelefono.setText(huespedModificar.getTelefono());
+    jTDocumento.setText(huespedModificar.getDocumento());
+    
+}
+
+
 }

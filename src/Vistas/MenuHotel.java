@@ -144,7 +144,7 @@ public class MenuHotel extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JDesktopPane escritorio;
+    public static javax.swing.JDesktopPane escritorio;
     private javax.swing.JMenu jMenuAdministracion;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuHuesped;

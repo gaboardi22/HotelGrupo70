@@ -3,8 +3,10 @@ package Vistas;
 
 import AccesoDatos.HuespedData;
 import Entidades.Huesped;
+import static Vistas.MenuHotel.escritorio;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -97,6 +99,11 @@ public class VistaHuesped extends javax.swing.JInternalFrame {
         });
 
         jBModificar.setText("MODIFICAR");
+        jBModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBModificarActionPerformed(evt);
+            }
+        });
 
         jBSalir.setText("SALIR");
         jBSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -176,6 +183,7 @@ public class VistaHuesped extends javax.swing.JInternalFrame {
 
     private void jBSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalirActionPerformed
         this.dispose();
+        
     }//GEN-LAST:event_jBSalirActionPerformed
 
     private void jTApellidoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTApellidoKeyPressed
@@ -191,14 +199,35 @@ public class VistaHuesped extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTDocumentoKeyReleased
 
     private void jBAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAgregarActionPerformed
-        jPanel1.removeAll();
-        jPanel1.repaint();
         AltaHuesped altaHuesped = new AltaHuesped();
         altaHuesped.setVisible(true);
-        altaHuesped.setLocation((jPanel1.getWidth() - altaHuesped.getWidth()) / 2, (jPanel1.getHeight() - altaHuesped.getHeight()) / 2);
-        jPanel1.add(altaHuesped);
+       altaHuesped.setLocation((MenuHotel.escritorio.getWidth() - altaHuesped.getWidth()) / 2, (MenuHotel.escritorio.getHeight() - altaHuesped.getHeight()) / 2);
+        MenuHotel.escritorio.add(altaHuesped);
         altaHuesped.moveToFront();
+        this.dispose();
     }//GEN-LAST:event_jBAgregarActionPerformed
+
+    private void jBModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBModificarActionPerformed
+        Huesped huesped = new Huesped();
+        if (jTableHuesped.getSelectedRow() != -1) {
+            huesped.setNombre(modelo.getValueAt(jTableHuesped.getSelectedRow(), 0)+"");
+            huesped.setApellido(modelo.getValueAt(jTableHuesped.getSelectedRow(), 1) +"");
+            huesped.setDocumento(modelo.getValueAt(jTableHuesped.getSelectedRow(), 2)+"");
+            huesped.setDomicilio(modelo.getValueAt(jTableHuesped.getSelectedRow(), 3)+"");
+            huesped.setTelefono(modelo.getValueAt(jTableHuesped.getSelectedRow(), 4)+"");
+            huesped.setCorreo(modelo.getValueAt(jTableHuesped.getSelectedRow(), 5)+"");
+        this.dispose();
+        escritorio.removeAll();
+        escritorio.repaint();
+        modificarHuesped MHuesped = new modificarHuesped(huesped);
+        MHuesped.setVisible(true);
+        MHuesped.setLocation((escritorio.getWidth() - MHuesped.getWidth()) / 2, (escritorio.getHeight() - MHuesped.getHeight()) / 2);
+        escritorio.add(MHuesped);
+        escritorio.moveToFront(MHuesped);
+         }else{
+            JOptionPane.showMessageDialog(this, "debe seleccionar un huesped a modificar");
+        }
+    }//GEN-LAST:event_jBModificarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
