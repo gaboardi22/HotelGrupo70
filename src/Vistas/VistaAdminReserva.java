@@ -39,7 +39,7 @@ public class VistaAdminReserva extends javax.swing.JInternalFrame {
             return false;
         }
     };
-    
+
     private DefaultTableModel modeloCliente = new DefaultTableModel() {
         //No permitir edicion de columnas
         @Override
@@ -53,6 +53,7 @@ public class VistaAdminReserva extends javax.swing.JInternalFrame {
         cargarIcono();
         armarCabeceras();
         capturarClikEnTablaReserva();
+        capturarClikEnTablaCliente();
         cargarCliente();
         cargarReservas();
     }
@@ -321,9 +322,11 @@ public class VistaAdminReserva extends javax.swing.JInternalFrame {
             LocalDate nuevaFecha = LocalDate.of(jycAño.getYear(), jmcMes.getMonth() + 1, 1);
             jcCalendario.setDate(Date.valueOf(nuevaFecha));
             cargarReservas();
+
         } else {
             LocalDate nuevaFecha = LocalDate.of(jycAño.getYear(), jmcMes.getMonth() + 1, 1);
             jcCalendario.setDate(Date.valueOf(nuevaFecha));
+
         }
     }//GEN-LAST:event_jmcMesPropertyChange
 
@@ -339,7 +342,10 @@ public class VistaAdminReserva extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jycAñoPropertyChange
 
     private void jtReservasActivasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtReservasActivasKeyReleased
+        cargarHuespedPorIdReserva();
+        cargarCliente();
         cargarDetallesReserva();
+
     }//GEN-LAST:event_jtReservasActivasKeyReleased
 
     private void jcbMesAñoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbMesAñoActionPerformed
@@ -404,7 +410,7 @@ public class VistaAdminReserva extends javax.swing.JInternalFrame {
         modeloDetalleReserva.addColumn("Tipo Camas");
         modeloDetalleReserva.addColumn("Precio Noche");
         jtDetalleReservas.setModel(modeloDetalleReserva);
-        
+
         modeloCliente.addColumn("Nombre");
         modeloCliente.addColumn("Apellido");
         modeloCliente.addColumn("DNI");
@@ -426,7 +432,7 @@ public class VistaAdminReserva extends javax.swing.JInternalFrame {
         jtDetalleReservas.getColumnModel().getColumn(4).setPreferredWidth(75);
         jtDetalleReservas.getColumnModel().getColumn(5).setPreferredWidth(150);
         jtDetalleReservas.getColumnModel().getColumn(6).setPreferredWidth(125);
-        
+
         jtCliente.getColumnModel().getColumn(0).setPreferredWidth(100);
         jtCliente.getColumnModel().getColumn(1).setPreferredWidth(100);
         jtCliente.getColumnModel().getColumn(2).setPreferredWidth(100);
@@ -458,7 +464,20 @@ public class VistaAdminReserva extends javax.swing.JInternalFrame {
         jtReservasActivas.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                cargarHuespedPorIdReserva();
+                cargarCliente();
                 cargarDetallesReserva();
+            }
+        });
+    }
+
+    private void capturarClikEnTablaCliente() {
+        //Capturar clik en tabla Huesped
+        jtCliente.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                cargarClientePorDni();
+                cargarReservas();
             }
         });
     }
@@ -476,7 +495,7 @@ public class VistaAdminReserva extends javax.swing.JInternalFrame {
             modeloDetalleReserva.removeRow(f);
         }
     }
-    
+
     private void borrarFilasCliente() {
         int f = jtCliente.getRowCount() - 1;
         for (; f >= 0; f--) {
@@ -488,29 +507,56 @@ public class VistaAdminReserva extends javax.swing.JInternalFrame {
         List<Reserva> reservas = new ArrayList<>();
         ConsultaData listarReservas = new ConsultaData();
         reservas = listarReservas.listarReservas();
+        borrarFilasDetalleReservas();
         borrarFilasReserva();
         for (Reserva reserva : reservas) {
-            if (!jcbMesAño.isSelected()) {
-                if (reserva.getEstado() == Estado.Activa && reserva.getHuesped().getApellido().toLowerCase().startsWith(jtfApellido.getText().toLowerCase()) && reserva.getHuesped().getDni().startsWith(jtfDni.getText())) {
-                    modeloReserva.addRow(new Object[]{
-                        reserva.getIdReserva(),
-                        reserva.getFechaEntrada(),
-                        reserva.getFechaSalida(),
-                        reserva.getCantidadDias(),
-                        reserva.getCantidadPersonas(),
-                        reserva.getMontoEstadia()
-                    });
+            if (jtCliente.getSelectedRow() != -1) {
+                if (!jcbMesAño.isSelected()) {
+                    if (reserva.getEstado() == Estado.Activa && reserva.getHuesped().getApellido().toLowerCase().startsWith(modeloCliente.getValueAt(jtCliente.getSelectedRow(), 0).toString().toLowerCase()) && reserva.getHuesped().getDni().startsWith(modeloCliente.getValueAt(jtCliente.getSelectedRow(), 2).toString().toLowerCase())) {
+                        modeloReserva.addRow(new Object[]{
+                            reserva.getIdReserva(),
+                            reserva.getFechaEntrada(),
+                            reserva.getFechaSalida(),
+                            reserva.getCantidadDias(),
+                            reserva.getCantidadPersonas(),
+                            reserva.getMontoEstadia()
+                        });
+                    }
+                } else {
+                    if (reserva.getFechaEntrada().getMonthValue() == (jmcMes.getMonth() + 1) && reserva.getEstado() == Estado.Activa && reserva.getHuesped().getApellido().toLowerCase().startsWith(modeloCliente.getValueAt(jtCliente.getSelectedRow(), 0).toString().toLowerCase()) && reserva.getHuesped().getDni().startsWith(modeloCliente.getValueAt(jtCliente.getSelectedRow(), 2).toString().toLowerCase())) {
+                        modeloReserva.addRow(new Object[]{
+                            reserva.getIdReserva(),
+                            reserva.getFechaEntrada(),
+                            reserva.getFechaSalida(),
+                            reserva.getCantidadDias(),
+                            reserva.getCantidadPersonas(),
+                            reserva.getMontoEstadia()
+                        });
+                    }
                 }
             } else {
-                if (reserva.getFechaEntrada().getMonthValue() == (jmcMes.getMonth() + 1) && reserva.getFechaEntrada().getYear() == jycAño.getYear() && reserva.getEstado() == Estado.Activa && reserva.getHuesped().getApellido().toLowerCase().startsWith(jtfApellido.getText().toLowerCase()) && reserva.getHuesped().getDni().startsWith(jtfDni.getText())) {
-                    modeloReserva.addRow(new Object[]{
-                        reserva.getIdReserva(),
-                        reserva.getFechaEntrada(),
-                        reserva.getFechaSalida(),
-                        reserva.getCantidadDias(),
-                        reserva.getCantidadPersonas(),
-                        reserva.getMontoEstadia()
-                    });
+                if (!jcbMesAño.isSelected()) {
+                    if (reserva.getEstado() == Estado.Activa && reserva.getHuesped().getApellido().toLowerCase().startsWith(jtfApellido.getText().toLowerCase()) && reserva.getHuesped().getDni().startsWith(jtfDni.getText())) {
+                        modeloReserva.addRow(new Object[]{
+                            reserva.getIdReserva(),
+                            reserva.getFechaEntrada(),
+                            reserva.getFechaSalida(),
+                            reserva.getCantidadDias(),
+                            reserva.getCantidadPersonas(),
+                            reserva.getMontoEstadia()
+                        });
+                    }
+                } else {
+                    if (reserva.getFechaEntrada().getMonthValue() == (jmcMes.getMonth() + 1) && reserva.getFechaEntrada().getYear() == jycAño.getYear() && reserva.getEstado() == Estado.Activa && reserva.getHuesped().getApellido().toLowerCase().startsWith(jtfApellido.getText().toLowerCase()) && reserva.getHuesped().getDni().startsWith(jtfDni.getText())) {
+                        modeloReserva.addRow(new Object[]{
+                            reserva.getIdReserva(),
+                            reserva.getFechaEntrada(),
+                            reserva.getFechaSalida(),
+                            reserva.getCantidadDias(),
+                            reserva.getCantidadPersonas(),
+                            reserva.getMontoEstadia()
+                        });
+                    }
                 }
             }
         }
@@ -539,7 +585,7 @@ public class VistaAdminReserva extends javax.swing.JInternalFrame {
         }
 
     }
-    
+
     private void cargarCliente() {
         List<Huesped> huespedes = new ArrayList<>();
         ConsultaData listarHuesped = new ConsultaData();
@@ -551,12 +597,26 @@ public class VistaAdminReserva extends javax.swing.JInternalFrame {
                     huesped.getApellido(),
                     huesped.getNombre(),
                     huesped.getDni(),
-                    huesped.getTelefono(),
-                    //huesped.getEmail()
+                    huesped.getTelefono(), //huesped.getEmail()
                 });
             }
 
         }
     }
+
+    private void cargarHuespedPorIdReserva() {
+        Reserva reserva = new Reserva();
+        ConsultaData consultaHuesped = new ConsultaData();
+        reserva = consultaHuesped.reservaPorIdReserva((int) modeloReserva.getValueAt(jtReservasActivas.getSelectedRow(), 0));
+        jtfApellido.setText(reserva.getHuesped().getApellido());
+        jtfDni.setText(reserva.getHuesped().getDni());
+    }
     
+    private void cargarClientePorDni(){
+        Huesped huesped = new Huesped();
+        ConsultaData consultaHuesped = new ConsultaData();
+        huesped = consultaHuesped.huespedPorDni(String.valueOf(modeloCliente.getValueAt(jtCliente.getSelectedRow(), 2)));
+        jtfApellido.setText(huesped.getApellido());
+        jtfDni.setText(huesped.getDni());
+    }
 }
