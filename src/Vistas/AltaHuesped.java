@@ -6,6 +6,7 @@ package Vistas;
 
 import AccesoDatos.HuespedData;
 import Entidades.Huesped;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -170,17 +171,22 @@ public class AltaHuesped extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAgregarActionPerformed
+
         Huesped huesped = new Huesped();
         HuespedData huespedData = new HuespedData();
-       
-        huesped.setNombre(jTNombre.getText());
-        huesped.setApellido(jTApellido.getText());
-        huesped.setCorreo(jTCorreo.getText());
-        huesped.setDocumento(jTDocumento.getText());
-        huesped.setDomicilio(jTDomicilio.getText());
-        huesped.setTelefono(jTTelefono.getText());
-        huespedData.insertarHuesped(huesped);
-        
+        if (!(jTNombre.getText().isEmpty() || jTApellido.getText().isEmpty() || jTCorreo.getText().isEmpty() || jTDocumento.getText().isEmpty() || jTDomicilio.getText().isEmpty() || jTTelefono.getText().isEmpty())) {
+            try {
+                huesped.setNombre(jTNombre.getText());
+                huesped.setApellido(jTApellido.getText());
+                huesped.setCorreo(jTCorreo.getText());
+                huesped.setDocumento(jTDocumento.getText());
+                huesped.setDomicilio(jTDomicilio.getText());
+                huesped.setTelefono(jTTelefono.getText());
+                huespedData.insertarHuesped(huesped);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "debe llenar todos los campos");
+            }
+        }
     }//GEN-LAST:event_jBAgregarActionPerformed
 
     private void jTDocumentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTDocumentoActionPerformed

@@ -90,6 +90,11 @@ public class VistaHuesped extends javax.swing.JInternalFrame {
         });
 
         jBAgregar.setText("AGREGAR");
+        jBAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBAgregarActionPerformed(evt);
+            }
+        });
 
         jBModificar.setText("MODIFICAR");
 
@@ -110,7 +115,7 @@ public class VistaHuesped extends javax.swing.JInternalFrame {
                         .addGap(254, 254, 254)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(53, 53, 53)
+                        .addGap(36, 36, 36)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 563, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -127,7 +132,7 @@ public class VistaHuesped extends javax.swing.JInternalFrame {
                                 .addComponent(jBModificar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jBSalir)))))
-                .addGap(15, 15, 15))
+                .addGap(26, 26, 26))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -160,7 +165,7 @@ public class VistaHuesped extends javax.swing.JInternalFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -185,6 +190,16 @@ public class VistaHuesped extends javax.swing.JInternalFrame {
     private void jTDocumentoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTDocumentoKeyReleased
          cargarHuesped();
     }//GEN-LAST:event_jTDocumentoKeyReleased
+
+    private void jBAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAgregarActionPerformed
+        jPanel1.removeAll();
+        jPanel1.repaint();
+        AltaHuesped altaHuesped = new AltaHuesped();
+        altaHuesped.setVisible(true);
+        altaHuesped.setLocation((jPanel1.getWidth() - altaHuesped.getWidth()) / 2, (jPanel1.getHeight() - altaHuesped.getHeight()) / 2);
+        jPanel1.add(altaHuesped);
+        altaHuesped.moveToFront();
+    }//GEN-LAST:event_jBAgregarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
