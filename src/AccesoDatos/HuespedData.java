@@ -106,7 +106,7 @@ public class HuespedData {
         return huespedes;
     }
     
-     public Huesped consultaHuesdPorDni(int documento){
+     public Huesped consultaHuespedPorDni(int documento){
         String SQL = "SELECT  FROM huesped WHERE documento = ?";
         Huesped huesped = null; 
         try {
