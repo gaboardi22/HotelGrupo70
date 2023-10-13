@@ -137,7 +137,7 @@ public class HuespedData {
             ps.setString(1, dni);
             ResultSet rs = ps.executeQuery();
             if(rs.next()){
-               idHuesped = rs.getInt(0);
+               idHuesped = rs.getInt(1);
             }
             ps.close();
         } catch (SQLException ex) {
