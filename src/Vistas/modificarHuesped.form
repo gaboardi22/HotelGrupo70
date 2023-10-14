@@ -37,19 +37,19 @@
                                   <Component id="jLabel6" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel7" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="-2" pref="84" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="jTTelefono" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jTCorreo" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jTNombre" pref="131" max="32767" attributes="0"/>
-                                  <Component id="jTApellido" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jTDocumento" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jTDomicilio" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="jTCorreo" pref="170" max="32767" attributes="0"/>
+                                  <Component id="jTDomicilio" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="jTDocumento" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="jTApellido" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="jTNombre" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="jTTelefono" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jBModificar" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace pref="125" max="32767" attributes="0"/>
                               <Component id="jBSalir" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
