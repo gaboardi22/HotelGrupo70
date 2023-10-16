@@ -25,15 +25,21 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuHuespedActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemHabitacion">
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuHabitacion">
               <Properties>
                 <Property name="text" type="java.lang.String" value="HABITACION"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuHabitacionActionPerformed"/>
+              </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem2">
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuTipoHabitacion">
               <Properties>
                 <Property name="text" type="java.lang.String" value="TIPO DE HABITACION"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuTipoHabitacionActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>

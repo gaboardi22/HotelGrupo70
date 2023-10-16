@@ -28,8 +28,8 @@ public class MenuHotel extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuAdministracion = new javax.swing.JMenu();
         jMenuHuesped = new javax.swing.JMenuItem();
-        jMenuItemHabitacion = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuHabitacion = new javax.swing.JMenuItem();
+        jMenuTipoHabitacion = new javax.swing.JMenuItem();
         jMenuReserva = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
 
@@ -63,11 +63,21 @@ public class MenuHotel extends javax.swing.JFrame {
         });
         jMenuAdministracion.add(jMenuHuesped);
 
-        jMenuItemHabitacion.setText("HABITACION");
-        jMenuAdministracion.add(jMenuItemHabitacion);
+        jMenuHabitacion.setText("HABITACION");
+        jMenuHabitacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuHabitacionActionPerformed(evt);
+            }
+        });
+        jMenuAdministracion.add(jMenuHabitacion);
 
-        jMenuItem2.setText("TIPO DE HABITACION");
-        jMenuAdministracion.add(jMenuItem2);
+        jMenuTipoHabitacion.setText("TIPO DE HABITACION");
+        jMenuTipoHabitacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuTipoHabitacionActionPerformed(evt);
+            }
+        });
+        jMenuAdministracion.add(jMenuTipoHabitacion);
 
         jMenuBar1.add(jMenuAdministracion);
 
@@ -108,6 +118,26 @@ public class MenuHotel extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuAdministracionPropertyChange
 
+    private void jMenuTipoHabitacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuTipoHabitacionActionPerformed
+      escritorio.removeAll();
+      escritorio.repaint();
+      TipoHabitacion VTipoHab = new TipoHabitacion();
+      VTipoHab.setVisible(true);
+      VTipoHab.setLocation((escritorio.getWidth() - VTipoHab.getWidth()) / 2, (escritorio.getHeight() - VTipoHab.getHeight()) / 2);
+      escritorio.add(VTipoHab);
+      escritorio.moveToFront(VTipoHab);
+    }//GEN-LAST:event_jMenuTipoHabitacionActionPerformed
+
+    private void jMenuHabitacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuHabitacionActionPerformed
+       escritorio.removeAll();
+       escritorio.repaint();
+       Habitacion VHabitac = new Habitacion();
+       VHabitac.setVisible(true);
+       VHabitac.setLocation((escritorio.getWidth() - VHabitac.getWidth()) / 2, (escritorio.getHeight() - VHabitac.getHeight()) / 2);
+       escritorio.add(VHabitac);
+       escritorio.moveToFront(VHabitac);
+    }//GEN-LAST:event_jMenuHabitacionActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -147,11 +177,11 @@ public class MenuHotel extends javax.swing.JFrame {
     public static javax.swing.JDesktopPane escritorio;
     private javax.swing.JMenu jMenuAdministracion;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuHabitacion;
     private javax.swing.JMenuItem jMenuHuesped;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItemHabitacion;
     private javax.swing.JMenu jMenuReserva;
+    private javax.swing.JMenuItem jMenuTipoHabitacion;
     // End of variables declaration//GEN-END:variables
 }

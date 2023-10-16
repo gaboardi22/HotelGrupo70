@@ -171,7 +171,7 @@ public class AltaHuesped extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAgregarActionPerformed
-        Huesped huesped = new Huesped(); //metodo con error de vistas
+        Huesped huesped = new Huesped(); 
         HuespedData huespedData = new HuespedData();
         if (!(jTNombre.getText().isEmpty() || jTApellido.getText().isEmpty() || jTCorreo.getText().isEmpty() || jTDocumento.getText().isEmpty() || jTDomicilio.getText().isEmpty() || jTTelefono.getText().isEmpty())) {
             try {
