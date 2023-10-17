@@ -311,7 +311,7 @@ public class VistaAdminReserva extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbSalirActionPerformed
 
     private void jtfApellidoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfApellidoKeyReleased
-        //jlCliente.setText("");
+        jtfDni.setText("");
         cargarCliente();
         cargarReservas();
     }//GEN-LAST:event_jtfApellidoKeyReleased
