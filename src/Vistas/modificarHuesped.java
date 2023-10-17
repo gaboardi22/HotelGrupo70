@@ -15,6 +15,7 @@ import javax.swing.JOptionPane;
  */
 public class modificarHuesped extends javax.swing.JInternalFrame {
 private Huesped huespedModificar;
+String dni = null;
     /**
      * Creates new form modificarHuesped
      */
@@ -22,6 +23,7 @@ private Huesped huespedModificar;
         this.huespedModificar = huesped;
         initComponents();
         cargarHuesped();
+       dni = jTDocumento.getText();
     }
 
     /**
@@ -166,7 +168,8 @@ private Huesped huespedModificar;
         HuespedData huespedData = new HuespedData();
         if (!(jTNombre.getText().isEmpty() || jTApellido.getText().isEmpty() || jTCorreo.getText().isEmpty() || jTDocumento.getText().isEmpty() || jTDomicilio.getText().isEmpty() || jTTelefono.getText().isEmpty())) {
             try {
-                huesped.setIdHuesped(huespedData.consultaIdPorDni(jTDocumento.getText()));
+              
+                huesped.setIdHuesped(huespedData.consultaIdPorDni(dni));
                 huesped.setNombre(jTNombre.getText());
                 huesped.setApellido(jTApellido.getText());
                 huesped.setCorreo(jTCorreo.getText());

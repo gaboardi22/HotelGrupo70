@@ -81,7 +81,8 @@ public class TipoHabitacionData {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 TipoHabitacion tipoHabitacion = new TipoHabitacion();
-                tipoHabitacion.setCantidadPersonas(rs.getInt("cantidadPersonas"));
+                tipoHabitacion.setCantidadCamas(rs.getInt("cantidadCamas"));
+                tipoHabitacion.setIdTipoHabitacion(rs.getInt("idTipoHabitacion"));
                 tipoHabitacion.setCantidadPersonas(rs.getInt("cantidadPersonas"));
                 tipoHabitacion.setTipoCamas(rs.getString("tipoCamas"));
                 tipoHabitacion.setPrecioNoche(rs.getDouble("precioNoche"));

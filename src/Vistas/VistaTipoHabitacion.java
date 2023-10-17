@@ -20,6 +20,8 @@ public class VistaTipoHabitacion extends javax.swing.JInternalFrame {
     public VistaTipoHabitacion() {
         initComponents();
         armarCabecera();
+        cargarTipoHabitacion();
+        
     }
 
     /**
@@ -193,6 +195,8 @@ public class VistaTipoHabitacion extends javax.swing.JInternalFrame {
            tipoHabit.setTipoCamas(jTtipoCama.getText());
            tipoHabit.setPrecioNoche(Double.parseDouble(jTPrecioNoche.getText()));
            tipoHabitData.insertarTipoHabitacion(tipoHabit);
+           cargarTipoHabitacion();
+           borrarFormulario();
        }catch(Exception e){
            JOptionPane.showMessageDialog(this, "no se pudo agregar el tipo de habitacion");
        }
@@ -224,6 +228,34 @@ public void armarCabecera(){
     modelo.addColumn("Tipo de Camas");
     modelo.addColumn("Precio Por Noche");
     jTTipoHabitacion.setModel(modelo);
+    
 }
-
+private void cargarTipoHabitacion(){
+    List<TipoHabitacion> tipoHabitaciones = new ArrayList<>();
+    TipoHabitacionData tipoHabitacionD = new TipoHabitacionData();
+    tipoHabitaciones = tipoHabitacionD.consultaTipoHabitacion();
+    eliminarFilas();
+    for(TipoHabitacion tipoHabitacion:tipoHabitaciones){
+        modelo.addRow(new Object[]{
+            tipoHabitacion.getIdTipoHabitacion(),
+            tipoHabitacion.getCantidadPersonas(),
+            tipoHabitacion.getCantidadCamas(),
+            tipoHabitacion.getTipoCamas(),
+            tipoHabitacion.getPrecioNoche()
+        });
+    }
+}
+private void eliminarFilas() {
+        int f = jTTipoHabitacion.getRowCount() - 1;
+        for (; f >= 0; f--) {
+            modelo.removeRow(f);
+        }
+    }
+private void borrarFormulario(){
+    jTCantCamas.setText("");
+    jTCantPers.setText("");
+    jTPrecioNoche.setText("");
+    jTtipoCama.setText("");
+    
+}
 }
