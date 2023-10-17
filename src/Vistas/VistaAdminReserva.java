@@ -141,6 +141,11 @@ public class VistaAdminReserva extends javax.swing.JInternalFrame {
                 "Nombre", "Apellido", "DNI", "Télefono"
             }
         ));
+        jtCliente.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtClienteKeyReleased(evt);
+            }
+        });
         jScrollPane3.setViewportView(jtCliente);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -366,6 +371,11 @@ public class VistaAdminReserva extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Debe seleccionar una reserva a anular.");
         }
     }//GEN-LAST:event_jbAnularReservaActionPerformed
+
+    private void jtClienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtClienteKeyReleased
+        cargarClientePorDni();
+        cargarReservas();
+    }//GEN-LAST:event_jtClienteKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -611,8 +621,8 @@ public class VistaAdminReserva extends javax.swing.JInternalFrame {
         jtfApellido.setText(reserva.getHuesped().getApellido());
         jtfDni.setText(reserva.getHuesped().getDni());
     }
-    
-    private void cargarClientePorDni(){
+
+    private void cargarClientePorDni() {
         Huesped huesped = new Huesped();
         ConsultaData consultaHuesped = new ConsultaData();
         huesped = consultaHuesped.huespedPorDni(String.valueOf(modeloCliente.getValueAt(jtCliente.getSelectedRow(), 2)));
