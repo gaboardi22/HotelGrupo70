@@ -166,7 +166,8 @@ public class VistaAltaCliente extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbCancelarActionPerformed
 
     private void jbAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAltaActionPerformed
-        try {
+        if(!(jtfApellido.getText().isEmpty() || jtfNombre.getText().isEmpty() || jtfDni.getText().isEmpty() || jtfTelefono.getText().isEmpty() || jtfMail.getText().isEmpty())){
+            try {
             ConsultaData agregarHuesped = new ConsultaData();
             Huesped huesped = new Huesped();
             // Comprobar DNI
@@ -193,6 +194,9 @@ public class VistaAltaCliente extends javax.swing.JInternalFrame {
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Debe ingresar un número de DNI válido.");
         }
+        }else{
+        JOptionPane.showMessageDialog(this, "Debe ingresar todos los datos para dar de alta a un huesped.");
+        }    
     }//GEN-LAST:event_jbAltaActionPerformed
 
 
