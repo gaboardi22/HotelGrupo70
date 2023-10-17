@@ -1,10 +1,14 @@
 
 package Vistas;
 
+import AccesoDatos.TipoHabitacionData;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import Entidades.*;
 
-
-public class TipoHabitacion extends javax.swing.JInternalFrame {
+public class VistaTipoHabitacion extends javax.swing.JInternalFrame {
     
     private DefaultTableModel modelo = new DefaultTableModel(){
     @Override
@@ -13,7 +17,7 @@ public class TipoHabitacion extends javax.swing.JInternalFrame {
     }
 };
    
-    public TipoHabitacion() {
+    public VistaTipoHabitacion() {
         initComponents();
         armarCabecera();
     }
@@ -86,6 +90,11 @@ public class TipoHabitacion extends javax.swing.JInternalFrame {
         });
 
         jBAgregar.setText("AGREGAR");
+        jBAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBAgregarActionPerformed(evt);
+            }
+        });
 
         jBModifcar.setText("MODIFICAR");
 
@@ -174,7 +183,24 @@ public class TipoHabitacion extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTtipoCamaActionPerformed
 
-
+    private void jBAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAgregarActionPerformed
+     TipoHabitacion tipoHabit = new TipoHabitacion();
+     TipoHabitacionData tipoHabitData = new TipoHabitacionData();
+     if(!(jTCantCamas.getText().isEmpty() || jTCantPers.getText().isEmpty() || jTPrecioNoche.getText().isEmpty() || jTtipoCama.getText().isEmpty())){
+       try{
+           tipoHabit.setCantidadCamas(Integer.parseInt(jTCantCamas.getText()));
+           tipoHabit.setCantidadPersonas(Integer.parseInt(jTCantPers.getText()));
+           tipoHabit.setTipoCamas(jTtipoCama.getText());
+           tipoHabit.setPrecioNoche(Double.parseDouble(jTPrecioNoche.getText()));
+           tipoHabitData.insertarTipoHabitacion(tipoHabit);
+       }catch(Exception e){
+           JOptionPane.showMessageDialog(this, "no se pudo agregar el tipo de habitacion");
+       }
+     }else{
+         JOptionPane.showMessageDialog(this, "debe llenar todos los campos ");
+     }
+    
+    }//GEN-LAST:event_jBAgregarActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBAgregar;
     private javax.swing.JButton jBModifcar;

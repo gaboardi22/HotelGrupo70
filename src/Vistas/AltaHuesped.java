@@ -201,7 +201,7 @@ public class AltaHuesped extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jTTelefonoActionPerformed
 
     private void jBSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalirActionPerformed
-       this.dispose();
+        this.dispose();
         escritorio.removeAll();
         escritorio.repaint();
         VistaHuesped VHuesped = new VistaHuesped();

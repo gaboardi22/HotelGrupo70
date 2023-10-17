@@ -8,12 +8,12 @@ package Vistas;
  *
  * @author NETBOOK G5
  */
-public class Habitacion extends javax.swing.JInternalFrame {
+public class VistaHabitacion extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form Habitacion
      */
-    public Habitacion() {
+    public VistaHabitacion() {
         initComponents();
     }
 
