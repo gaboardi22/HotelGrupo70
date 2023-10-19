@@ -69,6 +69,11 @@ public class VistaTipoHabitacion extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTTipoHabitacion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTTipoHabitacionKeyReleased(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTTipoHabitacion);
 
         jLabel2.setText("CANTIDAD DE PERSONAS");
@@ -205,6 +210,25 @@ public class VistaTipoHabitacion extends javax.swing.JInternalFrame {
      }
     
     }//GEN-LAST:event_jBAgregarActionPerformed
+
+    private void jTTipoHabitacionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTTipoHabitacionKeyReleased
+        if (jTTipoHabitacion.getSelectedRow() != -1) {
+            int selectedRow = jTTipoHabitacion.getSelectedRow();
+
+            // Obtener los valores de las celdas en las columnas 1, 2, 3 y 4
+            Object cantPersObject = modelo.getValueAt(selectedRow, 1);
+            Object cantCamasObject = modelo.getValueAt(selectedRow, 2);
+            Object tipoCamaObject = modelo.getValueAt(selectedRow, 3);
+            Object precioNocheObject = modelo.getValueAt(selectedRow, 4);
+            
+            //Asignar a los campos de texto los valores casteados con .toString
+            jTCantPers.setText((cantPersObject).toString());
+            jTCantCamas.setText((cantCamasObject).toString());
+            jTtipoCama.setText((tipoCamaObject).toString());
+            jTPrecioNoche.setText((precioNocheObject).toString());
+        }
+    }//GEN-LAST:event_jTTipoHabitacionKeyReleased
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBAgregar;
     private javax.swing.JButton jBModifcar;
