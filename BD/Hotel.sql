@@ -42,6 +42,8 @@ CREATE TABLE Reserva (
     montoEstadia DOUBLE,
     estado ENUM('Activa', 'Inactiva') DEFAULT 'Activa',
     idHuesped INT,
+    checkIn DATE,
+    checkOut DATE,
     FOREIGN KEY (idHuesped) REFERENCES Huesped(idHuesped)
 );
 
