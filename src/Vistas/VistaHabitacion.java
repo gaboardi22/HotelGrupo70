@@ -5,7 +5,9 @@
 package Vistas;
 
 import AccesoDatos.HabitacionData;
+import AccesoDatos.TipoHabitacionData;
 import Entidades.Habitacion;
+import Entidades.TipoHabitacion;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -25,8 +27,7 @@ public class VistaHabitacion extends javax.swing.JInternalFrame {
         initComponents();
         armarCabecera();
         cargarHabitacion();
-        //cargarComboBoxEstado();
-        //cargarComboBoxTipoHabitacion();
+        cargarComboBoxTipoHabitacion();
     }
     
     /**
@@ -43,12 +44,10 @@ public class VistaHabitacion extends javax.swing.JInternalFrame {
         jLNumeroHabitacion = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jTPiso = new javax.swing.JTextField();
-        jLTipoHabitacion = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jCTipoHabitacion = new javax.swing.JComboBox<>();
         jBAgregarHabitacion = new javax.swing.JButton();
         jBModiificarHabitacion = new javax.swing.JButton();
-        jCEstado = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTHabitaciones = new javax.swing.JTable();
         jBSalirH = new javax.swing.JButton();
@@ -64,8 +63,6 @@ public class VistaHabitacion extends javax.swing.JInternalFrame {
                 jTPisoActionPerformed(evt);
             }
         });
-
-        jLTipoHabitacion.setText("ESTADO");
 
         jLabel3.setText("TIPO HABITACION");
 
@@ -119,11 +116,32 @@ public class VistaHabitacion extends javax.swing.JInternalFrame {
                             .addComponent(jLTipoHabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(118, 118, 118)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+<<<<<<< Updated upstream
                             .addComponent(jCEstado, 0, 224, Short.MAX_VALUE)
                             .addComponent(jCTipoHabitacion, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jTNumeroHabitacion)
                             .addComponent(jTPiso))
                         .addGap(147, 147, 147))
+=======
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLNumeroHabitacion)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel3))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jTPiso)
+                                    .addComponent(jTNumeroHabitacion)
+                                    .addComponent(jCTipoHabitacion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jBAgregarHabitacion)
+                                .addGap(78, 78, 78)
+                                .addComponent(jBModiificarHabitacion)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jBSalirH)
+                                .addGap(9, 9, 9))))
+>>>>>>> Stashed changes
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 706, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(29, Short.MAX_VALUE))
@@ -146,6 +164,7 @@ public class VistaHabitacion extends javax.swing.JInternalFrame {
                     .addComponent(jLNumeroHabitacion))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+<<<<<<< Updated upstream
                     .addComponent(jTPiso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
@@ -164,6 +183,23 @@ public class VistaHabitacion extends javax.swing.JInternalFrame {
                     .addComponent(jBModiificarHabitacion)
                     .addComponent(jBSalirH))
                 .addGap(19, 19, 19))
+=======
+                    .addComponent(jLabel3)
+                    .addComponent(jCTipoHabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(34, 34, 34)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 22, Short.MAX_VALUE)
+                        .addComponent(jBAgregarHabitacion)
+                        .addGap(21, 21, 21))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jBModiificarHabitacion)
+                            .addComponent(jBSalirH))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+>>>>>>> Stashed changes
         );
 
         pack();
@@ -178,7 +214,18 @@ public class VistaHabitacion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBSalirHActionPerformed
 
     private void jBAgregarHabitacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAgregarHabitacionActionPerformed
-        // TODO add your handling code here:
+        Habitacion habitacion = new Habitacion();
+        TipoHabitacion tipoHabitacion = new TipoHabitacion();
+        TipoHabitacionData tipoHabitacionD = new TipoHabitacionData();
+        List<String> listaAtributos = new ArrayList<>();
+        listaAtributos = jCTipoHabitacion.getSelectedItem().toString().trim().split(",",0)();
+        int id = jCTipoHabitacion.getS
+        tipoHabitacionD.buscarTipoHabitacionXid();
+        HabitacionData habitacionD = new HabitacionData();
+        habitacion.setPiso(Integer.parseInt(jTPiso.getText()));
+        habitacion.setNumeroHabitacion(Integer.parseInt(jTNumeroHabitacion.getText()));
+        habitacion.setTipoHabitacion(jCTipoHabitacion.getSelectedItem());
+        
     }//GEN-LAST:event_jBAgregarHabitacionActionPerformed
 
 
@@ -186,10 +233,8 @@ public class VistaHabitacion extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBAgregarHabitacion;
     private javax.swing.JButton jBModiificarHabitacion;
     private javax.swing.JButton jBSalirH;
-    private javax.swing.JComboBox<String> jCEstado;
     private javax.swing.JComboBox<String> jCTipoHabitacion;
     private javax.swing.JLabel jLNumeroHabitacion;
-    private javax.swing.JLabel jLTipoHabitacion;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -234,11 +279,19 @@ public class VistaHabitacion extends javax.swing.JInternalFrame {
     
     }
 
-    private void cargarComboBoxEstado() {
-        
-    }
+    
 
     private void cargarComboBoxTipoHabitacion() {
-        
+        List<TipoHabitacion>listaTipoHabitacion = new ArrayList<>();
+        TipoHabitacionData tipoHabitacionD = new TipoHabitacionData();
+        listaTipoHabitacion = tipoHabitacionD.consultaTipoHabitacion();
+        List<String> listaTipoHabitacionString = new ArrayList<>();
+        for(TipoHabitacion tipohabitacion:listaTipoHabitacion){
+            listaTipoHabitacionString.add(tipohabitacion.toString());
+            
+        }
+        for(String tipoHabitacionString:listaTipoHabitacionString){
+            jCTipoHabitacion.addItem(tipoHabitacionString);
+        }
     }
 }

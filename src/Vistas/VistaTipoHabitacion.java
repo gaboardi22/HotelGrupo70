@@ -69,6 +69,11 @@ public class VistaTipoHabitacion extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTTipoHabitacion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTTipoHabitacionMouseClicked(evt);
+            }
+        });
         jTTipoHabitacion.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 jTTipoHabitacionKeyReleased(evt);
@@ -104,6 +109,11 @@ public class VistaTipoHabitacion extends javax.swing.JInternalFrame {
         });
 
         jBModifcar.setText("MODIFICAR");
+        jBModifcar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBModifcarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -212,22 +222,38 @@ public class VistaTipoHabitacion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jBAgregarActionPerformed
 
     private void jTTipoHabitacionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTTipoHabitacionKeyReleased
-        if (jTTipoHabitacion.getSelectedRow() != -1) {
-            int selectedRow = jTTipoHabitacion.getSelectedRow();
-
-            // Obtener los valores de las celdas en las columnas 1, 2, 3 y 4
-            Object cantPersObject = modelo.getValueAt(selectedRow, 1);
-            Object cantCamasObject = modelo.getValueAt(selectedRow, 2);
-            Object tipoCamaObject = modelo.getValueAt(selectedRow, 3);
-            Object precioNocheObject = modelo.getValueAt(selectedRow, 4);
-            
-            //Asignar a los campos de texto los valores casteados con .toString
-            jTCantPers.setText((cantPersObject).toString());
-            jTCantCamas.setText((cantCamasObject).toString());
-            jTtipoCama.setText((tipoCamaObject).toString());
-            jTPrecioNoche.setText((precioNocheObject).toString());
-        }
+        cargarFormularioTHabitacion();
     }//GEN-LAST:event_jTTipoHabitacionKeyReleased
+
+    private void jTTipoHabitacionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTTipoHabitacionMouseClicked
+        cargarFormularioTHabitacion();
+    }//GEN-LAST:event_jTTipoHabitacionMouseClicked
+
+    private void jBModifcarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBModifcarActionPerformed
+        TipoHabitacion tipoHabitacion = new TipoHabitacion();
+        TipoHabitacionData tipoHabitacionD = new TipoHabitacionData();
+        
+        int control = JOptionPane.showConfirmDialog(this, "ESTA SEGURO QUE DESEA MODIFICAR EL TIPO DE HABITACION?", " MODIFICAR", JOptionPane.YES_NO_OPTION);
+        if(control == JOptionPane.YES_OPTION){
+            if( jTTipoHabitacion.getSelectedRow()!= -1 && !(jTCantCamas.getText().isEmpty() || jTCantPers.getText().isEmpty() || jTPrecioNoche.getText().isEmpty() || jTtipoCama.getText().isEmpty()))  {
+           try{
+                 tipoHabitacion.setIdTipoHabitacion((int) modelo.getValueAt(jTTipoHabitacion.getSelectedRow(), 0));
+            tipoHabitacion.setCantidadPersonas((Integer.parseInt(jTCantPers.getText())));
+            tipoHabitacion.setCantidadCamas((Integer.parseInt(jTCantCamas.getText())));
+            tipoHabitacion.setTipoCamas(jTtipoCama.getText()) ;
+            tipoHabitacion.setPrecioNoche((Double.parseDouble(jTPrecioNoche.getText())));
+            System.out.println(tipoHabitacion.toString());
+            tipoHabitacionD.actualizarTipoHabitacion(tipoHabitacion);
+            cargarTipoHabitacion();
+           }catch(NumberFormatException ex){
+               JOptionPane.showMessageDialog(this, "debe completar numeros en cantper, cantcamas y en precio");
+           }
+              
+        }else {
+            JOptionPane.showMessageDialog(null, " debe completar todos los datos");
+        }
+        }
+    }//GEN-LAST:event_jBModifcarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBAgregar;
@@ -281,5 +307,22 @@ private void borrarFormulario(){
     jTPrecioNoche.setText("");
     jTtipoCama.setText("");
     
+}
+private void cargarFormularioTHabitacion(){
+    if (jTTipoHabitacion.getSelectedRow() != -1) {
+            int selectedRow = jTTipoHabitacion.getSelectedRow();
+
+            // Obtener los valores de las celdas en las columnas 1, 2, 3 y 4
+            Object cantPersObject = modelo.getValueAt(selectedRow, 1);
+            Object cantCamasObject = modelo.getValueAt(selectedRow, 2);
+            Object tipoCamaObject = modelo.getValueAt(selectedRow, 3);
+            Object precioNocheObject = modelo.getValueAt(selectedRow, 4);
+            
+            //Asignar a los campos de texto los valores casteados con .toString
+            jTCantPers.setText((cantPersObject).toString());
+            jTCantCamas.setText((cantCamasObject).toString());
+            jTtipoCama.setText((tipoCamaObject).toString());
+            jTPrecioNoche.setText((precioNocheObject).toString());
+        }
 }
 }
