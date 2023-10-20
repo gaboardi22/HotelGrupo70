@@ -633,8 +633,12 @@ public class ConsultaData {
                 huesped.setEmail(rs.getString("email"));
                 // Continua recuperación de Reserva
                 reserva.setHuesped(huesped);
-                reserva.setCheckIn(rs.getDate("checkIn").toLocalDate());
-                reserva.setCheckOut(rs.getDate("checkOut").toLocalDate());
+                if(rs.getDate("checkIn") != null){
+                    reserva.setCheckIn(rs.getDate("checkIn").toLocalDate());
+                }
+                if(rs.getDate("checkOut") != null){
+                    reserva.setCheckOut(rs.getDate("checkOut").toLocalDate());
+                }
                 // Agregar Reserva a la lista
                 reservas.add(reserva);
             }
@@ -785,7 +789,7 @@ public class ConsultaData {
                     + "r.idReserva, r.fechaEntrada, r.fechaSalida, r.cantidadDias, r.cantidadPersonas, r.montoEstadia, r.estado AS estadoReserva, r.idHuesped, "
                     + "h.idHuesped, h.nombre, h.apellido, h.dni, h.telefono, h.email, "
                     + "a.idHabitacion, a.numero, a.piso, a.estado AS estadoHabitacion, a.tipoHabitacion, "
-                    + "t.idTipoHabitacion, t.codigo, t.capacidad, t.cantidadCamas, t.tipoCamas, t.precioNoche "
+                    + "t.idTipoHabitacion, t.codigo, t.capacidad, t.cantidadCamas, t.tipoCamas, t.precioNoche, r.checkIn, r.checkOut "
                     + "FROM detallereserva d, reserva r, huesped h, habitacion a, tipohabitacion t "
                     + "WHERE d.idHabitacion = a.idHabitacion "
                     + "AND d.idReserva = r.idReserva "
@@ -837,6 +841,12 @@ public class ConsultaData {
                 huesped.setEmail(rs.getString("email"));
                 // Continuar recuperación de Reserva
                 reserva.setHuesped(huesped);
+                if(rs.getDate("checkIn") != null){
+                    reserva.setCheckIn(rs.getDate("checkIn").toLocalDate());
+                }
+                if(rs.getDate("checkOut") != null){
+                    reserva.setCheckOut(rs.getDate("checkOut").toLocalDate());
+                }
                 // Continuar recuperacion de Detalle Reserva
                 detalleReserva.setReserva(reserva);
                 //Recuperar Habitacion de la BD

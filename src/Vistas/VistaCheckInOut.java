@@ -1,13 +1,61 @@
 package Vistas;
 
+import AccesoDatos.ConsultaData;
+import Entidades.DetalleReserva;
+import Entidades.Estado;
+import Entidades.Huesped;
+import Entidades.Reserva;
 import java.awt.Image;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 
 public class VistaCheckInOut extends javax.swing.JInternalFrame {
+
+    private DefaultTableModel modeloReserva = new DefaultTableModel() {
+        //No permitir edicion de columnas
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
+    };
+
+    private DefaultTableModel modeloDetalleReserva = new DefaultTableModel() {
+        //No permitir edicion de columnas
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
+    };
+
+    private DefaultTableModel modeloCliente = new DefaultTableModel() {
+        //No permitir edicion de columnas
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
+    };
 
     public VistaCheckInOut() {
         initComponents();
         cargarIcono();
+        armarCabeceras();
+        jbCheckIn.setEnabled(false);
+        jbCheckOut.setEnabled(false);
+        cargarFecha();
+        jdcFecha.setEnabled(false);
+        //cargarCliente();
+        cargarReservas();
+        capturarClikEnTablaCliente();
+        capturarClikEnTablaReserva();
     }
 
     @SuppressWarnings("unchecked")
@@ -16,17 +64,219 @@ public class VistaCheckInOut extends javax.swing.JInternalFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jtfApellido = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jtfDni = new javax.swing.JTextField();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jtCliente = new javax.swing.JTable();
+        jcbIn = new javax.swing.JCheckBox();
+        jcbOut = new javax.swing.JCheckBox();
+        jdcFecha = new com.toedter.calendar.JDateChooser();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jtReservasActivas = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jtDetalleReservas = new javax.swing.JTable();
+        jbCheckIn = new javax.swing.JButton();
+        jbCheckOut = new javax.swing.JButton();
+        jbSalir = new javax.swing.JButton();
+        jlIn = new javax.swing.JLabel();
+        jlOut = new javax.swing.JLabel();
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Huéspedes");
 
+        jPanel1.setBackground(new java.awt.Color(51, 51, 51));
+
+        jLabel2.setText("Apellido:");
+
+        jtfApellido.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtfApellidoKeyReleased(evt);
+            }
+        });
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("Cliente");
+
+        jLabel4.setText("DNI:");
+
+        jtfDni.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtfDniKeyReleased(evt);
+            }
+        });
+
+        jtCliente.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Nombre", "Apellido", "DNI", "Télefono"
+            }
+        ));
+        jtCliente.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtClienteKeyReleased(evt);
+            }
+        });
+        jScrollPane3.setViewportView(jtCliente);
+
+        jcbIn.setText("CheckIn");
+        jcbIn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbInActionPerformed(evt);
+            }
+        });
+
+        jcbOut.setText("CheckOut");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jtfApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jtfDni, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jcbIn)
+                        .addGap(18, 18, 18)
+                        .addComponent(jcbOut)
+                        .addGap(18, 18, 18)
+                        .addComponent(jdcFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 22, Short.MAX_VALUE))
+                    .addComponent(jScrollPane3))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel3)
+                .addGap(9, 9, 9)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2)
+                        .addComponent(jtfApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel4)
+                        .addComponent(jtfDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jcbIn)
+                        .addComponent(jcbOut))
+                    .addComponent(jdcFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel5.setText("Reservas");
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel6.setText("Detalles");
+
+        jtReservasActivas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "ID", "Entrada", "Salida", "Estadía", "Personas", "Costo"
+            }
+        ));
+        jtReservasActivas.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtReservasActivasKeyReleased(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jtReservasActivas);
+
+        jtDetalleReservas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Número", "Piso", "Codigo", "Capacidad", "Cantidad Camas", "Tipo Camas", "Precio Noche"
+            }
+        ));
+        jScrollPane2.setViewportView(jtDetalleReservas);
+
+        jbCheckIn.setText("CheckIn");
+
+        jbCheckOut.setText("CheckOut");
+
+        jbSalir.setText("Salir");
+        jbSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbSalirActionPerformed(evt);
+            }
+        });
+
+        jlIn.setText(">>   <<");
+
+        jlOut.setText(">>   <<");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 887, Short.MAX_VALUE)
-            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jSeparator1)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jbCheckOut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(jbCheckIn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jlIn)
+                                            .addComponent(jlOut))
+                                        .addGap(0, 0, Short.MAX_VALUE))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGap(166, 166, 166)
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel6)
+                                .addGap(212, 212, 212))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jbSalir)))
+                        .addGap(33, 33, 33))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 501, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 428, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -34,17 +284,87 @@ public class VistaCheckInOut extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(525, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jbCheckIn)
+                            .addComponent(jlIn))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jbCheckOut)
+                            .addComponent(jlOut))
+                        .addGap(16, 16, 16)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel6))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(34, 34, 34)
+                .addComponent(jbSalir)
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jtReservasActivasKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtReservasActivasKeyReleased
+        cargarDetallesReserva();
+    }//GEN-LAST:event_jtReservasActivasKeyReleased
+
+    private void jtClienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtClienteKeyReleased
+        cargarReservas();
+    }//GEN-LAST:event_jtClienteKeyReleased
+
+    private void jtfApellidoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfApellidoKeyReleased
+        cargarReservas();
+        jtfDni.setText("");
+    }//GEN-LAST:event_jtfApellidoKeyReleased
+
+    private void jtfDniKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtfDniKeyReleased
+        cargarReservas();
+    }//GEN-LAST:event_jtfDniKeyReleased
+
+    private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jbSalirActionPerformed
+
+    private void jcbInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbInActionPerformed
+        cargarReservas();
+    }//GEN-LAST:event_jcbInActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JButton jbCheckIn;
+    private javax.swing.JButton jbCheckOut;
+    private javax.swing.JButton jbSalir;
+    private javax.swing.JCheckBox jcbIn;
+    private javax.swing.JCheckBox jcbOut;
+    private com.toedter.calendar.JDateChooser jdcFecha;
+    private javax.swing.JLabel jlIn;
+    private javax.swing.JLabel jlOut;
+    private javax.swing.JTable jtCliente;
+    private javax.swing.JTable jtDetalleReservas;
+    private javax.swing.JTable jtReservasActivas;
+    private javax.swing.JTextField jtfApellido;
+    private javax.swing.JTextField jtfDni;
     // End of variables declaration//GEN-END:variables
 private void cargarIcono() {
         ImageIcon icono = new ImageIcon("image/checkInOut.png");
@@ -53,4 +373,244 @@ private void cargarIcono() {
         setFrameIcon(scaledIcon);
     }
 
+    private void armarCabeceras() {
+        // Establecer columnas de tablas
+        modeloReserva.addColumn("ID");
+        modeloReserva.addColumn("Entrada");
+        modeloReserva.addColumn("Salida");
+        modeloReserva.addColumn("Estadia");
+        modeloReserva.addColumn("Personas");
+        modeloReserva.addColumn("Costo");
+        modeloReserva.addColumn("C.In");
+        modeloReserva.addColumn("C.Out");
+        jtReservasActivas.setModel(modeloReserva);
+
+        modeloDetalleReserva.addColumn("Número");
+        modeloDetalleReserva.addColumn("Piso");
+        modeloDetalleReserva.addColumn("Código");
+        modeloDetalleReserva.addColumn("Capacidad");
+        modeloDetalleReserva.addColumn("Camas");
+        modeloDetalleReserva.addColumn("Tipo Camas");
+        modeloDetalleReserva.addColumn("Precio Noche");
+        jtDetalleReservas.setModel(modeloDetalleReserva);
+
+        modeloCliente.addColumn("Nombre");
+        modeloCliente.addColumn("Apellido");
+        modeloCliente.addColumn("DNI");
+        modeloCliente.addColumn("Teléfono");
+        jtCliente.setModel(modeloCliente);
+
+        //Establecer ancho de columnas
+        jtReservasActivas.getColumnModel().getColumn(0).setPreferredWidth(75);
+        jtReservasActivas.getColumnModel().getColumn(1).setPreferredWidth(100);
+        jtReservasActivas.getColumnModel().getColumn(2).setPreferredWidth(100);
+        jtReservasActivas.getColumnModel().getColumn(3).setPreferredWidth(75);
+        jtReservasActivas.getColumnModel().getColumn(4).setPreferredWidth(75);
+        jtReservasActivas.getColumnModel().getColumn(5).setPreferredWidth(100);
+        jtReservasActivas.getColumnModel().getColumn(6).setPreferredWidth(100);
+        jtReservasActivas.getColumnModel().getColumn(7).setPreferredWidth(100);
+
+        jtDetalleReservas.getColumnModel().getColumn(0).setPreferredWidth(75);
+        jtDetalleReservas.getColumnModel().getColumn(1).setPreferredWidth(75);
+        jtDetalleReservas.getColumnModel().getColumn(2).setPreferredWidth(100);
+        jtDetalleReservas.getColumnModel().getColumn(3).setPreferredWidth(100);
+        jtDetalleReservas.getColumnModel().getColumn(4).setPreferredWidth(75);
+        jtDetalleReservas.getColumnModel().getColumn(5).setPreferredWidth(150);
+        jtDetalleReservas.getColumnModel().getColumn(6).setPreferredWidth(125);
+
+        jtCliente.getColumnModel().getColumn(0).setPreferredWidth(100);
+        jtCliente.getColumnModel().getColumn(1).setPreferredWidth(100);
+        jtCliente.getColumnModel().getColumn(2).setPreferredWidth(100);
+        jtCliente.getColumnModel().getColumn(3).setPreferredWidth(100);
+
+        // Crear un renderizador de celdas para centrar el contenido
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        for (int i = 0; i <= 7; i++) {
+            jtReservasActivas.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
+        for (int i = 0; i <= 6; i++) {
+            jtDetalleReservas.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
+        for (int i = 0; i <= 3; i++) {
+            jtCliente.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+        }
+
+    }
+
+    private void capturarClikEnTablaReserva() {
+        //Capturar clik en tabla Huesped
+        jtReservasActivas.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                cargarDetallesReserva();
+            }
+        });
+    }
+
+    private void capturarClikEnTablaCliente() {
+        //Capturar clik en tabla Huesped
+        jtCliente.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                cargarClientePorDni();
+                cargarReservas();
+                jbCheckIn.setEnabled(false);
+                jbCheckOut.setEnabled(false);
+            }
+        });
+    }
+
+    private void borrarFilasReserva() {
+        int f = jtReservasActivas.getRowCount() - 1;
+        for (; f >= 0; f--) {
+            modeloReserva.removeRow(f);
+        }
+    }
+
+    private void borrarFilasDetalleReservas() {
+        int f = jtDetalleReservas.getRowCount() - 1;
+        for (; f >= 0; f--) {
+            modeloDetalleReserva.removeRow(f);
+        }
+    }
+
+    private void borrarFilasCliente() {
+        int f = jtCliente.getRowCount() - 1;
+        for (; f >= 0; f--) {
+            modeloCliente.removeRow(f);
+        }
+    }
+
+    public void cargarReservas() {
+        List<Reserva> reservas = new ArrayList<>();
+        ConsultaData listarReservas = new ConsultaData();
+        reservas = listarReservas.listarReservas();
+        borrarFilasDetalleReservas();
+        borrarFilasReserva();
+        borrarFilasCliente();
+        for (Reserva reserva : reservas) {
+            if (jcbIn.isSelected()) {
+
+                if (reserva.getEstado() == Estado.Activa && reserva.getHuesped().getApellido().toLowerCase().startsWith(jtfApellido.getText().toLowerCase()) && reserva.getHuesped().getDni().startsWith(jtfDni.getText().toLowerCase()) && reserva.getCheckIn() != null) {
+                    modeloReserva.addRow(new Object[]{
+                        reserva.getIdReserva(),
+                        reserva.getFechaEntrada(),
+                        reserva.getFechaSalida(),
+                        reserva.getCantidadDias(),
+                        reserva.getCantidadPersonas(),
+                        reserva.getMontoEstadia(),
+                        reserva.getCheckIn(),
+                        reserva.getCheckOut()
+                    });
+                }
+                if (reserva.getHuesped().getApellido().toLowerCase().startsWith(jtfApellido.getText().toLowerCase()) && reserva.getHuesped().getDni().toLowerCase().startsWith(jtfDni.getText().toLowerCase()) && reserva.getCheckIn() != null) {
+                    modeloCliente.addRow(new Object[]{
+                        reserva.getHuesped().getApellido(),
+                        reserva.getHuesped().getNombre(),
+                        reserva.getHuesped().getDni(),
+                        reserva.getHuesped().getTelefono(),});
+                }
+
+            } else {
+                if (reserva.getEstado() == Estado.Activa && reserva.getHuesped().getApellido().toLowerCase().startsWith(jtfApellido.getText().toLowerCase()) && reserva.getHuesped().getDni().startsWith(jtfDni.getText().toLowerCase())) {
+                    modeloReserva.addRow(new Object[]{
+                        reserva.getIdReserva(),
+                        reserva.getFechaEntrada(),
+                        reserva.getFechaSalida(),
+                        reserva.getCantidadDias(),
+                        reserva.getCantidadPersonas(),
+                        reserva.getMontoEstadia(),
+                        reserva.getCheckIn(),
+                        reserva.getCheckOut()
+                    });
+                }
+                if (reserva.getHuesped().getApellido().toLowerCase().startsWith(jtfApellido.getText().toLowerCase()) && reserva.getHuesped().getDni().toLowerCase().startsWith(jtfDni.getText().toLowerCase())) {
+                    modeloCliente.addRow(new Object[]{
+                        reserva.getHuesped().getApellido(),
+                        reserva.getHuesped().getNombre(),
+                        reserva.getHuesped().getDni(),
+                        reserva.getHuesped().getTelefono(),});
+                }
+            }
+        }
+    }
+
+    public void cargarDetallesReserva() {
+        List<DetalleReserva> detallesReserva = new ArrayList<>();
+        Reserva reserva = new Reserva();
+        ConsultaData listarDetallesReserva = new ConsultaData();
+        detallesReserva = listarDetallesReserva.listarDetalleReserva();
+        reserva = listarDetallesReserva.reservaPorIdReserva((int) modeloReserva.getValueAt(jtReservasActivas.getSelectedRow(), 0));
+        borrarFilasDetalleReservas();
+        for (DetalleReserva detalleReserva : detallesReserva) {
+            if (detalleReserva.getReserva().getIdReserva() == (int) modeloReserva.getValueAt(jtReservasActivas.getSelectedRow(), 0)) {
+                modeloDetalleReserva.addRow(new Object[]{
+                    detalleReserva.getHabitacion().getNumero(),
+                    detalleReserva.getHabitacion().getPiso(),
+                    detalleReserva.getHabitacion().getTipoHabitacion().getCodigo(),
+                    detalleReserva.getHabitacion().getTipoHabitacion().getCapacidad(),
+                    detalleReserva.getHabitacion().getTipoHabitacion().getCantidadCamas(),
+                    detalleReserva.getHabitacion().getTipoHabitacion().getTipoCamas(),
+                    detalleReserva.getHabitacion().getTipoHabitacion().getPrecioNoche()
+                });
+            }
+        }
+
+        if (reserva.getCheckIn() != null) {
+            jlIn.setText(reserva.getCheckIn().toString());
+        } else {
+            if (Date.valueOf(reserva.getFechaEntrada()).after(jdcFecha.getDate()) || Date.valueOf(reserva.getFechaEntrada()).equals(jdcFecha.getDate())) {
+                jbCheckIn.setEnabled(true);
+            } else {
+                JOptionPane.showMessageDialog(this, "La fecha de Check In es posterior a la reserva.");
+            }
+        }
+        if (reserva.getCheckOut() != null) {
+            jlOut.setText(reserva.getCheckOut().toString());
+        } else {
+            if ((Date.valueOf(reserva.getFechaSalida()).after(jdcFecha.getDate()) || Date.valueOf(reserva.getFechaSalida()).equals(jdcFecha.getDate())) && reserva.getCheckIn() != null) {
+                jbCheckOut.setEnabled(true);
+            } 
+        }
+
+    }
+
+    private void cargarCliente() {
+        List<Huesped> huespedes = new ArrayList<>();
+        ConsultaData listarHuesped = new ConsultaData();
+        huespedes = listarHuesped.listarHuespedes();
+        borrarFilasCliente();
+        for (Huesped huesped : huespedes) {
+            if (huesped.getApellido().toLowerCase().startsWith(jtfApellido.getText().toLowerCase()) && huesped.getDni().toLowerCase().startsWith(jtfDni.getText().toLowerCase())) {
+                modeloCliente.addRow(new Object[]{
+                    huesped.getApellido(),
+                    huesped.getNombre(),
+                    huesped.getDni(),
+                    huesped.getTelefono(), //huesped.getEmail()
+                });
+            }
+
+        }
+    }
+
+    private void cargarHuespedPorIdReserva() {
+        Reserva reserva = new Reserva();
+        ConsultaData consultaHuesped = new ConsultaData();
+        reserva = consultaHuesped.reservaPorIdReserva((int) modeloReserva.getValueAt(jtReservasActivas.getSelectedRow(), 0));
+        jtfApellido.setText(reserva.getHuesped().getApellido());
+        jtfDni.setText(reserva.getHuesped().getDni());
+    }
+
+    private void cargarClientePorDni() {
+        Huesped huesped = new Huesped();
+        ConsultaData consultaHuesped = new ConsultaData();
+        huesped = consultaHuesped.huespedPorDni(String.valueOf(modeloCliente.getValueAt(jtCliente.getSelectedRow(), 2)));
+        jtfApellido.setText(huesped.getApellido());
+        jtfDni.setText(huesped.getDni());
+    }
+
+    private void cargarFecha() {
+        jdcFecha.setDate(Date.valueOf(LocalDate.now()));
+    }
 }
