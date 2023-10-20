@@ -19,13 +19,14 @@ public class Menu extends javax.swing.JFrame {
         escritorio = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenu4 = new javax.swing.JMenu();
-        jmReservas = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jmHabitación = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
         jmHuesped = new javax.swing.JMenuItem();
+        jMenu5 = new javax.swing.JMenu();
+        jmReservas = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jmiCheckInOut = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jmCerrar = new javax.swing.JMenuItem();
 
@@ -44,27 +45,7 @@ public class Menu extends javax.swing.JFrame {
             .addGap(0, 829, Short.MAX_VALUE)
         );
 
-        jMenu1.setText("Hotel");
-
-        jMenu4.setText("Reservas");
-
-        jmReservas.setText("Alta Reserva");
-        jmReservas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmReservasActionPerformed(evt);
-            }
-        });
-        jMenu4.add(jmReservas);
-
-        jMenuItem2.setText("Administración Reservas");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
-            }
-        });
-        jMenu4.add(jMenuItem2);
-
-        jMenu1.add(jMenu4);
+        jMenu1.setText("Administración");
 
         jMenu3.setText("Habitaciones");
 
@@ -95,6 +76,34 @@ public class Menu extends javax.swing.JFrame {
         jMenu1.add(jmHuesped);
 
         jMenuBar1.add(jMenu1);
+
+        jMenu5.setText("Reservas");
+
+        jmReservas.setText("Alta Reserva");
+        jmReservas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmReservasActionPerformed(evt);
+            }
+        });
+        jMenu5.add(jmReservas);
+
+        jMenuItem2.setText("Administración Reservas");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu5.add(jMenuItem2);
+
+        jmiCheckInOut.setText("CheckIn / Out");
+        jmiCheckInOut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiCheckInOutActionPerformed(evt);
+            }
+        });
+        jMenu5.add(jmiCheckInOut);
+
+        jMenuBar1.add(jMenu5);
 
         jMenu2.setText("Salir");
 
@@ -188,6 +197,18 @@ public class Menu extends javax.swing.JFrame {
         var.setClosable(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
+    private void jmiCheckInOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiCheckInOutActionPerformed
+        escritorio.removeAll();
+        escritorio.repaint();
+        VistaCheckInOut vcio = new VistaCheckInOut();
+        vcio.setLocation((escritorio.getWidth() - vcio.getWidth()) / 2, (escritorio.getHeight() - vcio.getHeight()) / 2);
+        vcio.setVisible(true);
+        escritorio.add(vcio);
+        escritorio.moveToFront(vcio);
+        vcio.setMaximizable(false);
+        vcio.setClosable(true);
+    }//GEN-LAST:event_jmiCheckInOutActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -208,7 +229,7 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
@@ -216,5 +237,6 @@ public class Menu extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmHabitación;
     private javax.swing.JMenuItem jmHuesped;
     private javax.swing.JMenuItem jmReservas;
+    private javax.swing.JMenuItem jmiCheckInOut;
     // End of variables declaration//GEN-END:variables
 }
