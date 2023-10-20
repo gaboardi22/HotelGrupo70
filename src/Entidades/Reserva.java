@@ -12,6 +12,8 @@ public class Reserva {
     private Double montoEstadia;
     private Estado estado;
     private Huesped huesped;
+    private LocalDate checkIn;
+    private LocalDate checkOut;
 
     public Reserva() {
     }
@@ -91,9 +93,27 @@ public class Reserva {
         this.huesped = huesped;
     }
 
+    public LocalDate getCheckIn() {
+        return checkIn;
+    }
+
+    public void setCheckIn(LocalDate checkIn) {
+        this.checkIn = checkIn;
+    }
+
+    public LocalDate getCheckOut() {
+        return checkOut;
+    }
+
+    public void setCheckOut(LocalDate checkOut) {
+        this.checkOut = checkOut;
+    }
+
     @Override
     public String toString() {
-        return "Reserva{" + "idReserva=" + idReserva + ", fechaEntrada=" + fechaEntrada + ", fechaSalida=" + fechaSalida + ", cantidadDias=" + cantidadDias + ", cantidadPersonas=" + cantidadPersonas + ", montoEstadia=" + montoEstadia + ", estado=" + estado + ", huesped=" + huesped + '}';
+        return "Reserva{" + "idReserva=" + idReserva + ", fechaEntrada=" + fechaEntrada + ", fechaSalida=" + fechaSalida + ", cantidadDias=" + cantidadDias + ", cantidadPersonas=" + cantidadPersonas + ", montoEstadia=" + montoEstadia + ", estado=" + estado + ", huesped=" + huesped + ", checkIn=" + checkIn + ", checkOut=" + checkOut + '}';
     }
+
+    
     
 }

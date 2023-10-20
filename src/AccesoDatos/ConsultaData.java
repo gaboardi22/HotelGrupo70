@@ -633,6 +633,8 @@ public class ConsultaData {
                 huesped.setEmail(rs.getString("email"));
                 // Continua recuperación de Reserva
                 reserva.setHuesped(huesped);
+                reserva.setCheckIn(rs.getDate("checkIn").toLocalDate());
+                reserva.setCheckOut(rs.getDate("checkOut").toLocalDate());
                 // Agregar Reserva a la lista
                 reservas.add(reserva);
             }
