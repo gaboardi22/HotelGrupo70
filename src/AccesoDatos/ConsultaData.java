@@ -633,10 +633,10 @@ public class ConsultaData {
                 huesped.setEmail(rs.getString("email"));
                 // Continua recuperación de Reserva
                 reserva.setHuesped(huesped);
-                if(rs.getDate("checkIn") != null){
+                if (rs.getDate("checkIn") != null) {
                     reserva.setCheckIn(rs.getDate("checkIn").toLocalDate());
                 }
-                if(rs.getDate("checkOut") != null){
+                if (rs.getDate("checkOut") != null) {
                     reserva.setCheckOut(rs.getDate("checkOut").toLocalDate());
                 }
                 // Agregar Reserva a la lista
@@ -725,6 +725,47 @@ public class ConsultaData {
                 JOptionPane.showMessageDialog(null, "Reserva anulada exitosamente.");
             } else {
                 JOptionPane.showMessageDialog(null, "No fue posible eliminar la Reserva.");
+            }
+            //Cerrar el statment
+            ps.close();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla Reserva: " + e.getMessage());
+        }
+    }
+
+    public void modificarReserva(Reserva reserva) {
+
+        try {
+            String sql = "UPDATE reserva "
+                    + "SET fechaEntrada = ?, fechaSalida = ?, cantidadDias = ?, cantidadPersonas = ?, montoEstadia = ?, estado = ?, idHuesped = ?, checkIn =?, checkOut = ? "
+                    + "WHERE idReserva = ?;";
+            //Preparar la conexión con la query
+            PreparedStatement ps = con.prepareStatement(sql);
+            //Modificar la query con los parametros recibidos
+            ps.setDate(1, Date.valueOf(reserva.getFechaEntrada()));
+            ps.setDate(2, Date.valueOf(reserva.getFechaSalida()));
+            ps.setInt(3, reserva.getCantidadDias());
+            ps.setInt(4, reserva.getCantidadPersonas());
+            ps.setDouble(5, reserva.getMontoEstadia());
+            ps.setString(6, reserva.getEstado().toString());
+            ps.setInt(7, reserva.getHuesped().getIdHuesped());
+            if(reserva.getCheckIn() != null){
+                ps.setDate(8, Date.valueOf(reserva.getCheckIn()));
+            } else {
+                ps.setNull(8, 0);
+            }
+            if(reserva.getCheckOut() != null){
+                ps.setDate(9, Date.valueOf(reserva.getCheckOut()));
+            } else {
+                ps.setNull(9, 0);
+            }
+            ps.setInt(10, reserva.getIdReserva());
+            //Crear variable de control de exito
+            int exito = ps.executeUpdate();
+            if (exito == 1) {
+                JOptionPane.showMessageDialog(null, "Reserva modificada exitosamente.");
+            } else {
+                JOptionPane.showMessageDialog(null, "No fue posible modificar la Reserva.");
             }
             //Cerrar el statment
             ps.close();
@@ -841,10 +882,10 @@ public class ConsultaData {
                 huesped.setEmail(rs.getString("email"));
                 // Continuar recuperación de Reserva
                 reserva.setHuesped(huesped);
-                if(rs.getDate("checkIn") != null){
+                if (rs.getDate("checkIn") != null) {
                     reserva.setCheckIn(rs.getDate("checkIn").toLocalDate());
                 }
-                if(rs.getDate("checkOut") != null){
+                if (rs.getDate("checkOut") != null) {
                     reserva.setCheckOut(rs.getDate("checkOut").toLocalDate());
                 }
                 // Continuar recuperacion de Detalle Reserva

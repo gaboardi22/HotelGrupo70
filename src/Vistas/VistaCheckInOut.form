@@ -332,11 +332,17 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="CheckIn"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbCheckInActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jbCheckOut">
       <Properties>
         <Property name="text" type="java.lang.String" value="CheckOut"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbCheckOutActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jbSalir">
       <Properties>
@@ -348,12 +354,16 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jlIn">
       <Properties>
-        <Property name="text" type="java.lang.String" value="&gt;&gt;   &lt;&lt;"/>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Tahoma" size="12" style="1"/>
+        </Property>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jlOut">
       <Properties>
-        <Property name="text" type="java.lang.String" value="&gt;&gt;   &lt;&lt;"/>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Tahoma" size="12" style="1"/>
+        </Property>
       </Properties>
     </Component>
   </SubComponents>

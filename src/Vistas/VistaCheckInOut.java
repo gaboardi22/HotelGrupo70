@@ -10,6 +10,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ImageIcon;
@@ -224,8 +225,18 @@ public class VistaCheckInOut extends javax.swing.JInternalFrame {
         jScrollPane2.setViewportView(jtDetalleReservas);
 
         jbCheckIn.setText("CheckIn");
+        jbCheckIn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbCheckInActionPerformed(evt);
+            }
+        });
 
         jbCheckOut.setText("CheckOut");
+        jbCheckOut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbCheckOutActionPerformed(evt);
+            }
+        });
 
         jbSalir.setText("Salir");
         jbSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -234,9 +245,9 @@ public class VistaCheckInOut extends javax.swing.JInternalFrame {
             }
         });
 
-        jlIn.setText(">>   <<");
+        jlIn.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
 
-        jlOut.setText(">>   <<");
+        jlOut.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -338,6 +349,26 @@ public class VistaCheckInOut extends javax.swing.JInternalFrame {
     private void jcbInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbInActionPerformed
         cargarReservas();
     }//GEN-LAST:event_jcbInActionPerformed
+
+    private void jbCheckInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCheckInActionPerformed
+        Reserva reservaIn = new Reserva();
+        ConsultaData checkIn = new ConsultaData();
+        reservaIn = checkIn.reservaPorIdReserva((int) modeloReserva.getValueAt(jtReservasActivas.getSelectedRow(), 0));
+        reservaIn.setCheckIn(jdcFecha.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+        checkIn.modificarReserva(reservaIn);
+        cargarReservas();
+        
+    }//GEN-LAST:event_jbCheckInActionPerformed
+
+    private void jbCheckOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCheckOutActionPerformed
+        Reserva reservaOut = new Reserva();
+        ConsultaData checkOut = new ConsultaData();
+        reservaOut = checkOut.reservaPorIdReserva((int) modeloReserva.getValueAt(jtReservasActivas.getSelectedRow(), 0));
+        reservaOut.setCheckOut(jdcFecha.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+        reservaOut.setEstado(Estado.Inactiva);
+        checkOut.modificarReserva(reservaOut);
+        cargarReservas();
+    }//GEN-LAST:event_jbCheckOutActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -443,7 +474,12 @@ private void cargarIcono() {
         jtReservasActivas.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                
+                jbCheckIn.setEnabled(false);
+                jbCheckOut.setEnabled(false);
                 cargarDetallesReserva();
+                cargarHuespedPorIdReserva();
+                //cargarReservas();
             }
         });
     }
@@ -483,6 +519,8 @@ private void cargarIcono() {
     }
 
     public void cargarReservas() {
+        jlIn.setText("");
+        jbCheckOut.setEnabled(false);
         List<Reserva> reservas = new ArrayList<>();
         ConsultaData listarReservas = new ConsultaData();
         reservas = listarReservas.listarReservas();
@@ -557,8 +595,8 @@ private void cargarIcono() {
             }
         }
 
-        if (reserva.getCheckIn() != null) {
-            jlIn.setText(reserva.getCheckIn().toString());
+        if (modeloReserva.getValueAt(jtReservasActivas.getSelectedRow(),6) != null) {
+            jlIn.setText(modeloReserva.getValueAt(jtReservasActivas.getSelectedRow(), 6).toString());
         } else {
             if (Date.valueOf(reserva.getFechaEntrada()).after(jdcFecha.getDate()) || Date.valueOf(reserva.getFechaEntrada()).equals(jdcFecha.getDate())) {
                 jbCheckIn.setEnabled(true);
@@ -566,10 +604,10 @@ private void cargarIcono() {
                 JOptionPane.showMessageDialog(this, "La fecha de Check In es posterior a la reserva.");
             }
         }
-        if (reserva.getCheckOut() != null) {
-            jlOut.setText(reserva.getCheckOut().toString());
+        if (modeloReserva.getValueAt(jtReservasActivas.getSelectedRow(),7) != null) {
+            jlOut.setText(modeloReserva.getValueAt(jtReservasActivas.getSelectedRow(), 7).toString());
         } else {
-            if ((Date.valueOf(reserva.getFechaSalida()).after(jdcFecha.getDate()) || Date.valueOf(reserva.getFechaSalida()).equals(jdcFecha.getDate())) && reserva.getCheckIn() != null) {
+            if ((Date.valueOf(reserva.getFechaSalida()).after(jdcFecha.getDate()) || Date.valueOf(reserva.getFechaSalida()).equals(jdcFecha.getDate())) && modeloReserva.getValueAt(jtReservasActivas.getSelectedRow(),6) != null) {
                 jbCheckOut.setEnabled(true);
             } 
         }
