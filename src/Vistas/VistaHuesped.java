@@ -82,7 +82,7 @@ public class VistaHuesped extends javax.swing.JInternalFrame {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Administración de huesped");
+        jLabel1.setText("Administración de Huésped");
 
         jPanel1.setBackground(new java.awt.Color(51, 51, 51));
 

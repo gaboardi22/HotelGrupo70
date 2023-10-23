@@ -81,7 +81,7 @@ public class VistaHabitacion extends javax.swing.JInternalFrame {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Administracion de Habitaciones");
+        jLabel1.setText("Administración de Habitaciones");
 
         jLabel2.setText("Número:");
 
