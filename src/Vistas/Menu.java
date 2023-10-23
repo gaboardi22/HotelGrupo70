@@ -1,7 +1,12 @@
 package Vistas;
 
+import com.formdev.flatlaf.FlatIntelliJLaf;
+import com.formdev.flatlaf.FlatLaf;
+import com.formdev.flatlaf.intellijthemes.FlatCarbonIJTheme;
 import com.formdev.flatlaf.intellijthemes.FlatVuesionIJTheme;
+import javafx.scene.shape.Arc;
 import javax.swing.ImageIcon;
+import javax.swing.UIManager;
 
 public class Menu extends javax.swing.JFrame {
 
@@ -214,8 +219,12 @@ public class Menu extends javax.swing.JFrame {
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
-        FlatVuesionIJTheme.setup();
-
+        //FlatVuesionIJTheme.setup();
+        try {
+            UIManager.setLookAndFeel(new FlatCarbonIJTheme());
+        } catch (Exception e) {
+        }
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
