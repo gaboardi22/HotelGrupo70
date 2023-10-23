@@ -357,7 +357,7 @@ public class VistaCheckInOut extends javax.swing.JInternalFrame {
         reservaIn.setCheckIn(jdcFecha.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
         checkIn.modificarReserva(reservaIn);
         cargarReservas();
-        
+
     }//GEN-LAST:event_jbCheckInActionPerformed
 
     private void jbCheckOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCheckOutActionPerformed
@@ -474,7 +474,7 @@ private void cargarIcono() {
         jtReservasActivas.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                
+
                 jbCheckIn.setEnabled(false);
                 jbCheckOut.setEnabled(false);
                 cargarDetallesReserva();
@@ -542,7 +542,14 @@ private void cargarIcono() {
                         reserva.getCheckOut()
                     });
                 }
-                if (reserva.getHuesped().getApellido().toLowerCase().startsWith(jtfApellido.getText().toLowerCase()) && reserva.getHuesped().getDni().toLowerCase().startsWith(jtfDni.getText().toLowerCase()) && reserva.getCheckIn() != null) {
+                boolean huespedReserva = false;
+                int f = jtCliente.getRowCount() - 1;
+                for (; f >= 0; f--) {
+                    if (modeloCliente.getValueAt(f, 2).equals(reserva.getHuesped().getDni())) {
+                        huespedReserva = true;
+                    }
+                }
+                if (reserva.getHuesped().getApellido().toLowerCase().startsWith(jtfApellido.getText().toLowerCase()) && reserva.getHuesped().getDni().toLowerCase().startsWith(jtfDni.getText().toLowerCase()) && reserva.getCheckIn() != null && !huespedReserva) {
                     modeloCliente.addRow(new Object[]{
                         reserva.getHuesped().getApellido(),
                         reserva.getHuesped().getNombre(),
@@ -563,7 +570,17 @@ private void cargarIcono() {
                         reserva.getCheckOut()
                     });
                 }
-                if (reserva.getHuesped().getApellido().toLowerCase().startsWith(jtfApellido.getText().toLowerCase()) && reserva.getHuesped().getDni().toLowerCase().startsWith(jtfDni.getText().toLowerCase())) {
+
+                boolean huespedReserva = false;
+                int f = jtCliente.getRowCount() - 1;
+                if (jtCliente.getRowCount() != -1) {
+                    for (; f >= 0; f--) {
+                        if (modeloCliente.getValueAt(f, 2).equals(reserva.getHuesped().getDni())) {
+                            huespedReserva = true;
+                        }
+                    }
+                }
+                if (reserva.getHuesped().getApellido().toLowerCase().startsWith(jtfApellido.getText().toLowerCase()) && reserva.getHuesped().getDni().toLowerCase().startsWith(jtfDni.getText().toLowerCase()) && !huespedReserva) {
                     modeloCliente.addRow(new Object[]{
                         reserva.getHuesped().getApellido(),
                         reserva.getHuesped().getNombre(),
@@ -595,7 +612,7 @@ private void cargarIcono() {
             }
         }
 
-        if (modeloReserva.getValueAt(jtReservasActivas.getSelectedRow(),6) != null) {
+        if (modeloReserva.getValueAt(jtReservasActivas.getSelectedRow(), 6) != null) {
             jlIn.setText(modeloReserva.getValueAt(jtReservasActivas.getSelectedRow(), 6).toString());
         } else {
             if (Date.valueOf(reserva.getFechaEntrada()).after(jdcFecha.getDate()) || Date.valueOf(reserva.getFechaEntrada()).equals(jdcFecha.getDate())) {
@@ -604,12 +621,15 @@ private void cargarIcono() {
                 JOptionPane.showMessageDialog(this, "La fecha de Check In es posterior a la reserva.");
             }
         }
-        if (modeloReserva.getValueAt(jtReservasActivas.getSelectedRow(),7) != null) {
+        if (modeloReserva.getValueAt(jtReservasActivas.getSelectedRow(), 7) != null) {
             jlOut.setText(modeloReserva.getValueAt(jtReservasActivas.getSelectedRow(), 7).toString());
         } else {
-            if ((Date.valueOf(reserva.getFechaSalida()).after(jdcFecha.getDate()) || Date.valueOf(reserva.getFechaSalida()).equals(jdcFecha.getDate())) && modeloReserva.getValueAt(jtReservasActivas.getSelectedRow(),6) != null) {
+            if ((Date.valueOf(reserva.getFechaSalida()).after(jdcFecha.getDate()) || Date.valueOf(reserva.getFechaSalida()).equals(jdcFecha.getDate())) && modeloReserva.getValueAt(jtReservasActivas.getSelectedRow(), 6) != null) {
                 jbCheckOut.setEnabled(true);
-            } 
+            } else {
+                JOptionPane.showMessageDialog(this, "La fecha de Check Out difiere a la reserva.");
+                jbCheckOut.setEnabled(true);
+            }
         }
 
     }
