@@ -74,7 +74,6 @@ public class VistaCheckInOut extends javax.swing.JInternalFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         jtCliente = new javax.swing.JTable();
         jcbIn = new javax.swing.JCheckBox();
-        jcbOut = new javax.swing.JCheckBox();
         jdcFecha = new com.toedter.calendar.JDateChooser();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -139,8 +138,6 @@ public class VistaCheckInOut extends javax.swing.JInternalFrame {
             }
         });
 
-        jcbOut.setText("CheckOut");
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -160,11 +157,9 @@ public class VistaCheckInOut extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jcbIn)
                         .addGap(18, 18, 18)
-                        .addComponent(jcbOut)
-                        .addGap(18, 18, 18)
                         .addComponent(jdcFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 22, Short.MAX_VALUE))
-                    .addComponent(jScrollPane3))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 590, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -179,8 +174,7 @@ public class VistaCheckInOut extends javax.swing.JInternalFrame {
                         .addComponent(jtfApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel4)
                         .addComponent(jtfDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jcbIn)
-                        .addComponent(jcbOut))
+                        .addComponent(jcbIn))
                     .addComponent(jdcFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -387,7 +381,6 @@ public class VistaCheckInOut extends javax.swing.JInternalFrame {
     private javax.swing.JButton jbCheckOut;
     private javax.swing.JButton jbSalir;
     private javax.swing.JCheckBox jcbIn;
-    private javax.swing.JCheckBox jcbOut;
     private com.toedter.calendar.JDateChooser jdcFecha;
     private javax.swing.JLabel jlIn;
     private javax.swing.JLabel jlOut;
