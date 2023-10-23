@@ -118,6 +118,11 @@ public class VistaHabitacion extends javax.swing.JInternalFrame {
                 "Número", "Piso", "Tipo", "Estado"
             }
         ));
+        jtHabitacion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtHabitacionKeyReleased(evt);
+            }
+        });
         jScrollPane1.setViewportView(jtHabitacion);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -197,9 +202,8 @@ public class VistaHabitacion extends javax.swing.JInternalFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jcbETipo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jcbEEstado, 0, 100, Short.MAX_VALUE)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jcbEPiso, javax.swing.GroupLayout.Alignment.LEADING, 0, 60, Short.MAX_VALUE)
-                                .addComponent(jtfENumero, javax.swing.GroupLayout.Alignment.LEADING))))
+                            .addComponent(jcbEPiso, 0, 60, Short.MAX_VALUE)
+                            .addComponent(jtfENumero)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(90, 90, 90)
                         .addComponent(jbEGuardar)
@@ -347,6 +351,10 @@ public class VistaHabitacion extends javax.swing.JInternalFrame {
 
 
     }//GEN-LAST:event_jbEEliminarActionPerformed
+
+    private void jtHabitacionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtHabitacionKeyReleased
+        cargarFormulario();
+    }//GEN-LAST:event_jtHabitacionKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

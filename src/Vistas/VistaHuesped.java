@@ -113,6 +113,11 @@ public class VistaHuesped extends javax.swing.JInternalFrame {
                 "Apellido", "Nombre", "DNI", "Teléfono", "e-mail"
             }
         ));
+        jtHuesped.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jtHuespedKeyReleased(evt);
+            }
+        });
         jScrollPane1.setViewportView(jtHuesped);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -318,6 +323,15 @@ public class VistaHuesped extends javax.swing.JInternalFrame {
             limpiarFormulario();
         }
     }//GEN-LAST:event_jbEliminarActionPerformed
+
+    private void jtHuespedKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtHuespedKeyReleased
+        jbGuardar.setText("Guardar");
+                jtfEApellido.setText(modelo.getValueAt(jtHuesped.getSelectedRow(), 0).toString());
+                jtfENombre.setText(modelo.getValueAt(jtHuesped.getSelectedRow(), 1).toString());
+                jtfEDni.setText(modelo.getValueAt(jtHuesped.getSelectedRow(), 2).toString());
+                jtfETelefono.setText(modelo.getValueAt(jtHuesped.getSelectedRow(), 3).toString());
+                jtfEMail.setText(modelo.getValueAt(jtHuesped.getSelectedRow(), 4).toString());
+    }//GEN-LAST:event_jtHuespedKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
