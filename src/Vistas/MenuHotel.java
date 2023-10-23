@@ -131,7 +131,7 @@ public class MenuHotel extends javax.swing.JFrame {
     private void jMenuHabitacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuHabitacionActionPerformed
        escritorio.removeAll();
        escritorio.repaint();
-       VistaHabitaciones VHabitac = new VistaHabitaciones();
+       VistaHabitacion VHabitac = new VistaHabitacion();
        VHabitac.setVisible(true);
        VHabitac.setLocation((escritorio.getWidth() - VHabitac.getWidth()) / 2, (escritorio.getHeight() - VHabitac.getHeight()) / 2);
        escritorio.add(VHabitac);
