@@ -361,6 +361,8 @@ public class VistaCheckInOut extends javax.swing.JInternalFrame {
         reservaOut.setCheckOut(jdcFecha.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
         reservaOut.setEstado(Estado.Inactiva);
         checkOut.modificarReserva(reservaOut);
+        jtfApellido.setText("");
+        jtfDni.setText("");
         cargarReservas();
     }//GEN-LAST:event_jbCheckOutActionPerformed
 
@@ -612,6 +614,7 @@ private void cargarIcono() {
                 jbCheckIn.setEnabled(true);
             } else {
                 JOptionPane.showMessageDialog(this, "La fecha de Check In es posterior a la reserva.");
+                jbCheckIn.setEnabled(true);
             }
         }
         if (modeloReserva.getValueAt(jtReservasActivas.getSelectedRow(), 7) != null) {
@@ -620,8 +623,8 @@ private void cargarIcono() {
             if ((Date.valueOf(reserva.getFechaSalida()).after(jdcFecha.getDate()) || Date.valueOf(reserva.getFechaSalida()).equals(jdcFecha.getDate())) && modeloReserva.getValueAt(jtReservasActivas.getSelectedRow(), 6) != null) {
                 jbCheckOut.setEnabled(true);
             } else {
-                JOptionPane.showMessageDialog(this, "La fecha de Check Out difiere a la reserva.");
-                jbCheckOut.setEnabled(true);
+                //JOptionPane.showMessageDialog(this, "La fecha de Check Out difiere a la reserva.");
+                //jbCheckOut.setEnabled(true);
             }
         }
 
