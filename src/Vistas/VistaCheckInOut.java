@@ -551,7 +551,7 @@ private void cargarIcono() {
                         huespedReserva = true;
                     }
                 }
-                if (reserva.getHuesped().getApellido().toLowerCase().startsWith(jtfApellido.getText().toLowerCase()) && reserva.getHuesped().getDni().toLowerCase().startsWith(jtfDni.getText().toLowerCase()) && reserva.getCheckIn() != null && !huespedReserva) {
+                if (reserva.getEstado() == Estado.Activa && reserva.getHuesped().getApellido().toLowerCase().startsWith(jtfApellido.getText().toLowerCase()) && reserva.getHuesped().getDni().toLowerCase().startsWith(jtfDni.getText().toLowerCase()) && reserva.getCheckIn() != null && !huespedReserva) {
                     modeloCliente.addRow(new Object[]{
                         reserva.getHuesped().getApellido(),
                         reserva.getHuesped().getNombre(),
@@ -582,7 +582,7 @@ private void cargarIcono() {
                         }
                     }
                 }
-                if (reserva.getHuesped().getApellido().toLowerCase().startsWith(jtfApellido.getText().toLowerCase()) && reserva.getHuesped().getDni().toLowerCase().startsWith(jtfDni.getText().toLowerCase()) && !huespedReserva) {
+                if (reserva.getEstado() == Estado.Activa && reserva.getHuesped().getApellido().toLowerCase().startsWith(jtfApellido.getText().toLowerCase()) && reserva.getHuesped().getDni().toLowerCase().startsWith(jtfDni.getText().toLowerCase()) && !huespedReserva) {
                     modeloCliente.addRow(new Object[]{
                         reserva.getHuesped().getApellido(),
                         reserva.getHuesped().getNombre(),
