@@ -89,6 +89,11 @@ public class MenuHotel extends javax.swing.JFrame {
         });
 
         jMenuItem3.setText("GESTION DE RESERVA");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
         jMenuReserva.add(jMenuItem3);
 
         jMenuBar1.add(jMenuReserva);
@@ -144,14 +149,18 @@ public class MenuHotel extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuHabitacionActionPerformed
 
     private void jMenuReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuReservaActionPerformed
-       escritorio.removeAll();
+       
+    }//GEN-LAST:event_jMenuReservaActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        escritorio.removeAll();
        escritorio.repaint();
        VistaReserva VReserva = new VistaReserva();
        VReserva.setVisible(true);
-       VReserva.setLocation((escritorio.getWidth() - VReserva.getWidth()) / 2, (escritorio.getHeight() - VReserva.getHeight()) / 2);
+      VReserva.setLocation((escritorio.getWidth() - VReserva.getWidth()) / 2, (escritorio.getHeight() - VReserva.getHeight()) / 2);
        escritorio.add(VReserva);
        escritorio.moveToFront(VReserva  );
-    }//GEN-LAST:event_jMenuReservaActionPerformed
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     /**
      * @param args the command line arguments
