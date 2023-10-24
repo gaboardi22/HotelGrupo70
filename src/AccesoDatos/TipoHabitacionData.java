@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class TipoHabitacionData {
@@ -94,5 +96,27 @@ public class TipoHabitacionData {
         }
         return tiposhabitacion;
     }
+   public TipoHabitacion buscarTipoHabitacionPorId(int id){
+      TipoHabitacion tipoHabitacion = new TipoHabitacion();
+      String SQL = "SELECT * FROM tipoHabitacion WHERE idTipoHabitacion = ? ";
+      
+      
+      PreparedStatement ps;
+        try {
+            ps = con.prepareStatement(SQL);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                tipoHabitacion.setCantidadCamas(rs.getInt("cantidadCamas"));
+                tipoHabitacion.setIdTipoHabitacion(rs.getInt("idTipoHabitacion"));
+                tipoHabitacion.setCantidadPersonas(rs.getInt("cantidadPersonas"));
+                tipoHabitacion.setTipoCamas(rs.getString("tipoCamas"));
+                tipoHabitacion.setPrecioNoche(rs.getDouble("precioNoche"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(TipoHabitacionData.class.getName()).log(Level.SEVERE, null, ex);
+        }
+      return tipoHabitacion;
+   }
 
 }
