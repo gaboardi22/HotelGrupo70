@@ -1,3 +1,17 @@
+-- Insertar Tipos de Habitación
+INSERT INTO TipoHabitacion (codigo, capacidad, cantidadCamas, tipoCamas, precioNoche)
+VALUES
+    ('EstSimple', 1, 1, 'Cama Simple', 100.00),
+    ('EstDoble', 2, 1, 'Cama Queen', 150.00),
+    ('EstTriple', 3, 2, '1 Queen 1 Simple', 200.00),
+    ('SuiteLujo', 2, 1, 'Cama King Size', 250.00),
+    ('Familiar', 4, 3, '1 Queen 2 Simple', 300.00),
+    ('Económica', 1, 1, 'Cama Simple', 80.00),
+    ('DobleQueen', 2, 1, '2 Camas Queen', 180.00),
+    ('Deluxe', 4, 2, '1 King Size 1 Queen', 220.00),
+    ('FamiliarSuite', 4, 3, '1 King Size y 2 Camas Simples', 320.00),
+    ('EstándarTwin', 2, 2, '2 Camas Simples', 140.00);
+
 -- Generar 10 habitaciones por piso en un edificio de 4 pisos
 DELIMITER //
 CREATE PROCEDURE GenerarHabitaciones()
@@ -29,7 +43,7 @@ DELIMITER ;
 -- Llamar al procedimiento para generar las habitaciones
 CALL GenerarHabitaciones();
 
--- Generar 10 huéspedes aleatorios
+-- Agregar 10 clientes
 INSERT INTO Huesped (nombre, apellido, dni, telefono, email)
 VALUES
     ('Juan', 'Perez', '12345678', '123-456-7890', 'juan.perez@example.com'),
@@ -42,60 +56,3 @@ VALUES
     ('Sofia', 'Diaz', '89012345', '890-123-4567', 'sofia.diaz@example.com'),
     ('Lucas', 'Martinez', '90123456', '901-234-5678', 'lucas.martinez@example.com'),
     ('Camila', 'Sanchez', '12340123', '123-401-2345', 'camila.sanchez@example.com');
-
--- Generar 3 reservas por cliente
-DELIMITER //
-CREATE PROCEDURE GenerarReservas()
-BEGIN
-    DECLARE cliente INT;
-    DECLARE personas INT;
-    DECLARE habitacionesNecesarias INT;
-    
-    SET cliente = 1;
-    
-    WHILE cliente <= 10 DO
-        SET personas = FLOOR(2 + (RAND() * 5)); -- Entre 2 y 6 personas por reserva
-        SET habitacionesNecesarias = CEIL(personas / 4); -- Calcular el número de habitaciones necesarias
-        
-        INSERT INTO Reserva (fechaEntrada, fechaSalida, cantidadDias, cantidadPersonas, montoEstadia, idHuesped)
-        SELECT
-            DATE_ADD(CURDATE(), INTERVAL cliente DAY), -- Fecha de entrada (variada por cliente)
-            DATE_ADD(CURDATE(), INTERVAL cliente + 3 DAY), -- Fecha de salida (variada por cliente)
-            4, -- 4 días de estadía
-            personas, -- Cantidad de personas
-            0, -- Monto de estadía (se calculará más adelante)
-            cliente; -- ID del huésped
-            
-        SET @ultimaReserva = LAST_INSERT_ID(); -- Obtener el ID de la última reserva
-        
-        -- Asignar habitaciones a la reserva
-        WHILE habitacionesNecesarias > 0 DO
-            INSERT INTO DetalleReserva (idReserva, idHabitacion)
-            SELECT @ultimaReserva, h.idHabitacion
-            FROM Habitacion h
-            LEFT JOIN DetalleReserva dr ON h.idHabitacion = dr.idHabitacion
-            WHERE dr.idReserva IS NULL
-            LIMIT 1;
-            
-            SET habitacionesNecesarias = habitacionesNecesarias - 1;
-        END WHILE;
-        
-        -- Calcular el monto de estadía y actualizar la reserva
-        UPDATE Reserva
-        SET montoEstadia = (
-            SELECT SUM(th.precioNoche)
-            FROM Reserva r
-            INNER JOIN DetalleReserva dr ON r.idReserva = dr.idReserva
-            INNER JOIN Habitacion h ON dr.idHabitacion = h.idHabitacion
-            INNER JOIN TipoHabitacion th ON h.tipoHabitacion = th.idTipoHabitacion
-            WHERE r.idReserva = @ultimaReserva
-        )
-        WHERE idReserva = @ultimaReserva;
-        
-        SET cliente = cliente + 1;
-    END WHILE;
-END //
-DELIMITER ;
-
--- Llamar al procedimiento para generar las reservas
-CALL GenerarReservas();
