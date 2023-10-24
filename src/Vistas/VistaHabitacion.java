@@ -85,6 +85,8 @@ public class VistaHabitacion extends javax.swing.JInternalFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Administración de Habitaciones");
 
+        jPanel1.setBackground(new java.awt.Color(51, 51, 51));
+
         jLabel2.setText("Número:");
 
         jtfNumero.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -164,6 +166,8 @@ public class VistaHabitacion extends javax.swing.JInternalFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(17, Short.MAX_VALUE))
         );
+
+        jPanel2.setBackground(new java.awt.Color(51, 51, 51));
 
         jLabel5.setText("Número:");
 
