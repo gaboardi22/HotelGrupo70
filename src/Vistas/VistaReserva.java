@@ -66,6 +66,7 @@ public class VistaReserva extends javax.swing.JInternalFrame {
         capturarClikEnTabla();
         cargarDisponibilidad();
         jbAgregarHabitacion.setEnabled(false);
+        cargarImagenReserva();
     }
 
     @SuppressWarnings("unchecked")
@@ -96,6 +97,7 @@ public class VistaReserva extends javax.swing.JInternalFrame {
         jbAltaCliente = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
         jtfCantidadPersonasReserva = new javax.swing.JTextField();
+        jlReserva = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -194,7 +196,7 @@ public class VistaReserva extends javax.swing.JInternalFrame {
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 626, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jbAgregarHabitacion)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -267,17 +269,18 @@ public class VistaReserva extends javax.swing.JInternalFrame {
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 626, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jtfDni, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jtfCantidadPersonasReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 626, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jbAltaCliente)))
-                .addContainerGap(46, Short.MAX_VALUE))
+                        .addComponent(jtfCantidadPersonasReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jbAltaCliente)
+                    .addComponent(jlReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -285,7 +288,7 @@ public class VistaReserva extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
@@ -294,7 +297,10 @@ public class VistaReserva extends javax.swing.JInternalFrame {
                             .addComponent(jtfCantidadPersonasReserva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jbAltaCliente))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jlReserva, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jbAltaCliente)))
                 .addContainerGap(36, Short.MAX_VALUE))
         );
 
@@ -545,6 +551,7 @@ public class VistaReserva extends javax.swing.JInternalFrame {
     private javax.swing.JButton jbReservar;
     private com.toedter.calendar.JDateChooser jdcDesde;
     private com.toedter.calendar.JDateChooser jdcHasta;
+    private javax.swing.JLabel jlReserva;
     private javax.swing.JTable jtCliente;
     private javax.swing.JTable jtDetalleReserva;
     private javax.swing.JTable jtDisponibilidad;
@@ -702,4 +709,23 @@ public class VistaReserva extends javax.swing.JInternalFrame {
         jtfCantPersonas.setText("");
         jtfPiso.setText("");
     }
+    
+    private void cargarImagenReserva() {
+        // Cargar la imagen desde un archivo (reemplaza la URL con la ubicación de tu imagen)
+        ImageIcon imageIcon = new ImageIcon("image/reserva.png");
+
+        if (imageIcon != null) {
+            // Obtener el icono de imagen y redimensionarlo al tamaño del JLabel
+            Image img = imageIcon.getImage();
+            int ancho = 100;
+            int alto = 100;
+            Image nuevaImagen = img.getScaledInstance(ancho, alto, Image.SCALE_SMOOTH);
+
+            // Establecer la imagen redimensionada en el JLabel
+            ImageIcon iconoRedimensionado = new ImageIcon(nuevaImagen);
+            jlReserva.setIcon(iconoRedimensionado);
+        }
+
+    }
+    
 }

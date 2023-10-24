@@ -47,6 +47,7 @@ public class VistaHabitacion extends javax.swing.JInternalFrame {
                 cargarFormulario();
             }
         });
+        cargarImagenHabitacion();
     }
 
     @SuppressWarnings("unchecked")
@@ -75,6 +76,7 @@ public class VistaHabitacion extends javax.swing.JInternalFrame {
         jbEGuardar = new javax.swing.JButton();
         jbEEliminar = new javax.swing.JButton();
         jcbEPiso = new javax.swing.JComboBox<>();
+        jlHabitacion = new javax.swing.JLabel();
 
         setMinimumSize(new java.awt.Dimension(800, 360));
         setPreferredSize(new java.awt.Dimension(800, 360));
@@ -203,33 +205,40 @@ public class VistaHabitacion extends javax.swing.JInternalFrame {
                             .addComponent(jcbETipo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jcbEEstado, 0, 100, Short.MAX_VALUE)
                             .addComponent(jcbEPiso, 0, 60, Short.MAX_VALUE)
-                            .addComponent(jtfENumero)))
+                            .addComponent(jtfENumero))
+                        .addGap(18, 18, 18)
+                        .addComponent(jlHabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(90, 90, 90)
                         .addComponent(jbEGuardar)
                         .addGap(18, 18, 18)
                         .addComponent(jbEEliminar)))
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jtfENumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(jcbEPiso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(jcbETipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(jcbEEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(jtfENumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(jcbEPiso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7)
+                            .addComponent(jcbETipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel8)
+                            .addComponent(jcbEEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(jlHabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbEGuardar)
@@ -261,7 +270,7 @@ public class VistaHabitacion extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         pack();
@@ -377,6 +386,7 @@ public class VistaHabitacion extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<String> jcbETipo;
     private javax.swing.JComboBox<String> jcbPiso;
     private javax.swing.JComboBox<String> jcbTipoHabitacion;
+    private javax.swing.JLabel jlHabitacion;
     private javax.swing.JTable jtHabitacion;
     private javax.swing.JTextField jtfENumero;
     private javax.swing.JTextField jtfNumero;
@@ -523,4 +533,22 @@ public class VistaHabitacion extends javax.swing.JInternalFrame {
         }
     }
 
+     private void cargarImagenHabitacion(){
+    // Cargar la imagen desde un archivo (reemplaza la URL con la ubicación de tu imagen)
+        ImageIcon imageIcon = new ImageIcon("image/habitacion.png");
+
+        if (imageIcon != null) {
+            // Obtener el icono de imagen y redimensionarlo al tamaño del JLabel
+            Image img = imageIcon.getImage();
+            int ancho = 100;
+            int alto = 100;
+            Image nuevaImagen = img.getScaledInstance(ancho, alto, Image.SCALE_SMOOTH);
+
+            // Establecer la imagen redimensionada en el JLabel
+            ImageIcon iconoRedimensionado = new ImageIcon(nuevaImagen);
+            jlHabitacion.setIcon(iconoRedimensionado);
+        }
+    
+    }
+    
 }

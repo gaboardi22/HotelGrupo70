@@ -57,6 +57,7 @@ public class VistaCheckInOut extends javax.swing.JInternalFrame {
         cargarReservas();
         capturarClikEnTablaCliente();
         capturarClikEnTablaReserva();
+        cargarImagenCheckInOut();
     }
 
     @SuppressWarnings("unchecked")
@@ -86,6 +87,7 @@ public class VistaCheckInOut extends javax.swing.JInternalFrame {
         jbSalir = new javax.swing.JButton();
         jlIn = new javax.swing.JLabel();
         jlOut = new javax.swing.JLabel();
+        jlCheckInOut = new javax.swing.JLabel();
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -264,8 +266,11 @@ public class VistaCheckInOut extends javax.swing.JInternalFrame {
                                             .addComponent(jbCheckIn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                         .addGap(18, 18, 18)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jlIn)
-                                            .addComponent(jlOut))
+                                            .addComponent(jlOut)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jlIn)
+                                                .addGap(20, 20, 20)
+                                                .addComponent(jlCheckInOut, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                         .addGap(0, 0, Short.MAX_VALUE))))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addGap(166, 166, 166)
@@ -294,12 +299,15 @@ public class VistaCheckInOut extends javax.swing.JInternalFrame {
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jbCheckIn)
-                            .addComponent(jlIn))
-                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jbCheckIn)
+                                    .addComponent(jlIn)))
+                            .addComponent(jlCheckInOut, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jbCheckOut)
                             .addComponent(jlOut))
@@ -313,7 +321,7 @@ public class VistaCheckInOut extends javax.swing.JInternalFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(34, 34, 34)
                 .addComponent(jbSalir)
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         pack();
@@ -384,6 +392,7 @@ public class VistaCheckInOut extends javax.swing.JInternalFrame {
     private javax.swing.JButton jbSalir;
     private javax.swing.JCheckBox jcbIn;
     private com.toedter.calendar.JDateChooser jdcFecha;
+    private javax.swing.JLabel jlCheckInOut;
     private javax.swing.JLabel jlIn;
     private javax.swing.JLabel jlOut;
     private javax.swing.JTable jtCliente;
@@ -667,4 +676,23 @@ private void cargarIcono() {
     private void cargarFecha() {
         jdcFecha.setDate(Date.valueOf(LocalDate.now()));
     }
+    
+    private void cargarImagenCheckInOut(){
+    // Cargar la imagen desde un archivo (reemplaza la URL con la ubicación de tu imagen)
+        ImageIcon imageIcon = new ImageIcon("image/checkInOut.png");
+
+        if (imageIcon != null) {
+            // Obtener el icono de imagen y redimensionarlo al tamaño del JLabel
+            Image img = imageIcon.getImage();
+            int ancho = 100;
+            int alto = 100;
+            Image nuevaImagen = img.getScaledInstance(ancho, alto, Image.SCALE_SMOOTH);
+
+            // Establecer la imagen redimensionada en el JLabel
+            ImageIcon iconoRedimensionado = new ImageIcon(nuevaImagen);
+            jlCheckInOut.setIcon(iconoRedimensionado);
+        }
+    
+    }
+    
 }
