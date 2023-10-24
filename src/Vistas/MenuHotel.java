@@ -82,8 +82,13 @@ public class MenuHotel extends javax.swing.JFrame {
         jMenuBar1.add(jMenuAdministracion);
 
         jMenuReserva.setText("RESERVA");
+        jMenuReserva.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuReservaActionPerformed(evt);
+            }
+        });
 
-        jMenuItem3.setText("jMenuItem3");
+        jMenuItem3.setText("GESTION DE RESERVA");
         jMenuReserva.add(jMenuItem3);
 
         jMenuBar1.add(jMenuReserva);
@@ -137,6 +142,16 @@ public class MenuHotel extends javax.swing.JFrame {
        escritorio.add(VHabitac);
        escritorio.moveToFront(VHabitac);
     }//GEN-LAST:event_jMenuHabitacionActionPerformed
+
+    private void jMenuReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuReservaActionPerformed
+       escritorio.removeAll();
+       escritorio.repaint();
+       VistaReserva VReserva = new VistaReserva();
+       VReserva.setVisible(true);
+       VReserva.setLocation((escritorio.getWidth() - VReserva.getWidth()) / 2, (escritorio.getHeight() - VReserva.getHeight()) / 2);
+       escritorio.add(VReserva);
+       escritorio.moveToFront(VReserva  );
+    }//GEN-LAST:event_jMenuReservaActionPerformed
 
     /**
      * @param args the command line arguments
