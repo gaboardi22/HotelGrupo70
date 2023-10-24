@@ -41,6 +41,7 @@ public class HabitacionData {
         String SQL = "UPDATE habitacion SET estado = ?, tipoHabitacion = ?, piso = ? WHERE numeroHabitacion = ?";
         try {
             PreparedStatement ps = con.prepareStatement(SQL);
+            
             ps.setBoolean(1, habitacion.isEstado());
             ps.setInt(2, habitacion.getTipoHabitacion().getIdTipoHabitacion());
             ps.setInt(3, habitacion.getPiso());

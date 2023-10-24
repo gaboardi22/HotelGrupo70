@@ -7,6 +7,7 @@ import Entidades.Habitacion;
 import Entidades.TipoHabitacion;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 
@@ -22,6 +23,7 @@ public class VistaHabitacion extends javax.swing.JInternalFrame {
         armarCabecera();
         cargarHabitacion();
         cargarComboBoxTipoHabitacion();
+        
     }
 
     /**
@@ -83,6 +85,16 @@ public class VistaHabitacion extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTableHabitaciones.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableHabitacionesMouseClicked(evt);
+            }
+        });
+        jTableHabitaciones.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTableHabitacionesKeyReleased(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableHabitaciones);
 
         jLabel2.setText("NUMERO HABITACION");
@@ -196,6 +208,7 @@ public class VistaHabitacion extends javax.swing.JInternalFrame {
        if (jTableHabitaciones.getSelectedRow()!= -1){
            Habitacion habitacion = new Habitacion();
            HabitacionData habitacionD = new HabitacionData();
+           habitacion.setPiso(Integer.parseInt(jTPiso.getText()));
            habitacion.setEstado((Boolean.parseBoolean(jTEstado.getText())));
            habitacion.setNumeroHabitacion((Integer.parseInt(jTNumeroHabitacion.getText())));
            
@@ -206,8 +219,17 @@ public class VistaHabitacion extends javax.swing.JInternalFrame {
         tipoHabitacion = tipoHabitacionD.buscarTipoHabitacionPorId(id);
         habitacion.setTipoHabitacion(tipoHabitacion);
         habitacionD.actualizarHabitacion(habitacion);
+        cargarHabitacion();
        }
     }//GEN-LAST:event_jBModificarActionPerformed
+
+    private void jTableHabitacionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableHabitacionesMouseClicked
+        cargarFormulario();
+    }//GEN-LAST:event_jTableHabitacionesMouseClicked
+
+    private void jTableHabitacionesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTableHabitacionesKeyReleased
+        cargarFormulario();
+    }//GEN-LAST:event_jTableHabitacionesKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -273,10 +295,19 @@ public void cargarFormulario(){
     Habitacion habitacion = new Habitacion();
     HabitacionData habitacionD = new HabitacionData();
     habitacion = habitacionD.recuperarHabtacionPorNumero((int) modelo.getValueAt(jTableHabitaciones.getSelectedRow(), 0));
-            jTNumeroHabitacion.setText((Integer.parseInt(habitacion.getNumeroHabitacion())));
-            jTPiso.setText((int)habitacion.getPiso());
-            jT.setText(().toString());
-            jTEstado.setText((estadoObject).toString());
+            //jTNumeroHabitacion.setText((habitacion.getNumeroHabitacion()));
+            jTNumeroHabitacion.setText(("" + habitacion.getNumeroHabitacion()));
+            jTPiso.setText("" + habitacion.getPiso());
+            int indice = 0;
+            for(int i = 0; i < jCTipoHabitacion.getItemCount(); i ++ ){
+                if(habitacion.getTipoHabitacion().toString().equals(jCTipoHabitacion.getItemAt(i).toString())){
+                    indice = i ;
+                   break;                
+                }  
+            }
+            //jTPiso.set((habitacion.getPiso());
+           jCTipoHabitacion.setSelectedIndex(indice);
+           jTEstado.setText(""+habitacion.isEstado());
         
 }
 }
