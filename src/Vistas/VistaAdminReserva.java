@@ -89,7 +89,7 @@ public class VistaAdminReserva extends javax.swing.JInternalFrame {
         label1.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         label1.setText("Administración de Reservas");
 
-        jPanel1.setBackground(new java.awt.Color(102, 102, 102));
+        jPanel1.setBackground(new java.awt.Color(51, 51, 51));
 
         jLabel1.setText("Apellido:");
 
