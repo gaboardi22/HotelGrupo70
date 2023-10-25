@@ -1,6 +1,9 @@
 
 package Vistas;
 
+import com.formdev.flatlaf.intellijthemes.FlatDarkFlatIJTheme;
+import com.formdev.flatlaf.intellijthemes.FlatLightFlatIJTheme;
+
 /**
  *
  * @author NETBOOK G5
@@ -155,41 +158,18 @@ public class MenuHotel extends javax.swing.JFrame {
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         escritorio.removeAll();
        escritorio.repaint();
-       VistaReserva VReserva = new VistaReserva();
-       VReserva.setVisible(true);
-      VReserva.setLocation((escritorio.getWidth() - VReserva.getWidth()) / 2, (escritorio.getHeight() - VReserva.getHeight()) / 2);
-       escritorio.add(VReserva);
-       escritorio.moveToFront(VReserva  );
+       VistaReservas VReservas = new VistaReservas();
+       VReservas.setVisible(true);
+       VReservas.setLocation((escritorio.getWidth() - VReservas.getWidth()) / 2, (escritorio.getHeight() - VReservas.getHeight()) / 2);
+       escritorio.add(VReservas);
+       escritorio.moveToFront(VReservas  );
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MenuHotel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MenuHotel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MenuHotel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MenuHotel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
+        FlatDarkFlatIJTheme.setup();
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new MenuHotel().setVisible(true);
