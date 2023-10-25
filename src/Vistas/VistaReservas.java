@@ -4,6 +4,7 @@
  */
 package Vistas;
 
+import AccesoDatos.HabitacionData;
 import AccesoDatos.HuespedData;
 import static Vistas.MenuHotel.escritorio;
 import java.util.ArrayList;
@@ -477,7 +478,12 @@ private void armarCabeceraReserva() {
         }
             jBAltaHuesped.setEnabled(jTableCliente.getRowCount() == 0); // habilita el boton huesped
     }
-
+ public void cargarTablaDisponibilidad() {
+        List<Entidades.Habitacion> cargaHabitacion = new ArrayList<>();
+        HabitacionData habitacionData = new HabitacionData();
+ }
+    
+    
 private void eliminarFilasHuespedes() {
         int f = jTableCliente.getRowCount() - 1;
         for (; f >= 0; f--) {
