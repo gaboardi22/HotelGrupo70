@@ -4,6 +4,10 @@
  */
 package Vistas;
 
+import AccesoDatos.HuespedData;
+import static Vistas.MenuHotel.escritorio;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -31,6 +35,7 @@ public class VistaReservas extends javax.swing.JInternalFrame {
         armarCabeceraCliente();
         armarCabeceraDisponibilidad();
         armarCabeceraReserva();
+        cargarTablaHuespedes();
     }
 
     /**
@@ -46,7 +51,7 @@ public class VistaReservas extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         jTDni = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTCantidadPersonas = new javax.swing.JTextField();
+        jTCantidadPersonasAReservar = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableCliente = new javax.swing.JTable();
         jBAltaHuesped = new javax.swing.JButton();
@@ -59,7 +64,7 @@ public class VistaReservas extends javax.swing.JInternalFrame {
         jLabel7 = new javax.swing.JLabel();
         jDateHasta = new com.toedter.calendar.JDateChooser();
         jLabel8 = new javax.swing.JLabel();
-        jTCantPersonas = new javax.swing.JTextField();
+        jTCantPersonasPorHahitacion = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jTPiso = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -79,12 +84,17 @@ public class VistaReservas extends javax.swing.JInternalFrame {
                 jTDniActionPerformed(evt);
             }
         });
+        jTDni.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTDniKeyReleased(evt);
+            }
+        });
 
-        jLabel3.setText("CANTIDAD PERSONAS");
+        jLabel3.setText("CANTIDAD PERSONAS  A RESERVAR");
 
-        jTCantidadPersonas.addActionListener(new java.awt.event.ActionListener() {
+        jTCantidadPersonasAReservar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTCantidadPersonasActionPerformed(evt);
+                jTCantidadPersonasAReservarActionPerformed(evt);
             }
         });
 
@@ -102,6 +112,7 @@ public class VistaReservas extends javax.swing.JInternalFrame {
         jScrollPane1.setViewportView(jTableCliente);
 
         jBAltaHuesped.setText("ALTA HUESPED");
+        jBAltaHuesped.setEnabled(false);
         jBAltaHuesped.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBAltaHuespedActionPerformed(evt);
@@ -123,12 +134,12 @@ public class VistaReservas extends javax.swing.JInternalFrame {
                         .addComponent(jTDni, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(47, 47, 47)
                         .addComponent(jLabel3)
-                        .addGap(36, 36, 36)
-                        .addComponent(jTCantidadPersonas, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(54, 54, 54)
+                        .addComponent(jTCantidadPersonasAReservar, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(364, 364, 364)
                         .addComponent(jLabel4)))
-                .addContainerGap(365, Short.MAX_VALUE))
+                .addContainerGap(274, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 636, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -146,7 +157,7 @@ public class VistaReservas extends javax.swing.JInternalFrame {
                     .addComponent(jLabel2)
                     .addComponent(jTDni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
-                    .addComponent(jTCantidadPersonas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTCantidadPersonasAReservar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(43, 43, 43)
@@ -217,7 +228,7 @@ public class VistaReservas extends javax.swing.JInternalFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel8)
                                 .addGap(21, 21, 21)
-                                .addComponent(jTCantPersonas, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jTCantPersonasPorHahitacion, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -246,7 +257,7 @@ public class VistaReservas extends javax.swing.JInternalFrame {
                                         .addComponent(jDateHasta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                             .addComponent(jLabel8)
-                                            .addComponent(jTCantPersonas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jTCantPersonasPorHahitacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jLabel9)
                                             .addComponent(jTPiso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                 .addGroup(jPanel2Layout.createSequentialGroup()
@@ -356,15 +367,22 @@ public class VistaReservas extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTDniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTDniActionPerformed
-        // TODO add your handling code here:
+        cargarTablaHuespedes();
+        
     }//GEN-LAST:event_jTDniActionPerformed
 
-    private void jTCantidadPersonasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTCantidadPersonasActionPerformed
+    private void jTCantidadPersonasAReservarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTCantidadPersonasAReservarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTCantidadPersonasActionPerformed
+    }//GEN-LAST:event_jTCantidadPersonasAReservarActionPerformed
 
     private void jBAltaHuespedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBAltaHuespedActionPerformed
-        // TODO add your handling code here:
+       escritorio.removeAll();
+       escritorio.repaint();
+       AltaHuespedReserva AHuesped = new AltaHuespedReserva();
+       AHuesped.setVisible(true);
+       AHuesped.setLocation((escritorio.getWidth() -  AHuesped.getWidth()) / 2, (escritorio.getHeight() -  AHuesped.getHeight()) / 2);
+       escritorio.add( AHuesped);
+       escritorio.moveToFront( AHuesped);
     }//GEN-LAST:event_jBAltaHuespedActionPerformed
 
     private void jTPisoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTPisoActionPerformed
@@ -378,6 +396,10 @@ public class VistaReservas extends javax.swing.JInternalFrame {
     private void jBEliminarHabitacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBEliminarHabitacionActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jBEliminarHabitacionActionPerformed
+
+    private void jTDniKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTDniKeyReleased
+         cargarTablaHuespedes();
+    }//GEN-LAST:event_jTDniKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -403,8 +425,8 @@ public class VistaReservas extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTextField jTCantPersonas;
-    private javax.swing.JTextField jTCantidadPersonas;
+    private javax.swing.JTextField jTCantPersonasPorHahitacion;
+    private javax.swing.JTextField jTCantidadPersonasAReservar;
     private javax.swing.JTextField jTDni;
     private javax.swing.JTextField jTPiso;
     private javax.swing.JTable jTableCliente;
@@ -437,5 +459,29 @@ private void armarCabeceraReserva() {
         modelo3.addColumn("PRECIO NOCHE");
         jTableReserva.setModel(modelo3);
     }
+    public void cargarTablaHuespedes() {
+        List<Entidades.Huesped> cargaHuespedes = new ArrayList<>();
+        HuespedData huespedData = new HuespedData();
+        cargaHuespedes = huespedData.consultaHuesped();
+        eliminarFilasHuespedes();
+        for (Entidades.Huesped huesped : cargaHuespedes) {
+            if (huesped.getDocumento().startsWith(jTDni.getText())) {
+                modelo1.addRow(new Object[]{
+                    huesped.getApellido(),
+                    huesped.getNombre(),
+                    huesped.getDocumento(),
+                    huesped.getTelefono(),
+                    huesped.getCorreo()
+                });
+            }
+        }
+            jBAltaHuesped.setEnabled(jTableCliente.getRowCount() == 0); // habilita el boton huesped
+    }
 
+private void eliminarFilasHuespedes() {
+        int f = jTableCliente.getRowCount() - 1;
+        for (; f >= 0; f--) {
+            modelo1.removeRow(f);
+        }
+}
 }
