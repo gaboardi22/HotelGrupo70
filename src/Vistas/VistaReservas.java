@@ -4,9 +4,13 @@
  */
 package Vistas;
 
+import AccesoDatos.DetalleReservaData;
 import AccesoDatos.HabitacionData;
 import AccesoDatos.HuespedData;
 import static Vistas.MenuHotel.escritorio;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import static java.time.temporal.TemporalQueries.zone;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -448,7 +452,6 @@ private void armarCabeceraCliente() {
 
 private void armarCabeceraDisponibilidad() {
         modelo2.addColumn("NUMERO HABITACION");
-        modelo2.addColumn("CODIGO");
         modelo2.addColumn("CAPACIDAD");
         modelo2.addColumn("CANTIDAD CAMAS");
         modelo2.addColumn("TIPO CAMAS");
@@ -483,8 +486,8 @@ private void armarCabeceraReserva() {
     }
  public void cargarTablaDisponibilidad() {
         List<Entidades.Habitacion> cargaHabitacion = new ArrayList<>();
-        HabitacionData habitacionData = new HabitacionData();
-        cargaHabitacion = habitacionData.listarHabitacion();
+        DetalleReservaData habitacionData = new DetalleReservaData();
+        cargaHabitacion = habitacionData.listarHabitacionesDisponibles(jDateDesde.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(), jDateHasta.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
         
  }
     
