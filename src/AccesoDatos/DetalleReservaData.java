@@ -7,10 +7,9 @@ import Entidades.Reserva;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 
@@ -34,10 +33,20 @@ public class DetalleReservaData {
         
     }
 
-    public List<DetalleReserva> nuevoDetalleReservaData(Reserva reserva, Habitacion habitacion) {
-        List<DetalleReserva> detalleReservas = new ArrayList<>();
-        String SQL = "SELECT * FROM d detallereserva ";
-
-        return detalleReservas;
+    public List<Habitacion> listarHabitacionesDisponibles(LocalDate fechaEntrada, LocalDate fechaSalida) {
+        List<Habitacion> habitacionesDisponibles = new ArrayList<>();
+        String SQL = "SELECT * FROM habitacion\n" +
+"INNER JOIN tipohabitacion ON habitacion.tipoHabitacion = tipohabitacion.idTipoHabitacion\n" +
+"WHERE habitacion.idHabitacion NOT IN (\n" +
+" SELECT DISTINCT r.idReserva\n" +
+" FROM reserva r\n" +
+" WHERE ('2023-10-12' NOT BETWEEN r.fechaCheckIn AND r.fechaCheckOut)\n" +
+" AND ('2023-10-22' NOT BETWEEN r.fechaCheckIn AND r.fechaCheckOut)\n" +
+");";
+        
+        return habitacionesDisponibles;
     }
+  
+    
+    
 }
