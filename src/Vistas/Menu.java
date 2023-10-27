@@ -4,7 +4,7 @@ import com.formdev.flatlaf.FlatIntelliJLaf;
 import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.intellijthemes.FlatCarbonIJTheme;
 import com.formdev.flatlaf.intellijthemes.FlatVuesionIJTheme;
-import javafx.scene.shape.Arc;
+//import javafx.scene.shape.Arc;
 import javax.swing.ImageIcon;
 import javax.swing.UIManager;
 
