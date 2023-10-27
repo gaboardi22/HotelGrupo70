@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
- */
+
 package Vistas;
 
 import AccesoDatos.DetalleReservaData;
@@ -39,8 +36,10 @@ public class VistaReservas extends javax.swing.JInternalFrame {
         initComponents();
         armarCabeceraCliente();
         armarCabeceraDisponibilidad();
+        cargarTablaDisponibilidad();
         armarCabeceraReserva();
         cargarTablaHuespedes();
+      
     }
 
     /**
@@ -182,7 +181,19 @@ public class VistaReservas extends javax.swing.JInternalFrame {
 
         jLabel6.setText("FECHA DESDE");
 
+        jDateDesde.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jDateDesdeKeyReleased(evt);
+            }
+        });
+
         jLabel7.setText("FECHA HASTA");
+
+        jDateHasta.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jDateHastaKeyReleased(evt);
+            }
+        });
 
         jLabel8.setText("CANTIDAD PERSONAS");
 
@@ -409,6 +420,14 @@ public class VistaReservas extends javax.swing.JInternalFrame {
          cargarTablaHuespedes();
     }//GEN-LAST:event_jTDniKeyReleased
 
+    private void jDateDesdeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jDateDesdeKeyReleased
+       cargarTablaDisponibilidad();
+    }//GEN-LAST:event_jDateDesdeKeyReleased
+
+    private void jDateHastaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jDateHastaKeyReleased
+        cargarTablaDisponibilidad();
+    }//GEN-LAST:event_jDateHastaKeyReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBAgregarHabitacion;
@@ -484,18 +503,42 @@ private void armarCabeceraReserva() {
         }
             jBAltaHuesped.setEnabled(jTableCliente.getRowCount() == 0); // habilita el boton huesped
     }
- public void cargarTablaDisponibilidad() {
+    public void cargarTablaDisponibilidad() {
         List<Entidades.Habitacion> cargaHabitacion = new ArrayList<>();
         DetalleReservaData habitacionData = new DetalleReservaData();
-        cargaHabitacion = habitacionData.listarHabitacionesDisponibles(jDateDesde.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate(), jDateHasta.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-        
- }
-    
+        LocalDate desde, hasta;
+        if (jDateDesde == null || jDateHasta == null) {
+            desde = LocalDate.now();
+            hasta = LocalDate.now();
+        } else {
+            desde = jDateDesde.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            hasta = jDateHasta.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        }
+
+        cargaHabitacion = habitacionData.listarHabitacionesDisponibles(desde, hasta);
+        eliminarFilasDisponibilidad();
+        for (Entidades.Habitacion habitaciones : cargaHabitacion) {
+            modelo2.addRow(new Object[]{
+                habitaciones.getNumeroHabitacion(),
+                habitaciones.getTipoHabitacion().getIdTipoHabitacion(),
+                habitaciones.getTipoHabitacion().getCantidadCamas(),
+                habitaciones.getTipoHabitacion().getTipoCamas(),
+                habitaciones.getTipoHabitacion().getPrecioNoche()
+            });
+        }
+    }
+ 
     
 private void eliminarFilasHuespedes() {
         int f = jTableCliente.getRowCount() - 1;
         for (; f >= 0; f--) {
             modelo1.removeRow(f);
+        }
+}
+private void eliminarFilasDisponibilidad(){
+    int f = jTableDisponibilidad.getRowCount() - 1;
+     for (; f >= 0; f--) {
+            modelo2.removeRow(f);
         }
 }
 }
