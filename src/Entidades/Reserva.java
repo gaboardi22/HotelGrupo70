@@ -5,36 +5,28 @@ import java.time.LocalDate;
 
 public class Reserva {
     private int idReserva;
+    private LocalDate fechaEntrada;
+    private LocalDate fechaSalida;
+    private int cantidadDias;
+    private int cantidadPersonas;
+    private Double montoEstadia;
+    private Estado estado;
     private Huesped huesped;
-    private LocalDate fechaCheckIn;
-    private LocalDate fechaCheckOut;
-    private int cantidadDeDias;
-    private boolean estado;
-    private double montoAPagar;
-    private int cantidadDePersonas;
+    private LocalDate checkIn;
+    private LocalDate checkOut;
 
     public Reserva() {
     }
 
-    public Reserva(Huesped huesped, LocalDate fechaCheckIn, LocalDate fechaCheckOut, int cantidadDeDias, boolean estado, double montoAPagar, int cantidadDePersonas) {
-        this.huesped = huesped;
-        this.fechaCheckIn = fechaCheckIn;
-        this.fechaCheckOut = fechaCheckOut;
-        this.cantidadDeDias = cantidadDeDias;
-        this.estado = estado;
-        this.montoAPagar = montoAPagar;
-        this.cantidadDePersonas = cantidadDePersonas;
-    }
-
-    public Reserva(int idReserva, Huesped huesped, LocalDate fechaCheckIn, LocalDate fechaCheckOut, int cantidadDeDias, boolean estado, double montoAPagar, int cantidadDePersonas) {
+    public Reserva(int idReserva, LocalDate fechaEntrada, LocalDate fechaSalida, int cantidadDias, int cantidadPersonas, Double montoEstadia, Estado estado, Huesped huesped) {
         this.idReserva = idReserva;
-        this.huesped = huesped;
-        this.fechaCheckIn = fechaCheckIn;
-        this.fechaCheckOut = fechaCheckOut;
-        this.cantidadDeDias = cantidadDeDias;
+        this.fechaEntrada = fechaEntrada;
+        this.fechaSalida = fechaSalida;
+        this.cantidadDias = cantidadDias;
+        this.cantidadPersonas = cantidadPersonas;
+        this.montoEstadia = montoEstadia;
         this.estado = estado;
-        this.montoAPagar = montoAPagar;
-        this.cantidadDePersonas = cantidadDePersonas;
+        this.huesped = huesped;
     }
 
     public int getIdReserva() {
@@ -45,6 +37,54 @@ public class Reserva {
         this.idReserva = idReserva;
     }
 
+    public LocalDate getFechaEntrada() {
+        return fechaEntrada;
+    }
+
+    public void setFechaEntrada(LocalDate fechaEntrada) {
+        this.fechaEntrada = fechaEntrada;
+    }
+
+    public LocalDate getFechaSalida() {
+        return fechaSalida;
+    }
+
+    public void setFechaSalida(LocalDate fechaSalida) {
+        this.fechaSalida = fechaSalida;
+    }
+
+    public int getCantidadDias() {
+        return cantidadDias;
+    }
+
+    public void setCantidadDias(int cantidadDias) {
+        this.cantidadDias = cantidadDias;
+    }
+
+    public int getCantidadPersonas() {
+        return cantidadPersonas;
+    }
+
+    public void setCantidadPersonas(int cantidadPersonas) {
+        this.cantidadPersonas = cantidadPersonas;
+    }
+
+    public Double getMontoEstadia() {
+        return montoEstadia;
+    }
+
+    public void setMontoEstadia(Double montoEstadia) {
+        this.montoEstadia = montoEstadia;
+    }
+
+    public Estado getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Estado estado) {
+        this.estado = estado;
+    }
+
     public Huesped getHuesped() {
         return huesped;
     }
@@ -53,58 +93,27 @@ public class Reserva {
         this.huesped = huesped;
     }
 
-    public LocalDate getFechaCheckIn() {
-        return fechaCheckIn;
+    public LocalDate getCheckIn() {
+        return checkIn;
     }
 
-    public void setFechaCheckIn(LocalDate fechaCheckIn) {
-        this.fechaCheckIn = fechaCheckIn;
+    public void setCheckIn(LocalDate checkIn) {
+        this.checkIn = checkIn;
     }
 
-    public LocalDate getFechaCheckOut() {
-        return fechaCheckOut;
+    public LocalDate getCheckOut() {
+        return checkOut;
     }
 
-    public void setFechaCheckOut(LocalDate fechaCheckOut) {
-        this.fechaCheckOut = fechaCheckOut;
-    }
-
-    public int getCantidadDeDias() {
-        return cantidadDeDias;
-    }
-
-    public void setCantidadDeDias(int cantidadDeDias) {
-        this.cantidadDeDias = cantidadDeDias;
-    }
-
-    public boolean isEstado() {
-        return estado;
-    }
-
-    public void setEstado(boolean estado) {
-        this.estado = estado;
-    }
-
-    public double getMontoAPagar() {
-        return montoAPagar;
-    }
-
-    public void setMontoAPagar(double montoAPagar) {
-        this.montoAPagar = montoAPagar;
-    }
-
-    public int getCantidadDePersonas() {
-        return cantidadDePersonas;
-    }
-
-    public void setCantidadDePersonas(int cantidadDePersonas) {
-        this.cantidadDePersonas = cantidadDePersonas;
+    public void setCheckOut(LocalDate checkOut) {
+        this.checkOut = checkOut;
     }
 
     @Override
     public String toString() {
-        return "Reserva{" + "idReserva=" + idReserva + ", huesped=" + huesped + ", fechaCheckIn=" + fechaCheckIn + ", fechaCheckOut=" + fechaCheckOut + ", cantidadDeDias=" + cantidadDeDias + ", estado=" + estado + ", montoAPagar=" + montoAPagar + ", cantidadDePersonas=" + cantidadDePersonas + '}';
+        return "Reserva{" + "idReserva=" + idReserva + ", fechaEntrada=" + fechaEntrada + ", fechaSalida=" + fechaSalida + ", cantidadDias=" + cantidadDias + ", cantidadPersonas=" + cantidadPersonas + ", montoEstadia=" + montoEstadia + ", estado=" + estado + ", huesped=" + huesped + ", checkIn=" + checkIn + ", checkOut=" + checkOut + '}';
     }
+
+    
     
 }
-    

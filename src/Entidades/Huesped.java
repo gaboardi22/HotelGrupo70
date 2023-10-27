@@ -1,36 +1,24 @@
-
 package Entidades;
 
-
 public class Huesped {
+
     private int idHuesped;
     private String nombre;
     private String apellido;
-    private String documento;
-    private String domicilio;
-    private String correo;
+    private String dni;
     private String telefono;
+    private String email;
 
     public Huesped() {
     }
 
-    public Huesped(String nombre, String apellido, String documento, String domicilio, String correo, String telefono) {
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.documento = documento;
-        this.domicilio = domicilio;
-        this.correo = correo;
-        this.telefono = telefono;
-    }
-
-    public Huesped(int idHuesped, String nombre, String apellido, String documento, String domicilio, String correo, String telefono) {
+    public Huesped(int idHuesped, String nombre, String apellido, String dni, String telefono, String email) {
         this.idHuesped = idHuesped;
         this.nombre = nombre;
         this.apellido = apellido;
-        this.documento = documento;
-        this.domicilio = domicilio;
-        this.correo = correo;
+        this.dni = dni;
         this.telefono = telefono;
+        this.email = email;
     }
 
     public int getIdHuesped() {
@@ -57,28 +45,12 @@ public class Huesped {
         this.apellido = apellido;
     }
 
-    public String getDocumento() {
-        return documento;
+    public String getDni() {
+        return dni;
     }
 
-    public void setDocumento(String documento) {
-        this.documento = documento;
-    }
-
-    public String getDomicilio() {
-        return domicilio;
-    }
-
-    public void setDomicilio(String domicilio) {
-        this.domicilio = domicilio;
-    }
-
-    public String getCorreo() {
-        return correo;
-    }
-
-    public void setCorreo(String correo) {
-        this.correo = correo;
+    public void setDni(String dni) {
+        this.dni = dni;
     }
 
     public String getTelefono() {
@@ -89,10 +61,17 @@ public class Huesped {
         this.telefono = telefono;
     }
 
-    @Override
-    public String toString() {
-        return "Huesped{" + "idHuesped=" + idHuesped + ", nombre=" + nombre + ", apellido=" + apellido + ", documento=" + documento + ", domicilio=" + domicilio + ", correo=" + correo + ", telefono=" + telefono + '}';
+    public String getEmail() {
+        return email;
     }
 
-    
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    @Override
+    public String toString() {
+        return "Huesped{" + "idHuesped=" + idHuesped + ", nombre=" + nombre + ", apellido=" + apellido + ", dni=" + dni + ", telefono=" + telefono + ", email=" + email + '}';
+    }
+
 }

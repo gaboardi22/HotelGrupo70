@@ -1,18 +1,12 @@
 
 package Entidades;
 
-
 public class DetalleReserva {
     private int idDetalleReserva;
     private Reserva reserva;
     private Habitacion habitacion;
 
     public DetalleReserva() {
-    }
-
-    public DetalleReserva(Reserva reserva, Habitacion habitacion) {
-        this.reserva = reserva;
-        this.habitacion = habitacion;
     }
 
     public DetalleReserva(int idDetalleReserva, Reserva reserva, Habitacion habitacion) {

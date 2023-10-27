@@ -1,31 +1,22 @@
 
 package Entidades;
 
-
-public class Habitacion  {
-    
+public class Habitacion {
     private int idHabitacion;
-    private boolean estado;
-    private TipoHabitacion tipoHabitacion;
+    private int numero;
     private int piso;
-    private int numeroHabitacion;
+    private Estado estado;
+    private TipoHabitacion tipoHabitacion;
 
     public Habitacion() {
     }
 
-    public Habitacion(boolean estado, TipoHabitacion tipoHabitacion, int piso, int numeroHabitacion) {
-        this.estado = estado;
-        this.tipoHabitacion = tipoHabitacion;
-        this.piso = piso;
-        this.numeroHabitacion = numeroHabitacion;
-    }
-
-    public Habitacion(int idHabitacion, boolean estado, TipoHabitacion tipoHabitacion, int piso, int numeroHabitacion) {
+    public Habitacion(int idHabitacion, int numero, int piso, Estado estado, TipoHabitacion tipoHabitacion) {
         this.idHabitacion = idHabitacion;
+        this.numero = numero;
+        this.piso = piso;
         this.estado = estado;
         this.tipoHabitacion = tipoHabitacion;
-        this.piso = piso;
-        this.numeroHabitacion = numeroHabitacion;
     }
 
     public int getIdHabitacion() {
@@ -36,11 +27,27 @@ public class Habitacion  {
         this.idHabitacion = idHabitacion;
     }
 
-    public boolean isEstado() {
+    public int getNumero() {
+        return numero;
+    }
+
+    public void setNumero(int numero) {
+        this.numero = numero;
+    }
+
+    public int getPiso() {
+        return piso;
+    }
+
+    public void setPiso(int piso) {
+        this.piso = piso;
+    }
+
+    public Estado getEstado() {
         return estado;
     }
 
-    public void setEstado(boolean estado) {
+    public void setEstado(Estado estado) {
         this.estado = estado;
     }
 
@@ -52,26 +59,9 @@ public class Habitacion  {
         this.tipoHabitacion = tipoHabitacion;
     }
 
-    public int getPiso() {
-        return piso;
-    }
-
-    public void setPiso(int piso) {
-        this.piso = piso;
-    }
-
-    public int getNumeroHabitacion() {
-        return numeroHabitacion;
-    }
-
-    public void setNumeroHabitacion(int numeroHabitacion) {
-        this.numeroHabitacion = numeroHabitacion;
-    }
-
     @Override
     public String toString() {
-        return "Habitacion{" + "idHabitacion=" + idHabitacion + ", estado=" + estado + ", tipoHabitacion=" + tipoHabitacion + ", piso=" + piso + ", numeroHabitacion=" + numeroHabitacion + '}';
+        return "Habitacion{" + "idHabitacion=" + idHabitacion + ", numero=" + numero + ", piso=" + piso + ", estado=" + estado + ", tipoHabitacion=" + tipoHabitacion + '}';
     }
-    
     
 }

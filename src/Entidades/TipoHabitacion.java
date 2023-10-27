@@ -1,26 +1,21 @@
-
 package Entidades;
 
 public class TipoHabitacion {
+
     private int idTipoHabitacion;
-    private int cantidadPersonas;
-    private  int cantidadCamas;
+    private String codigo;
+    private int capacidad;
+    private int cantidadCamas;
     private String tipoCamas;
-    private Double precioNoche;
+    private double precioNoche;
 
     public TipoHabitacion() {
     }
-
-    public TipoHabitacion(int cantidadPersonas, int cantidadCamas, String tipoCamas, Double precioNoche) {
-        this.cantidadPersonas = cantidadPersonas;
-        this.cantidadCamas = cantidadCamas;
-        this.tipoCamas = tipoCamas;
-        this.precioNoche = precioNoche;
-    }
-
-    public TipoHabitacion(int idTipoHabitacion, int cantidadPersonas, int cantidadCamas, String tipoCamas, Double precioNoche) {
+    
+    public TipoHabitacion(int idTipoHabitacion, String codigo, int capacidad, int cantidadCamas, String tipoCamas, double precioNoche) {
         this.idTipoHabitacion = idTipoHabitacion;
-        this.cantidadPersonas = cantidadPersonas;
+        this.codigo = codigo;
+        this.capacidad = capacidad;
         this.cantidadCamas = cantidadCamas;
         this.tipoCamas = tipoCamas;
         this.precioNoche = precioNoche;
@@ -34,12 +29,20 @@ public class TipoHabitacion {
         this.idTipoHabitacion = idTipoHabitacion;
     }
 
-    public int getCantidadPersonas() {
-        return cantidadPersonas;
+    public String getCodigo() {
+        return codigo;
     }
 
-    public void setCantidadPersonas(int cantidadPersonas) {
-        this.cantidadPersonas = cantidadPersonas;
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
+
+    public int getCapacidad() {
+        return capacidad;
+    }
+
+    public void setCapacidad(int capacidad) {
+        this.capacidad = capacidad;
     }
 
     public int getCantidadCamas() {
@@ -58,19 +61,17 @@ public class TipoHabitacion {
         this.tipoCamas = tipoCamas;
     }
 
-    public Double getPrecioNoche() {
+    public double getPrecioNoche() {
         return precioNoche;
     }
 
-    public void setPrecioNoche(Double precioNoche) {
+    public void setPrecioNoche(double precioNoche) {
         this.precioNoche = precioNoche;
     }
 
     @Override
     public String toString() {
-        return  idTipoHabitacion + ", cantPersonas= " + cantidadPersonas + ", cantCamas= " + cantidadCamas + ", tipoCamas = " + tipoCamas + ", precioNoche= " + precioNoche + '}';
+        return "TipoHabitacion{" + "idTipoHabitacion=" + idTipoHabitacion + ", codigo=" + codigo + ", capacidad=" + capacidad + ", cantidadCamas=" + cantidadCamas + ", tipoCamas=" + tipoCamas + ", precioNoche=" + precioNoche + '}';
     }
-    
-    
-    
-}   
+
+}
